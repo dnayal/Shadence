@@ -1,0 +1,9 @@
+@(message: String, experienceCategory: ExperienceCategory)
+
+@main("Welcome to Play 2.0") {
+    
+    @play20.welcome(message + " " + 
+    	experienceCategory.getCategory() + "[" + experienceCategory.getCategoryId()  + "]", 
+    	style = "Java")
+    
+}
