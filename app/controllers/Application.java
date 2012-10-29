@@ -1,15 +1,17 @@
 package controllers;
 
-import models.ExperienceCategory;
-import play.mvc.*;
+import play.mvc.Controller;
+import play.mvc.Result;
+import models.Experience;
 
 import views.html.*;
 
 public class Application extends Controller {
   
 	public static Result index() {
-		
-		ExperienceCategory experienceCategory = new ExperienceCategory("1", "Adventure", 12345678l);
-		return ok(index.render("Shadence has been setup!", experienceCategory));
+		return ok(index.render(Experience.find.all()));
 	}
+
+	// TODO - prepare a test case for all handlers
+	
 }

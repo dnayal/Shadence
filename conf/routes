@@ -7,3 +7,10 @@ GET     /                           controllers.Application.index()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+# Tests
+GET		/@tests/populate			tests.TestController.populate()
+GET		/@tests/venues/:venue		tests.TestController.getExperiencesAtVenue(venue: String)
+GET		/@tests/:city				tests.TestController.city(city: String)
+GET		/@tests/:city/:category		tests.TestController.cityAndCategory(city: String, category: String)
+GET		/@tests/:city/:category/:durationLow/:durationHigh/:priceLow/:priceHigh		tests.TestController.allFilters(city: String, category: String, durationLow: String, durationHigh: String, priceLow: String, priceHigh: String)

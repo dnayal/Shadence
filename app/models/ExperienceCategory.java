@@ -1,5 +1,6 @@
 package models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -9,17 +10,21 @@ import play.db.ebean.Model;
 public class ExperienceCategory extends Model {
 
 	@Id
+	@Column(length=100)
 	String categoryId;
-	String category;
-	long createTimestamp;
+
+	@Column(length=100)
+	String name;
+	
+	Long createTimestamp;
 	
 	public static Finder<String, ExperienceCategory> find = new Finder<String, ExperienceCategory>(String.class, ExperienceCategory.class);
 	
 	public ExperienceCategory() {}
 	
-	public ExperienceCategory(String categoryId, String category, long createTimestamp) {
+	public ExperienceCategory(String categoryId, String name, Long createTimestamp) {
 		this.categoryId = categoryId;
-		this.category = category;
+		this.name = name;
 		this.createTimestamp = createTimestamp;
 	}
 
@@ -31,20 +36,19 @@ public class ExperienceCategory extends Model {
 		this.categoryId = categoryId;
 	}
 
-	public String getCategory() {
-		return category;
+	public String getName() {
+		return name;
 	}
 
-	public void setCategory(String category) {
-		this.category = category;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public long getCreateTimestamp() {
+	public Long getCreateTimestamp() {
 		return createTimestamp;
 	}
 
-	public void setCreateTimestamp(long createTimestamp) {
+	public void setCreateTimestamp(Long createTimestamp) {
 		this.createTimestamp = createTimestamp;
 	}
-
 }

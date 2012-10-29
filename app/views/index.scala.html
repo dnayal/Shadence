@@ -1,9 +1,24 @@
-@(message: String, experienceCategory: ExperienceCategory)
+@(experiences: List[Experience])
 
 @main("Welcome to Play 2.0") {
-    
-    @play20.welcome(message + " " + 
-    	experienceCategory.getCategory() + "[" + experienceCategory.getCategoryId()  + "]", 
-    	style = "Java")
-    
+    @for(exp <- experiences) {
+    <hr/>
+    	@exp.getName() : @exp.getDescription() : @exp.getScheduleDescription() : Duration - @exp.getDuration : PriceRating - @exp.getPriceRating()
+    	<br/>
+    	@exp.getUser().getName() : @exp.getUser().getEmail()
+    	<br/>
+    	@exp.getCategory().getName() : @exp.getVenue().getName()
+    	<br/>EXPERIENCE PHOTOS
+    	@for(photo <- exp.getExperiencePhotos()) {
+    		<li>@photo.getLocation() : @photo.getName() : @photo.getAlternateText()</li>
+    	}
+		<br/>USER PHOTOS
+    	@for(photo <- exp.getUser().getProfilePhotos()) {
+    		<li>@photo.getLocation() : @photo.getName() : @photo.getAlternateText()</li>
+    	}
+		<br/>FLAG PHOTOS
+    		<li>@exp.getVenue().getCity().getFlagPhotos().get(0).getLocation() : 
+    							@exp.getVenue().getCity().getFlagPhotos().get(0).getName() : 
+    							@exp.getVenue().getCity().getFlagPhotos().get(0).getAlternateText()</li>
+    }							
 }
