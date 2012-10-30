@@ -1,8 +1,11 @@
 package handlers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import models.ExperienceCategory;
+import models.Venue;
 
 public class ExperienceCategoryHandler {
 
@@ -40,6 +43,19 @@ public class ExperienceCategoryHandler {
 	 */
 	public static List<ExperienceCategory> getAllCategories() {
 		return ExperienceCategory.find.all();
+	}
+
+	
+	/**
+	 * Returns a map of all categories (name and id)
+	 */
+	public static Map<String, String> getAllCategoriesMap() {
+		Map<String, String> categories = new HashMap<String, String>();
+		
+		for (ExperienceCategory category : getAllCategories())
+			categories.put(category.getCategoryId(), category.getName());
+
+		return categories;
 	}
 
 }

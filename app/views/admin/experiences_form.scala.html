@@ -1,0 +1,47 @@
+@(city: String, exp_form: Form[Experience], venues: Map[String, String], categories: Map[String, String])
+
+@import helper._
+
+@main("Experience Form") {
+	<div class="row">
+		<h1>Experience Form</h1>
+	</div>
+	@form(routes.Admin.saveExperience(city)) {
+		<div class="row">
+			<div class="span4">
+				@defining(exp_form("experienceId")) { formField =>
+					<input type="hidden" name="@formField.name" value="@formField.value"> 
+				}
+				
+			    @select(exp_form("venue.venueId"), options(venues), '_label -> "Venue")
+
+			    @select(exp_form("category.categoryId"), options(categories), '_label -> "Category")
+
+			    @inputText(exp_form("name"), '_label -> "Name")
+			    
+			    @inputText(exp_form("email"), '_label -> "Email")
+
+			    @inputText(exp_form("phone"), '_label -> "Phone")
+			</div>
+			
+			<div class="span4">
+			    @textarea(exp_form("description"), '_label -> "Description", 'rows->5, 'cols->100)
+			    
+			    @inputText(exp_form("priceDescription"), '_label -> "Price Description")
+			    
+			    @inputText(exp_form("priceRating"), '_label -> "Price Rating (0-3)")
+			    
+			    @inputText(exp_form("duration"), '_label -> "Duration (in hours)")
+			</div>
+
+			<div class="span4">
+			    @inputText(exp_form("scheduleDescription"), '_label -> "Schedule")
+
+			    @inputText(exp_form("originalSource"), '_label -> "Original Source")
+
+			    @inputText(exp_form("tags"), '_label -> "Tags (comma separated)")
+			</div>
+		</div>
+		<button type="submit" class="btn btn-primary">Submit</button>	    							
+    }
+}

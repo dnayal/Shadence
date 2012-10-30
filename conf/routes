@@ -14,3 +14,9 @@ GET		/@tests/venues/:venue		tests.TestController.getExperiencesAtVenue(venue: St
 GET		/@tests/:city				tests.TestController.city(city: String)
 GET		/@tests/:city/:category		tests.TestController.cityAndCategory(city: String, category: String)
 GET		/@tests/:city/:category/:durationLow/:durationHigh/:priceLow/:priceHigh		tests.TestController.allFilters(city: String, category: String, durationLow: String, durationHigh: String, priceLow: String, priceHigh: String)
+
+#Admin
+GET		/admin/:city/experiences					controllers.Admin.getExperiences(city: String)
+POST	/admin/:city/experiences					controllers.Admin.saveExperience(city: String)
+GET		/admin/:city/experiences/new				controllers.Admin.newExperience(city: String)
+GET		/admin/:city/experiences/:experience		controllers.Admin.editExperience(city: String, experience: String)

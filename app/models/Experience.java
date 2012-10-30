@@ -49,6 +49,12 @@ public class Experience extends Model {
 	@Column(length=100)
 	String priceDescription;
 
+	/** 
+	 * 0 - Free
+	 * 1 - Cheap
+	 * 2 - Normal
+	 * 3 - Expensive 
+	 **/
 	Integer priceRating;
 
 	/** Number, stored in hours **/

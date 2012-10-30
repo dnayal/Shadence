@@ -1,0 +1,26 @@
+@(city: String, experiences: List[Experience])
+
+@main("Experiences") {
+	<div class="row">
+		<h1>Experiences - @handlers.CityHandler.getCity(city).getName()</h1>
+		<p>
+			<a href="@routes.Admin.newExperience(city)">NEW</a>
+		</p>
+	</div>
+	<div class="row">
+	    <table border="1" cellpadding="10">
+	    	<tr>
+	    		<th>Name</th>
+	    		<th>Venue</th>
+	    		<th>City</th>
+	    	</tr>
+		    @for(exp <- experiences) {
+		    	<tr>
+		    		<td>@exp.getName()</td>
+		    		<td>@exp.getVenue().getName()</td>
+		    		<td><a href="@routes.Admin.editExperience(city, exp.getExperienceId)">EDIT</a></td>
+		    	</tr>
+		    }
+	    </table>
+	</div>	    							
+}

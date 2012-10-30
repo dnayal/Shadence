@@ -1,0 +1,75 @@
+body, h1, h2, h3, h4, h5, h6, p, a {
+	font-family: 'Marcellus', "Helvetica Neue", Verdana, Helvetica, Arial, sans-serif;
+}
+ 
+.icon-chevron-right {
+	float: right;
+	opacity: 0.25;
+}
+
+.main-logo {
+	text-align: center;
+	padding: 20px;
+}
+
+.logo-text {
+	font-size: 60px;
+}
+
+.navbar-experiences {
+	font-size: 1.25em;
+	width: 250px;
+}
+
+.masonary-container {
+	margin: 0 auto;
+}
+
+.masonary-item {
+	width: 400px; 
+	display: inline-block;
+	vertical-align: top;
+	margin-bottom: 10px;
+}
+
+.experience-information {
+	padding: 10px;
+	-webkit-box-shadow: 0px 0px 10px 10px lightgray;
+	-moz-box-shadow: 0px 0px 10px 10px lightgray;
+	box-shadow: 0px 0px 10px 10px lightgray;
+	border-radius: 5px; 
+}
+
+#image-gallery img {
+	max-height: 300px;
+	width: 98%;
+}
+
+.breadcrumb {
+	background-color: white;
+}
+
+#venue-map {
+	height:200px;
+	width: 95%;
+}
+
+.div-header {
+	font-size: 25px;
+	margin: 10px 0px;
+	padding-bottom: 5px;
+	border-bottom: 1px solid gray;
+}
+
+.thumbnail a {
+	text-decoration:none;
+}
+
+.original-source {
+    border: 1px solid gray;
+    border-radius: 3px;
+    padding: 3px;
+    background-color: lightgray;
+    color: brown;
+}
+

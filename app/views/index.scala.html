@@ -5,15 +5,9 @@
     <hr/>
     	@exp.getName() : @exp.getDescription() : @exp.getScheduleDescription() : Duration - @exp.getDuration : PriceRating - @exp.getPriceRating()
     	<br/>
-    	@exp.getUser().getName() : @exp.getUser().getEmail()
-    	<br/>
     	@exp.getCategory().getName() : @exp.getVenue().getName()
     	<br/>EXPERIENCE PHOTOS
     	@for(photo <- exp.getExperiencePhotos()) {
-    		<li>@photo.getLocation() : @photo.getName() : @photo.getAlternateText()</li>
-    	}
-		<br/>USER PHOTOS
-    	@for(photo <- exp.getUser().getProfilePhotos()) {
     		<li>@photo.getLocation() : @photo.getName() : @photo.getAlternateText()</li>
     	}
 		<br/>FLAG PHOTOS

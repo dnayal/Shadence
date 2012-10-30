@@ -12,6 +12,14 @@ public class ExperienceHandler {
 	
 	
 	/**
+	 * Updates the experience
+	 */
+	public static void updateExperience(Experience experience) {
+		experience.update();
+	}
+
+	
+	/**
 	 * Saves the experience
 	 */
 	public static void saveExperience(Experience experience) {
@@ -112,6 +120,14 @@ public class ExperienceHandler {
 				.findList();
 		
 		return experiences;
+	}
+	
+	
+	/**
+	 * Returns all experiences
+	 */
+	public static List<Experience> getAllExperiences() {
+		return Experience.find.all();
 	}
 
 }
