@@ -18,5 +18,21 @@ GET		/@tests/:city/:category/:durationLow/:durationHigh/:priceLow/:priceHigh		te
 #Admin
 GET		/admin/:city/experiences					controllers.Admin.getExperiences(city: String)
 POST	/admin/:city/experiences					controllers.Admin.saveExperience(city: String)
-GET		/admin/:city/experiences/new				controllers.Admin.newExperience(city: String)
-GET		/admin/:city/experiences/:experience		controllers.Admin.editExperience(city: String, experience: String)
+GET		/admin/:city/experiences/:experience		controllers.Admin.showExperienceForm(city: String, experience: String)
+
+GET		/admin/:city/venues				controllers.Admin.getVenues(city: String)
+POST	/admin/:city/venues				controllers.Admin.saveVenue(city: String)
+GET		/admin/:city/venues/:venue		controllers.Admin.showVenueForm(city: String, venue: String)
+
+GET		/admin/categories				controllers.Admin.getCategories()
+POST	/admin/categories				controllers.Admin.saveCategory()
+GET		/admin/categories/:category		controllers.Admin.showCategoryForm(category: String)
+
+GET		/admin/cities				controllers.Admin.getCities()
+POST	/admin/cities				controllers.Admin.saveCity()
+GET		/admin/cities/:city			controllers.Admin.showCityForm(city: String)
+
+GET		/admin/users				controllers.Admin.getUsers()
+POST	/admin/users				controllers.Admin.saveUser()
+GET		/admin/users/:user			controllers.Admin.showUserForm(user: String)
+

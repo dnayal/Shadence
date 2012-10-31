@@ -1,9 +1,19 @@
 package handlers;
 
+import java.util.List;
+
 import utils.Util;
 import models.User;
 
 public class UserHandler {
+
+	
+	/**
+	 * Updates the user
+	 */
+	public static void updateUser(User user) {
+		user.update();
+	}
 
 	
 	/**
@@ -34,5 +44,14 @@ public class UserHandler {
 	public static User getUser(String userId) {
 		return User.find.byId(userId);
 	}
+	
+
+	/**
+	 * Returns all users
+	 */
+	public static List<User> getUsers() {
+		return User.find.all();
+	}
+	
 	
 }

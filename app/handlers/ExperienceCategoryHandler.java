@@ -5,9 +5,16 @@ import java.util.List;
 import java.util.Map;
 
 import models.ExperienceCategory;
-import models.Venue;
 
 public class ExperienceCategoryHandler {
+
+	
+	/**
+	 * Updates the experience category
+	 */
+	public static void updateExperienceCategory(ExperienceCategory category) {
+		category.update();
+	}
 
 	
 	/**

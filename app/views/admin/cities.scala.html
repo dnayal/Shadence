@@ -1,0 +1,23 @@
+@(cities: List[City])
+
+@main("Cities") {
+	<div class="row">
+		<h1>Cities</h1>
+		<p>
+			<a href="@routes.Admin.showCityForm("new")">NEW</a>
+		</p>
+	</div>
+	<div class="row">
+	    <table border="1" cellpadding="10">
+	    	<tr>
+	    		<th>Name</th>
+	    	</tr>
+		    @for(city <- cities) {
+		    	<tr>
+		    		<td>@city.getName()</td>
+		    		<td><a href="@routes.Admin.showCityForm(city.getCityId())">EDIT</a></td>
+		    	</tr>
+		    }
+	    </table>
+	</div>	    							
+}

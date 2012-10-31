@@ -1,0 +1,26 @@
+@(category_form: Form[ExperienceCategory])
+
+@import helper._
+
+@main("ExperienceCategory Form") {
+	<div class="row">
+		<h1>ExperienceCategory Form</h1>
+	</div>
+	@form(routes.Admin.saveCategory()) {
+		<div class="row">
+			<div class="span6">
+				@defining(category_form("categoryId")) { formField =>
+					@if(formField.value==null) {
+					    @inputText(category_form("categoryId"), '_label -> "Category Id")
+					} else {
+					    @inputText(category_form("categoryId"), '_label -> "Category Id", 'readonly->"readonly")
+					} 
+				}
+
+			    @inputText(category_form("name"), '_label -> "Name")
+			</div>
+			
+		</div>
+		<button type="submit" class="btn btn-primary">Submit</button>	    							
+    }
+}

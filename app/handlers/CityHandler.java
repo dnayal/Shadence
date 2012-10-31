@@ -1,10 +1,20 @@
 package handlers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import models.City;
 
 public class CityHandler {
+
+	
+	/**
+	 * Updates the city
+	 */
+	public static void updateCity(City city) {
+		city.update();
+	}
 
 	
 	/**
@@ -45,4 +55,19 @@ public class CityHandler {
 	public static List<City> getAllCities() {
 		return City.find.all();
 	}
+	
+	
+	/**
+	 * Returns a map of all cities (name and id)
+	 */
+	public static Map<String, String> getAllCitiesMap() {
+		Map<String, String> cities = new HashMap<String, String>();
+		
+		for (City city : getAllCities())
+			cities.put(city.getCityId(), city.getName());
+
+		return cities;
+	}
+	
+	
 }

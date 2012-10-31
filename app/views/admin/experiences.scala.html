@@ -4,7 +4,7 @@
 	<div class="row">
 		<h1>Experiences - @handlers.CityHandler.getCity(city).getName()</h1>
 		<p>
-			<a href="@routes.Admin.newExperience(city)">NEW</a>
+			<a href="@routes.Admin.showExperienceForm(city,"new")">NEW</a>
 		</p>
 	</div>
 	<div class="row">
@@ -18,7 +18,7 @@
 		    	<tr>
 		    		<td>@exp.getName()</td>
 		    		<td>@exp.getVenue().getName()</td>
-		    		<td><a href="@routes.Admin.editExperience(city, exp.getExperienceId)">EDIT</a></td>
+		    		<td><a href="@routes.Admin.showExperienceForm(city, exp.getExperienceId)">EDIT</a></td>
 		    	</tr>
 		    }
 	    </table>

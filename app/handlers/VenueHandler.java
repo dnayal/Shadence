@@ -12,6 +12,14 @@ public class VenueHandler {
 
 	
 	/**
+	 * Updates the venue
+	 */
+	public static void updateVenue(Venue venue) {
+		venue.update();
+	}
+
+	
+	/**
 	 * Saves the venue
 	 */
 	public static void saveVenue(Venue venue) {

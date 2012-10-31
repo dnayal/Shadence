@@ -1,0 +1,28 @@
+@(user_form: Form[User])
+
+@import helper._
+
+@main("User Form") {
+	<div class="row">
+		<h1>User Form</h1>
+	</div>
+	@form(routes.Admin.saveUser()) {
+		<div class="row">
+			<div class="span6">
+				@defining(user_form("userId")) { formField =>
+					<input type="hidden" name="@formField.name" value="@formField.value"> 
+				}
+				
+			    @inputText(user_form("name"), '_label -> "Name")
+			    
+			    @inputText(user_form("email"), '_label -> "Email")
+			    
+			    @inputPassword(user_form("password"), '_label -> "Password")
+
+			    @inputText(user_form("gender"), '_label -> "Gender")
+			</div>
+
+		</div>
+		<button type="submit" class="btn btn-primary">Submit</button>	    							
+    }
+}
