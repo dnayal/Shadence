@@ -1,9 +1,13 @@
 @(experiences: List[Experience])
 
+@import util._
+
 @main("Welcome to Play 2.0") {
     @for(exp <- experiences) {
     <hr/>
-    	@exp.getName() : @exp.getDescription() : @exp.getScheduleDescription() : Duration - @exp.getDuration : PriceRating - @exp.getPriceRating()
+    	<h4>@exp.getName()</h4> : @Html(exp.getDescription()) : Duration - @exp.getDuration() : PriceRating - @exp.getPriceRating()
+    	<br/>
+    	@shadence_schedule(exp.getScheduleDescription()) 
     	<br/>
     	@exp.getCategory().getName() : @exp.getVenue().getName()
     	<br/>EXPERIENCE PHOTOS

@@ -10,6 +10,9 @@ import handlers.ExperienceCategoryHandler;
 import handlers.ExperienceHandler;
 import handlers.UserHandler;
 import handlers.VenueHandler;
+import play.Logger;
+import play.Play;
+import play.Configuration;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -20,9 +23,18 @@ import views.html.admin.*;
 public class Admin extends Controller {
 	
 	
+	public static Result getMain() {
+		Configuration config = Play.application().configuration();
+		Logger.info("+-+-+-+-+-+-+-+");
+		Logger.info(String.valueOf(Play.isProd()));
+		Logger.info(config.getString("shadence.name"));
+		Logger.info("+-+-+-+-+-+-+-+");
+		return ok(main_admin.render(CityHandler.getCities()));
+	}
+
 // EXPERIENCE - START
 	public static Result getExperiences(String cityId) {
-		return ok(experiences.render(cityId, ExperienceHandler.getExperiences(cityId)));
+		return ok(experiences.render(cityId, ExperienceHandler.getAllExperiences(cityId)));
 	}
 
 	public static Result showExperienceForm(String cityId, String experienceId) {
@@ -33,14 +45,14 @@ public class Admin extends Controller {
 			experienceForm = form(Experience.class).fill(ExperienceHandler.getExperience(experienceId));
 
 		return ok(experiences_form.render(cityId, experienceForm, VenueHandler.getVenuesMap(cityId), 
-				ExperienceCategoryHandler.getAllCategoriesMap()));
+				ExperienceCategoryHandler.getExperienceCategoriesMap()));
 	}
 	
 	public static Result saveExperience(String cityId) {
 		Form<Experience> experienceForm = form(Experience.class).bindFromRequest();
 		if(experienceForm.hasErrors())
 			return badRequest(experiences_form.render(cityId, experienceForm, 
-					VenueHandler.getVenuesMap(cityId), ExperienceCategoryHandler.getAllCategoriesMap()));
+					VenueHandler.getVenuesMap(cityId), ExperienceCategoryHandler.getExperienceCategoriesMap()));
 		else {
 			Experience experience = experienceForm.get();
 			if (Util.getString(experience.getExperienceId()).equalsIgnoreCase("")) {
@@ -72,14 +84,14 @@ public class Admin extends Controller {
 		else
 			venueForm = form(Venue.class).fill(VenueHandler.getVenue(venueId));
 
-		return ok(venues_form.render(cityId, venueForm, CityHandler.getAllCitiesMap()));
+		return ok(venues_form.render(cityId, venueForm, CityHandler.getCitiesMap()));
 	}
 	
 	
 	public static Result saveVenue(String cityId) {
 		Form<Venue> venueForm = form(Venue.class).bindFromRequest();
 		if(venueForm.hasErrors())
-			return badRequest(venues_form.render(cityId, venueForm, CityHandler.getAllCitiesMap()));
+			return badRequest(venues_form.render(cityId, venueForm, CityHandler.getCitiesMap()));
 		else {
 			Venue venue = venueForm.get();
 			if (Util.getString(venue.getVenueId()).equalsIgnoreCase("")) {
@@ -100,7 +112,7 @@ public class Admin extends Controller {
 
 // EXPERIENCECATEGORY - START
 	public static Result getCategories() {
-		return ok(categories.render(ExperienceCategoryHandler.getAllCategories()));
+		return ok(categories.render(ExperienceCategoryHandler.getExperienceCategories()));
 	}
 	
 
@@ -138,7 +150,7 @@ public class Admin extends Controller {
 
 // CITY - START
 	public static Result getCities() {
-		return ok(cities.render(CityHandler.getAllCities()));
+		return ok(cities.render(CityHandler.getCities()));
 	}
 	
 

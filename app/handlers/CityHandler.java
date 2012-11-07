@@ -52,7 +52,7 @@ public class CityHandler {
 	/**
 	 * Returns all cities
 	 */
-	public static List<City> getAllCities() {
+	public static List<City> getCities() {
 		return City.find.all();
 	}
 	
@@ -60,10 +60,10 @@ public class CityHandler {
 	/**
 	 * Returns a map of all cities (name and id)
 	 */
-	public static Map<String, String> getAllCitiesMap() {
+	public static Map<String, String> getCitiesMap() {
 		Map<String, String> cities = new HashMap<String, String>();
 		
-		for (City city : getAllCities())
+		for (City city : getCities())
 			cities.put(city.getCityId(), city.getName());
 
 		return cities;

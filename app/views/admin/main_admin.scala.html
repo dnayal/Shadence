@@ -1,0 +1,33 @@
+@(cities: List[City])
+
+@main("Main Admin") {
+	<div class="row">
+		<h1>Main Admin - @play.Play.application.configuration.getString("shadence.name")</h1>
+	</div>
+	<div class="row">
+		<div class="span4">
+			<h3>Experiences</h3>
+		    @for(city <- cities) {
+	    		<a href="@routes.Admin.getExperiences(city.getCityId())">@city.getName()</a><br/>
+		    }
+			<hr/>
+
+			<h3>Venues</h3>
+		    @for(city <- cities) {
+	    		<a href="@routes.Admin.getVenues(city.getCityId())">@city.getName()</a><br/>
+		    }
+			<hr/>
+	
+	   		<h3><a href="@routes.Admin.getCategories()">Categories</a></h3>
+			<hr/>
+	   		
+	   		<h3><a href="@routes.Admin.getCities()">Cities</a></h3>
+			<hr/>
+	   		
+	   		<h3><a href="@routes.Admin.getUsers()">Users</a></h3>
+	   	</div>
+	   	<div class="span8">
+	   		<img alt="iPhone" src="@routes.Assets.at("shadence/entity_photos/iphone_5.jpeg")" height="400" width="500">
+	   	</div>	
+	</div>	    							
+}

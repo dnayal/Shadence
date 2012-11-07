@@ -16,6 +16,8 @@ GET		/@tests/:city/:category		tests.TestController.cityAndCategory(city: String,
 GET		/@tests/:city/:category/:durationLow/:durationHigh/:priceLow/:priceHigh		tests.TestController.allFilters(city: String, category: String, durationLow: String, durationHigh: String, priceLow: String, priceHigh: String)
 
 #Admin
+GET		/admin						controllers.Admin.getMain()
+
 GET		/admin/:city/experiences					controllers.Admin.getExperiences(city: String)
 POST	/admin/:city/experiences					controllers.Admin.saveExperience(city: String)
 GET		/admin/:city/experiences/:experience		controllers.Admin.showExperienceForm(city: String, experience: String)

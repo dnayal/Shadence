@@ -23,7 +23,6 @@ public class VenueHandler {
 	 * Saves the venue
 	 */
 	public static void saveVenue(Venue venue) {
-		System.out.println(venue.getVenueId());
 		venue.save();
 	}
 	

@@ -44,5 +44,6 @@ public class EntityPhotoHandler {
 		
 		return photo;
 	}
+	
 
 }

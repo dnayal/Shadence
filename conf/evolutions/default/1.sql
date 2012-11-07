@@ -40,8 +40,8 @@ create table experience (
   schedule_description      varchar(100),
   original_source           varchar(200),
   tags                      varchar(100),
-  start_timestamp           bigint,
-  end_timestamp             bigint,
+  start_date                datetime,
+  end_date                  datetime,
   create_timestamp          bigint,
   constraint pk_experience primary key (experience_id))
 ;

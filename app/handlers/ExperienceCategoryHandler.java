@@ -48,7 +48,7 @@ public class ExperienceCategoryHandler {
 	/**
 	 * Returns all experience categories 
 	 */
-	public static List<ExperienceCategory> getAllCategories() {
+	public static List<ExperienceCategory> getExperienceCategories() {
 		return ExperienceCategory.find.all();
 	}
 
@@ -56,10 +56,10 @@ public class ExperienceCategoryHandler {
 	/**
 	 * Returns a map of all categories (name and id)
 	 */
-	public static Map<String, String> getAllCategoriesMap() {
+	public static Map<String, String> getExperienceCategoriesMap() {
 		Map<String, String> categories = new HashMap<String, String>();
 		
-		for (ExperienceCategory category : getAllCategories())
+		for (ExperienceCategory category : getExperienceCategories())
 			categories.put(category.getCategoryId(), category.getName());
 
 		return categories;

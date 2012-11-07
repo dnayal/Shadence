@@ -1,6 +1,9 @@
 package handlers;
 
+import java.util.Date;
 import java.util.List;
+
+import com.avaje.ebean.Expr;
 
 import utils.Util;
 import models.Experience;
@@ -33,12 +36,12 @@ public class ExperienceHandler {
 	public static Experience saveExperience(String venueId, String userId, String categoryId, String name, 
 				String email, String phone, String description, String priceDescription, Integer priceRating, 
 				Integer duration, String scheduleDescription, String originalSource, String tags, 
-				Long startTimestamp, Long endTimestamp) {
+				Date startDate, Date endDate) {
 		
 		String experienceId = Util.getUniqueId();
 		Experience experience = new Experience(experienceId, name, email, phone, description, 
 				priceDescription, priceRating, duration, scheduleDescription, originalSource, tags,
-				startTimestamp, endTimestamp, System.currentTimeMillis());
+				startDate, endDate, System.currentTimeMillis());
 		
 		Venue venue = Venue.find.byId(venueId);
 		User user = User.find.byId(userId);
@@ -64,11 +67,13 @@ public class ExperienceHandler {
 	
 	/**
 	 * Returns all experiences by city
+	 * and where experience enddate has not expired
 	 */
 	public static List<Experience> getExperiences(String cityId) {
 		List<Experience> experiences = Experience.find
 				.where()
 				.in("venue_id", Venue.find.where().eq("city_id", cityId).findIds())
+				.or(Expr.ge("endDate", new Date()), Expr.isNull("endDate"))
 				.findList();
 		
 		return experiences;
@@ -83,6 +88,7 @@ public class ExperienceHandler {
 				.where()
 				.in("venue_id", Venue.find.where().eq("city_id", cityId).findIds())
 				.eq("category_id", categoryId)
+				.or(Expr.ge("endDate", new Date()), Expr.isNull("endDate"))
 				.findList();
 		
 		return experiences;
@@ -98,12 +104,9 @@ public class ExperienceHandler {
 				.where()
 				.in("venue_id", Venue.find.where().eq("city_id", cityId).findIds())
 				.eq("category_id", categoryId)
-//				.ge("duration", durationLow)
-//				.le("duration", durationHigh)
-//				.ge("priceRating", priceLow)
-//				.le("priceRating", priceHigh)
 				.between("duration", durationLow, durationHigh)
 				.between("priceRating", priceLow, priceHigh)
+				.or(Expr.ge("endDate", new Date()), Expr.isNull("endDate"))
 				.findList();
 		
 		return experiences;
@@ -124,10 +127,16 @@ public class ExperienceHandler {
 	
 	
 	/**
-	 * Returns all experiences
+	 * Returns all experiences by city - even the expired ones
 	 */
-	public static List<Experience> getAllExperiences() {
-		return Experience.find.all();
+	public static List<Experience> getAllExperiences(String cityId) {
+		List<Experience> experiences = Experience.find
+				.where()
+				.in("venue_id", Venue.find.where().eq("city_id", cityId).findIds())
+				.findList();
+		
+		return experiences;
 	}
+	
 
 }

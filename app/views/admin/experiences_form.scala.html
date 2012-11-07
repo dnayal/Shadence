@@ -8,7 +8,7 @@
 	</div>
 	@form(routes.Admin.saveExperience(city)) {
 		<div class="row">
-			<div class="span4">
+			<div class="span3">
 				@defining(exp_form("experienceId")) { formField =>
 					<input type="hidden" name="@formField.name" value="@formField.value"> 
 				}
@@ -18,30 +18,52 @@
 			    @select(exp_form("category.categoryId"), options(categories), '_label -> "Category")
 
 			    @inputText(exp_form("name"), '_label -> "Name")
-			    
-			    @inputText(exp_form("email"), '_label -> "Email")
-
-			    @inputText(exp_form("phone"), '_label -> "Phone")
 			</div>
 			
-			<div class="span4">
-			    @textarea(exp_form("description"), '_label -> "Description", 'rows->5, 'cols->100)
-			    
+			<div class="span6">
+			    @textarea(exp_form("description"), '_label -> "Description", 'rows->8, 'class->"span5")
+			</div>
+
+			<div class="span3">
+			    @inputText(exp_form("email"), '_label -> "Email")
+
 			    @inputText(exp_form("priceDescription"), '_label -> "Price Description")
 			    
 			    @inputText(exp_form("priceRating"), '_label -> "Price Rating (0-3)")
+			</div>
+		</div>	
+		<div class="row">
+			<div class="span3">
+			    @inputText(exp_form("phone"), '_label -> "Phone")
 			    
-			    @inputText(exp_form("duration"), '_label -> "Duration (in hours)")
+			    @inputText(exp_form("scheduleDescription"), '_label -> "Schedule (col::, row..)")
 			</div>
 
-			<div class="span4">
-			    @inputText(exp_form("scheduleDescription"), '_label -> "Schedule")
-
+			<div class="span3">
 			    @inputText(exp_form("originalSource"), '_label -> "Original Source")
 
 			    @inputText(exp_form("tags"), '_label -> "Tags (comma separated)")
 			</div>
+
+			<div class="span3">
+			    @inputDate(exp_form("startDate"), '_label -> "Start date")
+
+			    @inputDate(exp_form("endDate"), '_label -> "End date")
+			</div>
+
+			<div class="span3">
+			    @inputText(exp_form("duration"), '_label -> "Duration (in hours)")
+
+				<button type="submit" class="btn btn-primary">Submit</button>	    							
+			</div>
 		</div>
-		<button type="submit" class="btn btn-primary">Submit</button>	    							
     }
+    
+	<script type="text/javascript" src="@routes.Assets.at("tiny_mce/tiny_mce.js")" ></script>
+	<script type="text/javascript" >
+		tinyMCE.init({
+		        mode : "textareas",
+		        theme : "advanced"
+		});
+	</script >    
 }

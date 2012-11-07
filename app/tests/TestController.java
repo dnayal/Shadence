@@ -1,6 +1,7 @@
 package tests;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import models.City;
 import models.Experience;
@@ -80,8 +81,8 @@ public class TestController extends Controller {
 				derek.getUserId(), adventure.getCategoryId(), "Winter Wonderland", 
 				"contact@winterwonderland.com", "02287879191", "This is a great place to be in winters", 
 				"Free Entry", 1, 3, "Everyday::10am-10pm..26th November::10am-6pm", 
-				"http://winterwonderland.com", "winter, theme park, night", starttime.getTimeInMillis(), 
-				endtime.getTimeInMillis());
+				"http://winterwonderland.com", "winter, theme park, night", starttime.getTime(), 
+				endtime.getTime());
 		
 		Experience leisurecenter = ExperienceHandler.saveExperience(cherryhinton.getVenueId(), 
 				derek.getUserId(), outdoor.getCategoryId(), "Leisure Center", "fun@leisure.com", null, 

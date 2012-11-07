@@ -1,0 +1,13 @@
+@(schedule: String)
+
+@if(schedule.trim().length() > 0) {
+<table border="1" cellpadding="4">
+	@for(row <- schedule.split("\\Q..\\E")) {
+		<tr>
+		@for(field <- row.split("\\Q::\\E")) {
+			<td>@field</td>
+		}
+		</tr>
+	}
+</table>
+}

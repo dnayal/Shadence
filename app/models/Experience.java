@@ -1,5 +1,6 @@
 package models;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -69,9 +70,9 @@ public class Experience extends Model {
 	@Column(length=100)
 	String tags;
 	
-	Long startTimestamp;
+	Date startDate;
 	
-	Long endTimestamp;
+	Date endDate;
 	
 	Long createTimestamp;
 	
@@ -85,8 +86,8 @@ public class Experience extends Model {
 
 	public Experience(String experienceId, String name, String email, String phone, 
 			String description, String priceDescription, Integer priceRating, Integer duration, 
-			String scheduleDescription,	String originalSource, String tags, Long startTimestamp,
-			Long endTimestamp, Long createTimestamp) {
+			String scheduleDescription,	String originalSource, String tags, Date startDate,
+			Date endDate, Long createTimestamp) {
 		this.experienceId = experienceId;
 		this.name = name;
 		this.email = email;
@@ -98,8 +99,8 @@ public class Experience extends Model {
 		this.scheduleDescription = scheduleDescription;
 		this.originalSource = originalSource;
 		this.tags = tags;
-		this.startTimestamp = startTimestamp;
-		this.endTimestamp = endTimestamp;
+		this.startDate = startDate;
+		this.endDate = endDate;
 		this.createTimestamp = createTimestamp;
 	}
 
@@ -215,20 +216,20 @@ public class Experience extends Model {
 		this.tags = tags;
 	}
 
-	public Long getStartTimestamp() {
-		return startTimestamp;
+	public Date getStartDate() {
+		return startDate;
 	}
 
-	public void setStartTimestamp(Long startTimestamp) {
-		this.startTimestamp = startTimestamp;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 
-	public Long getEndTimestamp() {
-		return endTimestamp;
+	public Date getEndDate() {
+		return endDate;
 	}
 
-	public void setEndTimestamp(Long endTimestamp) {
-		this.endTimestamp = endTimestamp;
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 
 	public Long getCreateTimestamp() {
