@@ -42,7 +42,7 @@ public class UserHandler {
 	 * Returns a user based on id
 	 */
 	public static User getUser(String userId) {
-		return User.find.byId(userId);
+		return User.find.byId(Util.getString(userId));
 	}
 	
 

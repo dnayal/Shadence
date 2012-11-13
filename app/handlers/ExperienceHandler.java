@@ -61,7 +61,7 @@ public class ExperienceHandler {
 	 * Returns an experience by id
 	 */
 	public static Experience getExperience(String experienceId) {
-		return Experience.find.byId(experienceId);
+		return Experience.find.byId(Util.getString(experienceId));
 	}
 	
 	

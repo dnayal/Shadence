@@ -14,4 +14,9 @@ public class Util {
 		return (string!=null)?string.trim():"";
 	}
 
+
+	public static String getFileExtension(String filename){
+		return filename.trim().substring(filename.lastIndexOf("."));
+	}
+
 }

@@ -51,7 +51,7 @@ public class VenueHandler {
 	 * Returns a venue based on id
 	 */
 	public static Venue getVenue(String venueId) {
-		return Venue.find.byId(venueId);
+		return Venue.find.byId(Util.getString(venueId));
 	}
 	
 	

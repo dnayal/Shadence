@@ -12,11 +12,11 @@
     	@exp.getCategory().getName() : @exp.getVenue().getName()
     	<br/>EXPERIENCE PHOTOS
     	@for(photo <- exp.getExperiencePhotos()) {
-    		<li>@photo.getLocation() : @photo.getName() : @photo.getAlternateText()</li>
+    		<li>@photo.getLocation() : @photo.getOriginalPhoto() : @photo.getAlternateText()</li>
     	}
 		<br/>FLAG PHOTOS
     		<li>@exp.getVenue().getCity().getFlagPhotos().get(0).getLocation() : 
-    							@exp.getVenue().getCity().getFlagPhotos().get(0).getName() : 
+    							@exp.getVenue().getCity().getFlagPhotos().get(0).getOriginalPhoto() : 
     							@exp.getVenue().getCity().getFlagPhotos().get(0).getAlternateText()</li>
     }							
 }

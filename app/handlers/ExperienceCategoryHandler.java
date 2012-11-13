@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import utils.Util;
+
 import models.ExperienceCategory;
 
 public class ExperienceCategoryHandler {
@@ -41,7 +43,7 @@ public class ExperienceCategoryHandler {
 	 * Returns an experience category by id
 	 */
 	public static ExperienceCategory getExperienceCategory(String categoryId) {
-		return ExperienceCategory.find.byId(categoryId);
+		return ExperienceCategory.find.byId(Util.getString(categoryId));
 	}
 	
 	

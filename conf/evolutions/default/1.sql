@@ -13,16 +13,20 @@ create table city (
 ;
 
 create table entity_photo (
-  original_photo_id         varchar(100),
+  photo_id                  varchar(100) not null,
   entity_city_id            varchar(100),
   entity_experience_id      varchar(100),
   entity_user_id            varchar(100),
   user_id                   varchar(100),
   location                  varchar(200),
-  name                      varchar(100),
+  original_photo            varchar(100),
+  large_photo               varchar(100),
+  medium_photo              varchar(100),
+  small_photo               varchar(100),
   alternate_text            varchar(100),
   photo_order               varchar(3),
-  create_timestamp          bigint)
+  create_timestamp          bigint,
+  constraint pk_entity_photo primary key (photo_id))
 ;
 
 create table experience (

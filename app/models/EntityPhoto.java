@@ -2,6 +2,7 @@ package models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
@@ -10,8 +11,9 @@ import play.db.ebean.Model;
 @Entity
 public class EntityPhoto extends Model {
 
+	@Id
 	@Column(length=100)
-	String originalPhotoId;
+	String photoId;
 
 	@ManyToOne
 	@JoinColumn(name="entity_city_id")
@@ -37,7 +39,16 @@ public class EntityPhoto extends Model {
 	String location;
 
 	@Column(length=100)
-	String name;
+	String originalPhoto;
+
+	@Column(length=100)
+	String largePhoto;
+
+	@Column(length=100)
+	String mediumPhoto;
+
+	@Column(length=100)
+	String smallPhoto;
 
 	@Column(length=100)
 	String alternateText;
@@ -51,25 +62,32 @@ public class EntityPhoto extends Model {
 	Long createTimestamp;
 	
 	public static Finder<String, EntityPhoto> find = new Finder<String, EntityPhoto>(String.class, EntityPhoto.class);
-
-	public EntityPhoto() {}
+	public static final int ENTITY_EXPERIENCE = 1;
+	public static final int ENTITY_CITY = 2;
+	public static final int ENTITY_USER = 3;
 	
-	public EntityPhoto(String originalPhotoId, String location, String name, String alternateText, 
-												String photoOrder, Long createTimestamp) {
-		this.originalPhotoId = originalPhotoId;
+	public EntityPhoto() {}
+
+	public EntityPhoto(String photoId, String location, String originalPhoto, 
+			String largePhoto, String mediumPhoto, String smallPhoto, String alternateText, 
+			String photoOrder, Long createTimestamp) {
+		this.photoId = photoId;
 		this.location = location;
-		this.name = name;
+		this.originalPhoto = originalPhoto;
+		this.largePhoto = largePhoto;
+		this.mediumPhoto = mediumPhoto;
+		this.smallPhoto = smallPhoto;
 		this.alternateText = alternateText;
 		this.photoOrder = photoOrder;
 		this.createTimestamp = createTimestamp;
 	}
 
-	public String getOriginalPhotoId() {
-		return originalPhotoId;
+	public String getPhotoId() {
+		return photoId;
 	}
 
-	public void setOriginalPhotoId(String originalPhotoId) {
-		this.originalPhotoId = originalPhotoId;
+	public void setPhotoId(String photoId) {
+		this.photoId = photoId;
 	}
 
 	public City getEntityCity() {
@@ -112,12 +130,36 @@ public class EntityPhoto extends Model {
 		this.location = location;
 	}
 
-	public String getName() {
-		return name;
+	public String getOriginalPhoto() {
+		return originalPhoto;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setOriginalPhoto(String originalPhoto) {
+		this.originalPhoto = originalPhoto;
+	}
+
+	public String getLargePhoto() {
+		return largePhoto;
+	}
+
+	public void setLargePhoto(String largePhoto) {
+		this.largePhoto = largePhoto;
+	}
+
+	public String getMediumPhoto() {
+		return mediumPhoto;
+	}
+
+	public void setMediumPhoto(String mediumPhoto) {
+		this.mediumPhoto = mediumPhoto;
+	}
+
+	public String getSmallPhoto() {
+		return smallPhoto;
+	}
+
+	public void setSmallPhoto(String smallPhoto) {
+		this.smallPhoto = smallPhoto;
 	}
 
 	public String getAlternateText() {

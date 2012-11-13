@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import utils.Util;
+
 import models.City;
 
 public class CityHandler {
@@ -45,7 +47,7 @@ public class CityHandler {
 	 * Returns a city by id
 	 */
 	public static City getCity(String cityId) {
-		return City.find.byId(cityId);
+		return City.find.byId(Util.getString(cityId));
 	}
 	
 	

@@ -1,7 +1,6 @@
 package tests;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import models.City;
 import models.Experience;
@@ -9,7 +8,6 @@ import models.ExperienceCategory;
 import models.User;
 import models.Venue;
 import handlers.CityHandler;
-import handlers.EntityPhotoHandler;
 import handlers.ExperienceCategoryHandler;
 import handlers.ExperienceHandler;
 import handlers.UserHandler;
@@ -17,7 +15,6 @@ import handlers.VenueHandler;
 import controllers.routes;
 import play.mvc.Controller;
 import play.mvc.Result;
-import utils.Util;
 import views.html.index;
 
 public class TestController extends Controller {
@@ -89,27 +86,6 @@ public class TestController extends Controller {
 				"Cambridge Leisure Center", "Free Entry. Charge for individual items.", 3, 
 				2, "Open 24 hours", "http://leisure.center.com", "casino, games", null, null);
 		
-		EntityPhotoHandler.saveEntityPhoto(Util.getUniqueId(), null, dayout.getExperienceId(), null, 
-				deepak.getUserId(), "/deepak/path/1", "ORIGINAL.jpg", "Photo of day out", "2");
-
-		EntityPhotoHandler.saveEntityPhoto(Util.getUniqueId(), null, dayout.getExperienceId(), null, 
-				deepak.getUserId(), "/deepak/path/2", "ORIGINAL.jpg", "Another photo of day out", "1");
-	
-		EntityPhotoHandler.saveEntityPhoto(Util.getUniqueId(), null, dayout.getExperienceId(), null, 
-				deepak.getUserId(), "/deepak/path/3", "ORIGINAL.jpg", "Last photo of day out", "3");
-		
-		EntityPhotoHandler.saveEntityPhoto(Util.getUniqueId(), null, winterwonderland.getExperienceId(), 
-				null, derek.getUserId(), "/derek/path/1", "ORIGINAL.jpg", "photo of Winter Wonderland", "1");
-	
-		EntityPhotoHandler.saveEntityPhoto(Util.getUniqueId(), null, leisurecenter.getExperienceId(), 
-				null, derek.getUserId(), "/derek/path/2", "ORIGINAL.jpg", "photo of Leisure Center", "1");
-	
-		EntityPhotoHandler.saveEntityPhoto(Util.getUniqueId(), london.getCityId(), null, null, 
-				derek.getUserId(), "/uk/flag/1", "ORIGINAL.jpg", "Union Jack", "1");
-	
-		EntityPhotoHandler.saveEntityPhoto(Util.getUniqueId(), london.getCityId(), null, null, 
-				derek.getUserId(), "/uk/flag/1", "ORIGINAL.jpg", "Union Jack", "1");
-	
 		return redirect(routes.Application.index());
 	}
 	
