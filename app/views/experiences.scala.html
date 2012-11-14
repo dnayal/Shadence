@@ -1,0 +1,102 @@
+@(cityId: String, experiences: List[Experience])
+
+@main("Experiences") {
+	<div class="container">
+	
+		<div class="row">
+			<div class="span4 affix">	    		
+				<h2>
+					@defining(handlers.CityHandler.getCity(cityId).getFlagPhotos.get(0)) { flagPhoto =>
+					<img width="50" height="50" src="@routes.Assets.at("shadence/entity_photos" + "/" + flagPhoto.getLocation + "/" + flagPhoto.getSmallPhoto)"/>&nbsp;London
+					}
+				</h2>
+			</div>
+			<!-- using offset here, because affix is used in the previous span -->
+			<div class="offset4 span4 main-logo">
+	    		<h1 class="logo-text">Shadence</h1>
+			    <h5>Discover &amp; Share Experiences</h5>
+		    </div>
+		    <div class="span4">&nbsp;</div>
+		</div>
+		
+		<div class="row">
+	    	<div class="span3 affix">
+    			<ul class="nav nav-tabs nav-stacked navbar-experiences">
+    				<li class="active">
+    					<a href="@routes.Application.getExperiences(cityId, play.Play.application.configuration.getString("category.default"))">
+	    					All<i class="icon-chevron-right"></i>
+    					</a>
+    				</li>
+    				@for(category <- handlers.ExperienceCategoryHandler.getExperienceCategories) {
+		    			<li class="">
+	    					<a href="@routes.Application.getExperiences(cityId, category.getCategoryId)">
+	    						@category.getName<i class="icon-chevron-right"></i>
+    						</a>
+	    				</li>
+    				}
+	    		</ul>
+<!-- 
+				<h5>Price <small>[Free - Expensive]</small></h5> 
+    			<div id="price-slider"></div>
+				<h5>Duration <small>[1 hour - 1 day]</small></h5>
+    			<div id="duration-slider"></div>
+ -->    			
+				<br/>
+	    		<p>
+    				| <a href="">About</a>
+    				| <a href="">Terms</a>
+    				| Shadence &copy; 2012 |
+	    		</p>
+	    	</div>
+			<!-- using offset here, because affix is used in the previous span -->
+			<div class="offset3 span9">
+		    	<div class="masonary-container experiences-stream">
+		    	@for(experience <- experiences) {
+					<div class="thumbnail masonary-item">
+						<a href="@routes.Application.getExperience(experience.getExperienceId)">
+							@defining(experience.getExperiencePhotos.get(0)) { experiencePhoto =>
+								<img src="@routes.Assets.at("shadence/entity_photos" + "/" + experiencePhoto.getLocation + "/" + experiencePhoto.getLargePhoto)" width="500px" height="200px" alt="@experiencePhoto.getAlternateText">
+							}
+							<h4>@experience.getName</h4>
+						</a>	
+					</div>
+				}
+				</div>
+			</div>
+		</div>				
+    </div>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+	<script type="text/javascript" src="@routes.Assets.at("shadence/js/jquery.masonry.min.js")"></script>
+	<script type="text/javascript" src="@routes.Assets.at("shadence/js/jquery.imagesloaded.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("bootstrap/js/bootstrap.min.js")"></script>
+    <script type="text/javascript">
+    	$(document).ready(function(){
+			$('.masonary-container').imagesLoaded(function() {
+				$('.masonary-container').masonry({
+					itemSelector : '.masonary-item',
+					isFitWidth: true,
+	        		gutterWidth: 10,
+					isResizable: true
+				});
+			});	
+			
+			$("#price-slider").slider({
+				range:true,
+				min:0,
+				max:4,
+				values: [0,4],
+				step:1
+			});
+			
+			$("#duration-slider").slider({
+				range:true,
+				min:1,
+				max:24,
+				values: [0,24],
+				step:4
+			});
+			
+    	});
+    </script>
+}

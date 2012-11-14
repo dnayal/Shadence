@@ -1,21 +1,18 @@
 @(title: String)(content: Html)
 
 <!DOCTYPE html>
-
-<html>
-    <head>
-        <title>@title</title>
-		<link href='http://fonts.googleapis.com/css?family=Marcellus' rel='stylesheet' type='text/css'>
-    	<link rel="stylesheet" href="@routes.Assets.at("bootstrap/css/bootstrap.min.css")">
-    	<link rel="stylesheet" href="@routes.Assets.at("bootstrap/css/bootstrap-responsive.min.css")">
-        <link rel="stylesheet" href="@routes.Assets.at("shadence/stylesheets/main.css")">
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("shadence/images/favicon.png")">
-    </head>
-    <body>
-		<div class="container">
-	        @content
-		</div>
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-	    <script type="text/javascript" src="@routes.Assets.at("bootstrap/js/bootstrap.min.js")"></script>
-    </body>
-</html>
+<html lang="en">
+	<head>
+    	<title>@title</title>
+   		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="http://fonts.googleapis.com/css?family=Marcellus" rel="stylesheet" type="text/css">
+    	<link href="@routes.Assets.at("bootstrap/css/bootstrap.min.css")" rel="stylesheet">
+	    <link href="@routes.Assets.at("bootstrap/css/bootstrap-responsive.min.css")" rel="stylesheet">
+    	<link href="@routes.Assets.at("shadence/css/main.css")" rel="stylesheet">
+    	<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
+	</head>
+  
+	<body>
+        @content
+	</body>
+</html>	

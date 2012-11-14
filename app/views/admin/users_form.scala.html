@@ -3,51 +3,53 @@
 @import helper._
 
 @main("User Form") {
-	<div class="row">
-		<h1>User Form</h1>
-	</div>
-	@form(routes.Admin.saveUser(), 'enctype -> "multipart/form-data") {
+	<div class="container">
 		<div class="row">
-			<div class="span6">
-				@defining(user_form("userId")) { formField =>
-					<input type="hidden" name="@formField.name" value="@formField.value"> 
-				}
-				
-			    @inputText(user_form("name"), '_label -> "Name")
-			    
-			    @inputText(user_form("email"), '_label -> "Email")
-			    
-			    @inputPassword(user_form("password"), '_label -> "Password")
-
-			    @inputText(user_form("gender"), '_label -> "Gender")
-			</div>
-			<div class="span4">
-				<button type="submit" class="btn btn-primary">Submit</button>
-				<a href="@routes.Admin.getUsers()" class="btn">Go Back</a>	    							
-			</div>
+			<h1>User Form</h1>
 		</div>
-		<hr/>
-		<div class="row">
-			<div class="span12">
-				<table border="1">
-				@repeat(user_form("profilePhotos"), min = 0) { photoField =>
-					<tr>
-						<td><img width="50" height="50" src="/@play.Play.application.configuration.getString("photos.web.path")/@photoField("location").value/@photoField("originalPhoto").value"></td>
-						<td><input type="file" name="@photoField("photoId").value"></td> 
-						<td>@inputText(photoField("alternateText"), '_label -> "Alternate Text")</td>
-						<td>@inputText(photoField("photoOrder"), '_label -> "Photo Order")</td>
-						<input type="hidden" name="@photoField("photoId").name" value="@photoField("photoId").value"> 
-					</tr>
-				}
-					<tr>
-						<td></td>
-						<td><input type="file" name="photo1"></td>
-						<td><input type="text" name="photo1_alternate_text" placeholder="Alternate Text"></td>
-						<td><input type="text" name="photo1_photo_order" placeholder="Photo Order"></td>
-					</tr>
-				
-				</table>
+		@form(routes.Admin.saveUser(), 'enctype -> "multipart/form-data") {
+			<div class="row">
+				<div class="span6">
+					@defining(user_form("userId")) { formField =>
+						<input type="hidden" name="@formField.name" value="@formField.value"> 
+					}
+					
+				    @inputText(user_form("name"), '_label -> "Name")
+				    
+				    @inputText(user_form("email"), '_label -> "Email")
+				    
+				    @inputPassword(user_form("password"), '_label -> "Password")
+	
+				    @inputText(user_form("gender"), '_label -> "Gender")
+				</div>
+				<div class="span4">
+					<button type="submit" class="btn btn-primary">Submit</button>
+					<a href="@routes.Admin.getUsers()" class="btn">Go Back</a>	    							
+				</div>
 			</div>
-		</div>
-    }
+			<hr/>
+			<div class="row">
+				<div class="span12">
+					<table border="1">
+					@repeat(user_form("profilePhotos"), min = 0) { photoField =>
+						<tr>
+							<td><img width="50" height="50" src="/@play.Play.application.configuration.getString("photos.web.path")/@photoField("location").value/@photoField("originalPhoto").value"></td>
+							<td><input type="file" name="@photoField("photoId").value"></td> 
+							<td>@inputText(photoField("alternateText"), '_label -> "Alternate Text")</td>
+							<td>@inputText(photoField("photoOrder"), '_label -> "Photo Order")</td>
+							<input type="hidden" name="@photoField("photoId").name" value="@photoField("photoId").value"> 
+						</tr>
+					}
+						<tr>
+							<td></td>
+							<td><input type="file" name="photo1"></td>
+							<td><input type="text" name="photo1_alternate_text" placeholder="Alternate Text"></td>
+							<td><input type="text" name="photo1_photo_order" placeholder="Photo Order"></td>
+						</tr>
+					
+					</table>
+				</div>
+			</div>
+	    }
+    </div>
 }

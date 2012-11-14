@@ -1,24 +1,26 @@
 @(users: List[User])
 
 @main("Users") {
-	<div class="row">
-		<h5><a href="@routes.Admin.getMain()">[Main Page]</a></h5>
-		<h1>Users</h1>
-		<p>
-			<a href="@routes.Admin.showUserForm("new")">NEW</a>
-		</p>
-	</div>
-	<div class="row">
-	    <table border="1" cellpadding="10">
-	    	<tr>
-	    		<th>Name</th>
-	    	</tr>
-		    @for(user <- users) {
+	<div class="container">
+		<div class="row">
+			<h5><a href="@routes.Admin.getMain()">[Main Page]</a></h5>
+			<h1>Users</h1>
+			<p>
+				<a href="@routes.Admin.showUserForm("new")">NEW</a>
+			</p>
+		</div>
+		<div class="row">
+		    <table border="1" cellpadding="10">
 		    	<tr>
-		    		<td>@user.getName()</td>
-		    		<td><a href="@routes.Admin.showUserForm(user.getUserId)">EDIT</a></td>
+		    		<th>Name</th>
 		    	</tr>
-		    }
-	    </table>
+			    @for(user <- users) {
+			    	<tr>
+			    		<td>@user.getName()</td>
+			    		<td><a href="@routes.Admin.showUserForm(user.getUserId)">EDIT</a></td>
+			    	</tr>
+			    }
+		    </table>
+		</div>
 	</div>	    							
 }

@@ -3,54 +3,56 @@
 @import helper._
 
 @main("City Form") {
-	<div class="row">
-		<h1>City Form</h1>
+	<div class="container">
+		<div class="row">
+			<h1>City Form</h1>
+		</div>
+		@form(routes.Admin.saveCity(), 'enctype -> "multipart/form-data") {
+			<div class="row">
+				<div class="span6">
+					@defining(city_form("cityId")) { formField =>
+						@if(formField.value==null) {
+						    @inputText(city_form("cityId"), '_label -> "City Id")
+						} else {
+						    @inputText(city_form("cityId"), '_label -> "City Id", 'readonly->"readonly")
+						} 
+					}
+	
+				    @inputText(city_form("name"), '_label -> "Name")
+	
+				    @inputText(city_form("stateOrCounty"), '_label -> "State Or County")
+	
+				    @inputText(city_form("country"), '_label -> "Country")
+				</div>
+				<div class="span4">
+					<button type="submit" class="btn btn-primary">Submit</button>
+					<a href="@routes.Admin.getCities()" class="btn">Go Back</a>	    							
+				</div>
+			</div>
+			<hr/>
+			<div class="row">
+				<div class="span12">
+					<table border="1">
+					@repeat(city_form("flagPhotos"), min = 0) { photoField =>
+						<tr>
+							<td><img width="50" height="50" src="/@play.Play.application.configuration.getString("photos.web.path")/@photoField("location").value/@photoField("originalPhoto").value"></td>
+							<td><input type="file" name="@photoField("photoId").value"></td> 
+							<td>@inputText(photoField("alternateText"), '_label -> "Alternate Text")</td>
+							<td>@inputText(photoField("photoOrder"), '_label -> "Photo Order")</td>
+							<input type="hidden" name="@photoField("photoId").name" value="@photoField("photoId").value"> 
+						</tr>
+					}
+						<tr>
+							<td></td>
+							<td><input type="file" name="photo1"></td>
+							<td><input type="text" name="photo1_alternate_text" placeholder="Alternate Text"></td>
+							<td><input type="text" name="photo1_photo_order" placeholder="Photo Order"></td>
+						</tr>
+					
+					</table>
+				</div>
+			</div>
+				    							
+	    }
 	</div>
-	@form(routes.Admin.saveCity(), 'enctype -> "multipart/form-data") {
-		<div class="row">
-			<div class="span6">
-				@defining(city_form("cityId")) { formField =>
-					@if(formField.value==null) {
-					    @inputText(city_form("cityId"), '_label -> "City Id")
-					} else {
-					    @inputText(city_form("cityId"), '_label -> "City Id", 'readonly->"readonly")
-					} 
-				}
-
-			    @inputText(city_form("name"), '_label -> "Name")
-
-			    @inputText(city_form("stateOrCounty"), '_label -> "State Or County")
-
-			    @inputText(city_form("country"), '_label -> "Country")
-			</div>
-			<div class="span4">
-				<button type="submit" class="btn btn-primary">Submit</button>
-				<a href="@routes.Admin.getCities()" class="btn">Go Back</a>	    							
-			</div>
-		</div>
-		<hr/>
-		<div class="row">
-			<div class="span12">
-				<table border="1">
-				@repeat(city_form("flagPhotos"), min = 0) { photoField =>
-					<tr>
-						<td><img width="50" height="50" src="/@play.Play.application.configuration.getString("photos.web.path")/@photoField("location").value/@photoField("originalPhoto").value"></td>
-						<td><input type="file" name="@photoField("photoId").value"></td> 
-						<td>@inputText(photoField("alternateText"), '_label -> "Alternate Text")</td>
-						<td>@inputText(photoField("photoOrder"), '_label -> "Photo Order")</td>
-						<input type="hidden" name="@photoField("photoId").name" value="@photoField("photoId").value"> 
-					</tr>
-				}
-					<tr>
-						<td></td>
-						<td><input type="file" name="photo1"></td>
-						<td><input type="text" name="photo1_alternate_text" placeholder="Alternate Text"></td>
-						<td><input type="text" name="photo1_photo_order" placeholder="Photo Order"></td>
-					</tr>
-				
-				</table>
-			</div>
-		</div>
-			    							
-    }
 }

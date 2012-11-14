@@ -3,97 +3,98 @@
 @import helper._
 
 @main("Experience Form") {
-	<div class="row">
-		<h1>Experience Form</h1>
-	</div>
-	@form(routes.Admin.saveExperience(city), 'enctype -> "multipart/form-data") {
+	<div class="container">
 		<div class="row">
-			<div class="span3">
-				@defining(exp_form("experienceId")) { formField =>
-					<input type="hidden" name="@formField.name" value="@formField.value"> 
-				}
+			<h1>Experience Form</h1>
+		</div>
+		@form(routes.Admin.saveExperience(city), 'enctype -> "multipart/form-data") {
+			<div class="row">
+				<div class="span3">
+					@defining(exp_form("experienceId")) { formField =>
+						<input type="hidden" name="@formField.name" value="@formField.value"> 
+					}
+					
+				    @select(exp_form("venue.venueId"), options(venues), '_label -> "Venue")
+	
+				    @select(exp_form("category.categoryId"), options(categories), '_label -> "Category")
+	
+				    @inputText(exp_form("name"), '_label -> "Name")
+				</div>
 				
-			    @select(exp_form("venue.venueId"), options(venues), '_label -> "Venue")
-
-			    @select(exp_form("category.categoryId"), options(categories), '_label -> "Category")
-
-			    @inputText(exp_form("name"), '_label -> "Name")
+				<div class="span6">
+				    @textarea(exp_form("description"), '_label -> "Description", 'rows->8, 'class->"span5")
+				</div>
+	
+				<div class="span3">
+				    @inputText(exp_form("email"), '_label -> "Email")
+	
+				    @inputText(exp_form("priceDescription"), '_label -> "Price Description")
+				    
+				    @inputText(exp_form("priceRating"), '_label -> "Price Rating (0-3)")
+				</div>
+			</div>	
+			<div class="row">
+				<div class="span3">
+				    @inputText(exp_form("phone"), '_label -> "Phone")
+				    
+				    @inputText(exp_form("scheduleDescription"), '_label -> "Schedule (col::, row..)")
+				</div>
+	
+				<div class="span3">
+				    @inputText(exp_form("originalSource"), '_label -> "Original Source")
+	
+				    @inputText(exp_form("tags"), '_label -> "Tags (comma separated)")
+				</div>
+	
+				<div class="span3">
+				    @inputDate(exp_form("startDate"), '_label -> "Start date")
+	
+				    @inputDate(exp_form("endDate"), '_label -> "End date")
+				</div>
+	
+				<div class="span3">
+				    @inputText(exp_form("duration"), '_label -> "Duration (in hours)")
+	
+					<button type="submit" class="btn btn-primary">Submit</button>
+					<a href="@routes.Admin.getExperiences(city)" class="btn">Go Back</a>	    							
+				</div>
 			</div>
-			
-			<div class="span6">
-			    @textarea(exp_form("description"), '_label -> "Description", 'rows->8, 'class->"span5")
+			<hr/>
+			<div class="row">
+				<div class="span12">
+					<table border="1">
+					@repeat(exp_form("experiencePhotos"), min = 0) { photoField =>
+						<tr>
+							<td><img width="50" height="50" src="/@play.Play.application.configuration.getString("photos.web.path")/@photoField("location").value/@photoField("originalPhoto").value"></td>
+							<td><input type="file" name="@photoField("photoId").value"></td> 
+							<td>@inputText(photoField("alternateText"), '_label -> "Alternate Text")</td>
+							<td>@inputText(photoField("photoOrder"), '_label -> "Photo Order")</td>
+							<input type="hidden" name="@photoField("photoId").name" value="@photoField("photoId").value"> 
+						</tr>
+					}
+						<tr>
+							<td></td>
+							<td><input type="file" name="photo1"></td>
+							<td><input type="text" name="photo1_alternate_text" placeholder="Alternate Text"></td>
+							<td><input type="text" name="photo1_photo_order" placeholder="Photo Order"></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td><input type="file" name="photo2"></td>
+							<td><input type="text" name="photo2_alternate_text" placeholder="Alternate Text"></td>
+							<td><input type="text" name="photo2_photo_order" placeholder="Photo Order"></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td><input type="file" name="photo3"></td>
+							<td><input type="text" name="photo3_alternate_text" placeholder="Alternate Text"></td>
+							<td><input type="text" name="photo3_photo_order" placeholder="Photo Order"></td>
+						</tr>
+					</table>
+				</div>
 			</div>
-
-			<div class="span3">
-			    @inputText(exp_form("email"), '_label -> "Email")
-
-			    @inputText(exp_form("priceDescription"), '_label -> "Price Description")
-			    
-			    @inputText(exp_form("priceRating"), '_label -> "Price Rating (0-3)")
-			</div>
-		</div>	
-		<div class="row">
-			<div class="span3">
-			    @inputText(exp_form("phone"), '_label -> "Phone")
-			    
-			    @inputText(exp_form("scheduleDescription"), '_label -> "Schedule (col::, row..)")
-			</div>
-
-			<div class="span3">
-			    @inputText(exp_form("originalSource"), '_label -> "Original Source")
-
-			    @inputText(exp_form("tags"), '_label -> "Tags (comma separated)")
-			</div>
-
-			<div class="span3">
-			    @inputDate(exp_form("startDate"), '_label -> "Start date")
-
-			    @inputDate(exp_form("endDate"), '_label -> "End date")
-			</div>
-
-			<div class="span3">
-			    @inputText(exp_form("duration"), '_label -> "Duration (in hours)")
-
-				<button type="submit" class="btn btn-primary">Submit</button>
-				<a href="@routes.Admin.getExperiences(city)" class="btn">Go Back</a>	    							
-			</div>
-		</div>
-		<hr/>
-		<div class="row">
-			<div class="span12">
-				<table border="1">
-				@repeat(exp_form("experiencePhotos"), min = 0) { photoField =>
-					<tr>
-						<td><img width="50" height="50" src="/@play.Play.application.configuration.getString("photos.web.path")/@photoField("location").value/@photoField("originalPhoto").value"></td>
-						<td><input type="file" name="@photoField("photoId").value"></td> 
-						<td>@inputText(photoField("alternateText"), '_label -> "Alternate Text")</td>
-						<td>@inputText(photoField("photoOrder"), '_label -> "Photo Order")</td>
-						<input type="hidden" name="@photoField("photoId").name" value="@photoField("photoId").value"> 
-					</tr>
-				}
-					<tr>
-						<td></td>
-						<td><input type="file" name="photo1"></td>
-						<td><input type="text" name="photo1_alternate_text" placeholder="Alternate Text"></td>
-						<td><input type="text" name="photo1_photo_order" placeholder="Photo Order"></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td><input type="file" name="photo2"></td>
-						<td><input type="text" name="photo2_alternate_text" placeholder="Alternate Text"></td>
-						<td><input type="text" name="photo2_photo_order" placeholder="Photo Order"></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td><input type="file" name="photo3"></td>
-						<td><input type="text" name="photo3_alternate_text" placeholder="Alternate Text"></td>
-						<td><input type="text" name="photo3_photo_order" placeholder="Photo Order"></td>
-					</tr>
-				</table>
-			</div>
-		</div>
-    }
-    
+	    }
+    </div>
 	<script type="text/javascript" src="@routes.Assets.at("tiny_mce/tiny_mce.js")" ></script>
 	<script type="text/javascript" >
 		tinyMCE.init({

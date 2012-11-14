@@ -10,31 +10,36 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 # Tests
 GET		/@tests/populate			tests.TestController.populate()
-GET		/@tests/venues/:venue		tests.TestController.getExperiencesAtVenue(venue: String)
-GET		/@tests/:city				tests.TestController.city(city: String)
-GET		/@tests/:city/:category		tests.TestController.cityAndCategory(city: String, category: String)
-GET		/@tests/:city/:category/:durationLow/:durationHigh/:priceLow/:priceHigh		tests.TestController.allFilters(city: String, category: String, durationLow: String, durationHigh: String, priceLow: String, priceHigh: String)
+GET		/@tests/venues/:venueId		tests.TestController.getExperiencesAtVenue(venueId: String)
+GET		/@tests/:cityId				tests.TestController.city(cityId: String)
+GET		/@tests/:cityId/:categoryId		tests.TestController.cityAndCategory(cityId: String, categoryId: String)
+GET		/@tests/:cityId/:categoryId/:durationLow/:durationHigh/:priceLow/:priceHigh		tests.TestController.allFilters(cityId: String, categoryId: String, durationLow: String, durationHigh: String, priceLow: String, priceHigh: String)
 
-#Admin
-GET		/admin						controllers.Admin.getMain()
-
-GET		/admin/:city/experiences					controllers.Admin.getExperiences(city: String)
-POST	/admin/:city/experiences					controllers.Admin.saveExperience(city: String)
-GET		/admin/:city/experiences/:experience		controllers.Admin.showExperienceForm(city: String, experience: String)
-
-GET		/admin/:city/venues				controllers.Admin.getVenues(city: String)
-POST	/admin/:city/venues				controllers.Admin.saveVenue(city: String)
-GET		/admin/:city/venues/:venue		controllers.Admin.showVenueForm(city: String, venue: String)
-
-GET		/admin/categories				controllers.Admin.getCategories()
-POST	/admin/categories				controllers.Admin.saveCategory()
-GET		/admin/categories/:category		controllers.Admin.showCategoryForm(category: String)
-
+#######
+# Admin
+#######
+GET		/admin/main						controllers.Admin.getMain()
+GET		/admin/:cityId/experiences					controllers.Admin.getExperiences(cityId: String)
+POST	/admin/:cityId/experiences					controllers.Admin.saveExperience(cityId: String)
+GET		/admin/:cityId/experiences/:experienceId	controllers.Admin.showExperienceForm(cityId: String, experienceId: String)
+GET		/admin/:cityId/venues				controllers.Admin.getVenues(cityId: String)
+POST	/admin/:cityId/venues				controllers.Admin.saveVenue(cityId: String)
+GET		/admin/:cityId/venues/:venueId		controllers.Admin.showVenueForm(cityId: String, venueId: String)
+GET		/admin/categories					controllers.Admin.getCategories()
+POST	/admin/categories					controllers.Admin.saveCategory()
+GET		/admin/categories/:categoryId		controllers.Admin.showCategoryForm(categoryId: String)
 GET		/admin/cities				controllers.Admin.getCities()
 POST	/admin/cities				controllers.Admin.saveCity()
-GET		/admin/cities/:city			controllers.Admin.showCityForm(city: String)
-
+GET		/admin/cities/:cityId		controllers.Admin.showCityForm(cityId: String)
 GET		/admin/users				controllers.Admin.getUsers()
 POST	/admin/users				controllers.Admin.saveUser()
-GET		/admin/users/:user			controllers.Admin.showUserForm(user: String)
+GET		/admin/users/:userId		controllers.Admin.showUserForm(userId: String)
+
+
+#############
+# Application
+#############
+GET		/:cityId/:categoryId/experiences	controllers.Application.getExperiences(cityId: String, categoryId: String)
+GET		/experiences/:experienceId			controllers.Application.getExperience(experienceId: String)
+
 

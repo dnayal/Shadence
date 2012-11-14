@@ -1,24 +1,26 @@
 @(categories: List[ExperienceCategory])
 
 @main("Experience Categories") {
-	<div class="row">
-		<h5><a href="@routes.Admin.getMain()">[Main Page]</a></h5>
-		<h1>Experience Categories</h1>
-		<p>
-			<a href="@routes.Admin.showCategoryForm("new")">NEW</a>
-		</p>
-	</div>
-	<div class="row">
-	    <table border="1" cellpadding="10">
-	    	<tr>
-	    		<th>Name</th>
-	    	</tr>
-		    @for(category <- categories) {
+	<div class="container">
+		<div class="row">
+			<h5><a href="@routes.Admin.getMain()">[Main Page]</a></h5>
+			<h1>Experience Categories</h1>
+			<p>
+				<a href="@routes.Admin.showCategoryForm("new")">NEW</a>
+			</p>
+		</div>
+		<div class="row">
+		    <table border="1" cellpadding="10">
 		    	<tr>
-		    		<td>@category.getName()</td>
-		    		<td><a href="@routes.Admin.showCategoryForm(category.getCategoryId)">EDIT</a></td>
+		    		<th>Name</th>
 		    	</tr>
-		    }
-	    </table>
-	</div>	    							
+			    @for(category <- categories) {
+			    	<tr>
+			    		<td>@category.getName()</td>
+			    		<td><a href="@routes.Admin.showCategoryForm(category.getCategoryId)">EDIT</a></td>
+			    	</tr>
+			    }
+		    </table>
+		</div>	    							
+	</div>
 }

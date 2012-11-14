@@ -1,24 +1,26 @@
 @(city: String, venues: List[Venue])
 
 @main("Venues") {
-	<div class="row">
-		<h5><a href="@routes.Admin.getMain()">[Main Page]</a></h5>
-		<h1>Venues - @handlers.CityHandler.getCity(city).getName()</h1>
-		<p>
-			<a href="@routes.Admin.showVenueForm(city,"new")">NEW</a>
-		</p>
-	</div>
-	<div class="row">
-	    <table border="1" cellpadding="10">
-	    	<tr>
-	    		<th>Name</th>
-	    	</tr>
-		    @for(venue <- venues) {
+	<div class="container">
+		<div class="row">
+			<h5><a href="@routes.Admin.getMain()">[Main Page]</a></h5>
+			<h1>Venues - @handlers.CityHandler.getCity(city).getName()</h1>
+			<p>
+				<a href="@routes.Admin.showVenueForm(city,"new")">NEW</a>
+			</p>
+		</div>
+		<div class="row">
+		    <table border="1" cellpadding="10">
 		    	<tr>
-		    		<td>@venue.getName()</td>
-		    		<td><a href="@routes.Admin.showVenueForm(city, venue.getVenueId)">EDIT</a></td>
+		    		<th>Name</th>
 		    	</tr>
-		    }
-	    </table>
+			    @for(venue <- venues) {
+			    	<tr>
+			    		<td>@venue.getName()</td>
+			    		<td><a href="@routes.Admin.showVenueForm(city, venue.getVenueId)">EDIT</a></td>
+			    	</tr>
+			    }
+		    </table>
+		</div>
 	</div>	    							
 }

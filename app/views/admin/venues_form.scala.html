@@ -3,33 +3,35 @@
 @import helper._
 
 @main("Venue Form") {
-	<div class="row">
-		<h1>Venue Form</h1>
-	</div>
-	@form(routes.Admin.saveVenue(city)) {
+	<div class="container">
 		<div class="row">
-			<div class="span6">
-				@defining(venue_form("venueId")) { formField =>
-					<input type="hidden" name="@formField.name" value="@formField.value"> 
-				}
-				
-			    @select(venue_form("city.cityId"), options(cities), '_label -> "City")
-
-			    @inputText(venue_form("name"), '_label -> "Name")
-			    
-			    @inputText(venue_form("address"), '_label -> "Address")
-			    
-			    @inputText(venue_form("postcode"), '_label -> "Postcode")
-			</div>
-			
-			<div class="span6">
-			    @inputText(venue_form("latitude"), '_label -> "Latitude")
-			    
-			    @inputText(venue_form("longitude"), '_label -> "Longitude")
-			    
-			</div>
-
+			<h1>Venue Form</h1>
 		</div>
-		<button type="submit" class="btn btn-primary">Submit</button>	    							
-    }
+		@form(routes.Admin.saveVenue(city)) {
+			<div class="row">
+				<div class="span6">
+					@defining(venue_form("venueId")) { formField =>
+						<input type="hidden" name="@formField.name" value="@formField.value"> 
+					}
+					
+				    @select(venue_form("city.cityId"), options(cities), '_label -> "City")
+	
+				    @inputText(venue_form("name"), '_label -> "Name")
+				    
+				    @inputText(venue_form("address"), '_label -> "Address")
+				    
+				    @inputText(venue_form("postcode"), '_label -> "Postcode")
+				</div>
+				
+				<div class="span6">
+				    @inputText(venue_form("latitude"), '_label -> "Latitude")
+				    
+				    @inputText(venue_form("longitude"), '_label -> "Longitude")
+				    
+				</div>
+	
+			</div>
+			<button type="submit" class="btn btn-primary">Submit</button>	    							
+	    }
+    </div>
 }
