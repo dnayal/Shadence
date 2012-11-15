@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 
 import play.db.ebean.Model;
+import utils.Util;
 
 @Entity
 public class Experience extends Model {
@@ -137,7 +138,7 @@ public class Experience extends Model {
 	}
 
 	public String getName() {
-		return name;
+		return Util.getString(name);
 	}
 
 	public void setName(String name) {
@@ -145,7 +146,7 @@ public class Experience extends Model {
 	}
 
 	public String getEmail() {
-		return email;
+		return Util.getString(email);
 	}
 
 	public void setEmail(String email) {
@@ -153,7 +154,7 @@ public class Experience extends Model {
 	}
 
 	public String getPhone() {
-		return phone;
+		return Util.getString(phone);
 	}
 
 	public void setPhone(String phone) {
@@ -169,7 +170,7 @@ public class Experience extends Model {
 	}
 
 	public String getPriceDescription() {
-		return priceDescription;
+		return Util.getString(priceDescription);
 	}
 
 	public void setPriceDescription(String priceDescription) {
@@ -193,7 +194,7 @@ public class Experience extends Model {
 	}
 
 	public String getScheduleDescription() {
-		return scheduleDescription;
+		return Util.getString(scheduleDescription);
 	}
 
 	public void setScheduleDescription(String scheduleDescription) {

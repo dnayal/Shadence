@@ -15,6 +15,14 @@ GET		/@tests/:cityId				tests.TestController.city(cityId: String)
 GET		/@tests/:cityId/:categoryId		tests.TestController.cityAndCategory(cityId: String, categoryId: String)
 GET		/@tests/:cityId/:categoryId/:durationLow/:durationHigh/:priceLow/:priceHigh		tests.TestController.allFilters(cityId: String, categoryId: String, durationLow: String, durationHigh: String, priceLow: String, priceHigh: String)
 
+
+#############
+# Application
+#############
+GET		/experiences/:cityId/:categoryId	controllers.Application.getExperiences(cityId: String, categoryId: String)
+GET		/experiences/:experienceId			controllers.Application.getExperience(experienceId: String)
+
+
 #######
 # Admin
 #######
@@ -34,12 +42,5 @@ GET		/admin/cities/:cityId		controllers.Admin.showCityForm(cityId: String)
 GET		/admin/users				controllers.Admin.getUsers()
 POST	/admin/users				controllers.Admin.saveUser()
 GET		/admin/users/:userId		controllers.Admin.showUserForm(userId: String)
-
-
-#############
-# Application
-#############
-GET		/:cityId/:categoryId/experiences	controllers.Application.getExperiences(cityId: String, categoryId: String)
-GET		/experiences/:experienceId			controllers.Application.getExperience(experienceId: String)
 
 

@@ -1,0 +1,142 @@
+@(experience: Experience)
+
+@import util._
+
+@main("Experience") {
+	<div class="container">
+	
+		<div class="row">
+			<div class="span4">
+				<ul class="breadcrumb">
+					<li>
+						<a href="@routes.Application.getExperiences(experience.getVenue.getCity.getCityId, play.Play.application.configuration.getString("category.default"))">
+							@defining(experience.getVenue.getCity.getFlagPhotos.get(0)) { flagPhoto =>
+							<img width="30" height="30" src="@routes.Assets.at(play.Play.application.configuration.getString("photos.routes.assets.path") + "/" + flagPhoto.getLocation + "/" + flagPhoto.getSmallPhoto)"/>&nbsp;@experience.getVenue.getCity.getName
+							}
+						</a> 
+						<span class="divider">></span>
+					</li>
+					<li>
+						<a href="@routes.Application.getExperiences(experience.getVenue.getCity.getCityId, experience.getCategory.getCategoryId)">
+							@experience.getCategory.getName
+						</a> 
+						<span class="divider">></span>
+					</li>
+					<li>Experience</li>
+				</ul>
+			</div>
+			<div class="span4 main-logo">
+	    		<h1 class="logo-text">@play.Play.application.configuration.getString("application.name")</h1>
+			</div>
+		</div>	
+		
+		<div class="row">
+			<div class="span6">
+	    		<h1>@experience.getName</h1>
+		    </div>
+		</div>
+		
+		<div class="row">
+			<div class="span6">  
+				<div id="galleria" class="img-polaroid" style="width:100%;height:400px;display:none;">
+				@for(photo <- experience.getExperiencePhotos) {
+					<img src="@routes.Assets.at(play.Play.application.configuration.getString("photos.routes.assets.path") + "/" + photo.getLocation + "/" + photo.getLargePhoto)" alt="@photo.getAlternateText">
+				}
+				</div>
+				<br/>
+			</div> 
+			<div class="span4 experience-information">
+					<div class="div-header">Contact</div>
+					@if(experience.getPhone != "") {
+						<strong>Phone - </strong> @experience.getPhone
+						<br/>
+					}
+
+					@if(experience.getEmail != "") {
+						<strong>Email - </strong> @experience.getEmail
+						<br/>
+					}
+					<strong>Venue</strong>
+					<br/>
+					@experience.getVenue.getName<br/> @experience.getVenue.getAddress, <br/> @experience.getVenue.getCity.getName, @experience.getVenue.getPostcode
+					<br/>
+					<div class="thumbnail" id="venue-map"></div>
+				</p>
+			</div>
+		</div>	
+			
+		<div class="row">
+			<div class="span10 experience-information">
+				<div class="div-header">About Experience</div>
+				<div class="row"> <!-- start inner row -->
+					<div class="span8">
+					@Html(experience.getDescription)
+					</div>
+					<div class="span2">
+						<p>
+							<table border="0" cellpadding="3px">
+								@if(experience.getPriceDescription != "") {
+									<tr><th colspan="2" align="left" bgcolor="#E8E8E8">Price</th></tr>
+									<tr><td>@experience.getPriceDescription</td><td>&nbsp;</td></tr>
+								}
+								@if(experience.getDuration != null) {
+									<tr><th colspan="2" align="left" bgcolor="#E8E8E8">Duration</th></tr>
+									<tr><td>@experience.getDuration</td><td>&nbsp;</td></tr>
+								}
+								@if(experience.getScheduleDescription != "") {
+									<tr><th colspan="2" align="left" bgcolor="#E8E8E8">Schedule</th></tr>
+									@shadence_schedule(experience.getScheduleDescription)
+								}
+							</table>
+						</p>	
+					</div>
+				</div> <!-- end inner row -->
+				<br/>
+				<p>
+					<a class="original-source" style="text-decoration:none;" target="_new" href="@experience.getOriginalSource">Original Source</a>
+				</p>	
+			</div>
+		</div> <!-- outer row -->
+		
+		<div class="row">
+			<hr/>
+			<div class="span4">&nbsp;</div>
+			<div class="span4">
+		    	<p>
+					| Shadence &copy; 2012 |
+				</p>			
+			</div>
+			<div class="span4">&nbsp;</div>
+		</div>
+
+    </div>
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript" src="@routes.Assets.at("bootstrap/js/bootstrap.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("shadence/js/galleria-1.2.8.min.js")"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			Galleria.loadTheme("@routes.Assets.at("shadence/js/galleria.classic.min.js")");
+	    	Galleria.run("#galleria");
+		    $('#galleria').show();
+		    drawMap();
+		});
+		
+		function drawMap() {
+		    var geocoder = new google.maps.Geocoder();
+		    var latlng = new google.maps.LatLng(@experience.getVenue.getLatitude, @experience.getVenue.getLongitude);
+		    var myOptions = {
+		      zoom: 14,
+		      center: latlng,
+		      mapTypeId: google.maps.MapTypeId.ROADMAP
+		    };
+		    var map = new google.maps.Map(document.getElementById("venue-map"), myOptions);
+	        map.setCenter(latlng);
+	        var marker = new google.maps.Marker({
+	            map: map, 
+	            position: latlng
+	        });
+		}
+	</script>
+}

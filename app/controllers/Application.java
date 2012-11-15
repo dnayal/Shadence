@@ -18,8 +18,9 @@ public class Application extends Controller {
 	
 	static Configuration config = Play.application().configuration();
   
+	
 	public static Result index() {
-		return ok(index.render(Experience.find.all()));
+		return redirect(routes.Application.getExperiences(config.getString("city.default"), config.getString("category.default")));
 	}
 
 
@@ -31,14 +32,17 @@ public class Application extends Controller {
 		else
 			experienceList = ExperienceHandler.getExperiences(cityId, categoryId);
 		
-		return ok(experiences.render(cityId, experienceList));
+		return ok(experiences.render(cityId, categoryId, experienceList));
 		
 	}
 
 
 	public static Result getExperience(String experienceId) {
-		Experience experience = ExperienceHandler.getExperience(experienceId);
-		return TODO;
+		Experience exp = ExperienceHandler.getExperience(experienceId);
+		if(exp==null)
+			return TODO;
+		else
+			return ok(experience.render(exp));
 	}
 
 }
