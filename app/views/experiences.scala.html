@@ -9,7 +9,7 @@
 			<div class="span4 affix">	    		
 				<h2>
 					@defining(CityHandler.getCity(cityId).getFlagPhotos.get(0)) { flagPhoto =>
-					<img width="30" height="30" src="@routes.Assets.at(play.Play.application.configuration.getString("photos.routes.assets.path") + "/" + flagPhoto.getLocation + "/" + flagPhoto.getSmallPhoto)"/>&nbsp;@CityHandler.getCity(cityId).getName
+					<img width="30" height="30" src="@flagPhoto.getSmallPhotoURL"/>&nbsp;@CityHandler.getCity(cityId).getName
 					}
 				</h2>
 			</div>
@@ -54,7 +54,7 @@
 					<div class="thumbnail masonary-item">
 						<a href="@routes.Application.getExperience(experience.getExperienceId)">
 							@defining(experience.getExperiencePhotos.get(0)) { experiencePhoto =>
-								<img src="@routes.Assets.at(play.Play.application.configuration.getString("photos.routes.assets.path") + "/" + experiencePhoto.getLocation + "/" + experiencePhoto.getLargePhoto)" width="500px" height="200px" alt="@experiencePhoto.getAlternateText">
+								<img src="@experiencePhoto.getLargePhotoURL" width="500px" height="200px" alt="@experiencePhoto.getAlternateText">
 							}
 							<h4>@experience.getName</h4>
 						</a>	

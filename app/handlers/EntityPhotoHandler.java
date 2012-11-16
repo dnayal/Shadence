@@ -233,11 +233,8 @@ public class EntityPhotoHandler {
 				break;
 		}
 		
-		Configuration config = Play.application().configuration();
-		
 		for (EntityPhoto photo : photoList)
-			photos.put(photo.getPhotoId(), config.getString("photos.web.path")
-					.concat("/" + photo.getLocation() + "/" + photo.getOriginalPhoto()));
+			photos.put(photo.getPhotoId(), photo.getLargePhotoURL());
 
 		return photos;
 	}

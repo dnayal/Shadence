@@ -6,6 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import play.Play;
 import play.db.ebean.Model;
 
 @Entity
@@ -184,6 +185,30 @@ public class EntityPhoto extends Model {
 
 	public void setCreateTimestamp(Long createTimestamp) {
 		this.createTimestamp = createTimestamp;
+	}
+	
+	public String getOriginalPhotoURL() {
+		return "/".concat(Play.application().configuration().getString("photos.web.path"))
+				.concat("/").concat(location)
+				.concat("/").concat(originalPhoto);
+	}
+
+	public String getLargePhotoURL() {
+		return "/".concat(Play.application().configuration().getString("photos.web.path"))
+				.concat("/").concat(location)
+				.concat("/").concat(largePhoto);
+	}
+
+	public String getMediumPhotoURL() {
+		return "/".concat(Play.application().configuration().getString("photos.web.path"))
+				.concat("/").concat(location)
+				.concat("/").concat(mediumPhoto);
+	}
+
+	public String getSmallPhotoURL() {
+		return "/".concat(Play.application().configuration().getString("photos.web.path"))
+				.concat("/").concat(location)
+				.concat("/").concat(smallPhoto);
 	}
 
 }
