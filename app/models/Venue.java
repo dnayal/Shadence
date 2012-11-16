@@ -7,6 +7,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import play.db.ebean.Model;
+import utils.Util;
 
 @Entity
 public class Venue extends Model {
@@ -69,7 +70,7 @@ public class Venue extends Model {
 	}
 
 	public String getName() {
-		return name;
+		return Util.getString(name);
 	}
 
 	public void setName(String name) {
@@ -77,7 +78,7 @@ public class Venue extends Model {
 	}
 
 	public String getAddress() {
-		return address;
+		return Util.getString(address);
 	}
 
 	public void setAddress(String address) {
@@ -85,7 +86,7 @@ public class Venue extends Model {
 	}
 
 	public String getPostcode() {
-		return postcode;
+		return Util.getString(postcode);
 	}
 
 	public void setPostcode(String postcode) {

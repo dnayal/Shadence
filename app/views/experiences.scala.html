@@ -71,16 +71,10 @@
 	<script type="text/javascript" src="@routes.Assets.at("shadence/js/jquery.masonry.min.js")"></script>
 	<script type="text/javascript" src="@routes.Assets.at("shadence/js/jquery.imagesloaded.min.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("bootstrap/js/bootstrap.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("shadence/js/main.js")"></script>
     <script type="text/javascript">
     	$(document).ready(function(){
-			$('.masonary-container').imagesLoaded(function() {
-				$('.masonary-container').masonry({
-					itemSelector : '.masonary-item',
-					isFitWidth: true,
-	        		gutterWidth: 10,
-					isResizable: true
-				});
-			});	
+			initMasonry(".masonary-container", ".masonary-item")
 			
 			$("#price-slider").slider({
 				range:true,

@@ -8,20 +8,13 @@ GET     /                           controllers.Application.index()
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
-# Tests
-GET		/@tests/populate			tests.TestController.populate()
-GET		/@tests/venues/:venueId		tests.TestController.getExperiencesAtVenue(venueId: String)
-GET		/@tests/:cityId				tests.TestController.city(cityId: String)
-GET		/@tests/:cityId/:categoryId		tests.TestController.cityAndCategory(cityId: String, categoryId: String)
-GET		/@tests/:cityId/:categoryId/:durationLow/:durationHigh/:priceLow/:priceHigh		tests.TestController.allFilters(cityId: String, categoryId: String, durationLow: String, durationHigh: String, priceLow: String, priceHigh: String)
-
 
 #############
 # Application
 #############
 GET		/experiences/:cityId/:categoryId	controllers.Application.getExperiences(cityId: String, categoryId: String)
 GET		/experiences/:experienceId			controllers.Application.getExperience(experienceId: String)
-
+GET 	/venues/:venueId					controllers.Application.getVenue(venueId: String)
 
 #######
 # Admin

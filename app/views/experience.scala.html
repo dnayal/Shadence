@@ -56,9 +56,10 @@
 						<strong>Email - </strong> @experience.getEmail
 						<br/>
 					}
-					<strong>Venue</strong>
+					<strong>Venue - </strong>
 					<br/>
-					@experience.getVenue.getName<br/> @experience.getVenue.getAddress, <br/> @experience.getVenue.getCity.getName, @experience.getVenue.getPostcode
+					<a href="@routes.Application.getVenue(experience.getVenue.getVenueId)">@experience.getVenue.getName</a>
+					<br/> @experience.getVenue.getAddress, <br/> @experience.getVenue.getCity.getName, @experience.getVenue.getPostcode
 					<br/>
 					<div class="thumbnail" id="venue-map"></div>
 				</p>
@@ -115,28 +116,16 @@
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
     <script type="text/javascript" src="@routes.Assets.at("bootstrap/js/bootstrap.min.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("shadence/js/galleria-1.2.8.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("shadence/js/main.js")"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
+
 			Galleria.loadTheme("@routes.Assets.at("shadence/js/galleria.classic.min.js")");
 	    	Galleria.run("#galleria");
 		    $('#galleria').show();
-		    drawMap();
+		    
+		    drawMap("venue-map", @experience.getVenue.getLatitude, @experience.getVenue.getLongitude);
 		});
 		
-		function drawMap() {
-		    var geocoder = new google.maps.Geocoder();
-		    var latlng = new google.maps.LatLng(@experience.getVenue.getLatitude, @experience.getVenue.getLongitude);
-		    var myOptions = {
-		      zoom: 14,
-		      center: latlng,
-		      mapTypeId: google.maps.MapTypeId.ROADMAP
-		    };
-		    var map = new google.maps.Map(document.getElementById("venue-map"), myOptions);
-	        map.setCenter(latlng);
-	        var marker = new google.maps.Marker({
-	            map: map, 
-	            position: latlng
-	        });
-		}
 	</script>
 }

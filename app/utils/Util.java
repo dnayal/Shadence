@@ -18,5 +18,13 @@ public class Util {
 	public static String getFileExtension(String filename){
 		return filename.trim().substring(filename.lastIndexOf("."));
 	}
+	
+	
+	public static String concatIfNotEmpty(String string, String character, String replace) {
+		if (getString(string).equalsIgnoreCase(""))
+			return replace;
+		else
+			return getString(string).concat(character);
+	}
 
 }

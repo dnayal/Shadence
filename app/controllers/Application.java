@@ -1,6 +1,7 @@
 package controllers;
 
 import handlers.ExperienceHandler;
+import handlers.VenueHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import play.Play;
 import play.mvc.Controller;
 import play.mvc.Result;
 import models.Experience;
+import models.Venue;
 
 import utils.Util;
 import views.html.*;
@@ -43,6 +45,15 @@ public class Application extends Controller {
 			return TODO;
 		else
 			return ok(experience.render(exp));
+	}
+	
+	public static Result getVenue(String venueId) {
+		Venue v = VenueHandler.getVenue(venueId);
+		
+		if (v==null)
+			return TODO;
+		else
+			return ok(venue.render(v, ExperienceHandler.getExperiencesAtVenue(venueId)));
 	}
 
 }

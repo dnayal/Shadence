@@ -1,0 +1,88 @@
+@(venue: Venue, experiences: List[Experience])
+
+@import utils._
+
+@main("Venue") {
+	<div class="container">
+
+		<div class="row">
+			<div class="span4">	    		
+				<ul class="breadcrumb">
+					<li>
+						<a href="@routes.Application.getExperiences(venue.getCity.getCityId, play.Play.application.configuration.getString("category.default"))">
+							@defining(venue.getCity.getFlagPhotos.get(0)) { flagPhoto =>
+							<img width="30" height="30" src="@routes.Assets.at(play.Play.application.configuration.getString("photos.routes.assets.path") + "/" + flagPhoto.getLocation + "/" + flagPhoto.getSmallPhoto)"/>&nbsp;@venue.getCity.getName
+							}
+						</a> 
+						<span class="divider">></span>
+					</li>
+					<li>Venue</li>
+				</ul>
+			</div>
+			<div class="span4 main-logo" align="center">
+	    		<h1 class="logo-text">@play.Play.application.configuration.getString("application.name")</h1>
+	    	</div>
+		    <div class="span4">&nbsp;</div>
+		</div>
+		
+		<div class="row">
+			<div class="span4">&nbsp;</div>
+			<div class="span4" align="center">
+				<h1>@venue.getName</h1>
+				<h5>
+					@Util.concatIfNotEmpty(venue.getAddress, ",", "") 
+					@Util.concatIfNotEmpty(venue.getCity.getStateOrCounty, ",", "") 
+					@venue.getCity.getName, @venue.getPostcode, @venue.getCity.getCountry</h5>
+	    	</div>
+		    <div class="span4">&nbsp;</div>
+		</div>
+
+		<div class="row">
+			<div class="offset3 span6" align="center">
+				<div class="thumbnail experience-information" id="venue-map"></div>
+			</div>
+		</div>
+
+		<br/><br/>
+
+		<div class="row">
+			<div class="offset4 span4" align="center" style="border-bottom:1px solid lightgray;border-top:1px solid lightgray">
+				<h4>Experiences at @venue.getName</h4>
+			</div>
+		</div>
+
+		<br/>
+
+		<div class="row">
+			<div class="span12">
+		    	<div class="masonary-container experiences-stream">
+		    	@for(experience <- experiences) {
+					<div class="thumbnail masonary-item">
+						<a href="@routes.Application.getExperience(experience.getExperienceId)">
+							@defining(experience.getExperiencePhotos.get(0)) { experiencePhoto =>
+								<img src="@routes.Assets.at(play.Play.application.configuration.getString("photos.routes.assets.path") + "/" + experiencePhoto.getLocation + "/" + experiencePhoto.getLargePhoto)" width="500px" height="200px" alt="@experiencePhoto.getAlternateText">
+							}
+							<h4>@experience.getName</h4>
+						</a>	
+					</div>
+				}
+    			</div>
+   			</div>	
+		</div>
+
+   	</div>
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	<script type="text/javascript" src="@routes.Assets.at("shadence/js/jquery.masonry.min.js")"></script>
+	<script type="text/javascript" src="@routes.Assets.at("shadence/js/jquery.imagesloaded.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("bootstrap/js/bootstrap.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("shadence/js/main.js")"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			initMasonry(".masonary-container", ".masonary-item")
+			drawMap("venue-map", @venue.getLatitude, @venue.getLongitude);
+		});
+		
+	</script>
+}
