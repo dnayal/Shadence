@@ -26,5 +26,29 @@ public class Util {
 		else
 			return getString(string).concat(character);
 	}
+	
+	
+	public static String getDurationDescription(Integer duration) {
+		String result = null;
+		if (duration == null) {
+			result = "";
+		} else {
+			Float days = duration/ 24f;
+			if (days >= 1) {
+				if (days > 1)
+					result = String.valueOf(days-days.intValue()==0?""+days.intValue():""+days).concat(" days");
+				else
+					result = String.valueOf(days-days.intValue()==0?""+days.intValue():""+days).concat(" day");
+			} else {
+				if (duration > 1)
+					result = String.valueOf(duration).concat(" hours");
+				else
+					result = String.valueOf(duration).concat(" hour");
+			}
+		}
+		
+		return result;
+		
+	}
 
 }

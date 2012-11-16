@@ -82,7 +82,7 @@
 								}
 								@if(experience.getDuration != null) {
 									<tr><th colspan="2" align="left" bgcolor="#E8E8E8">Duration</th></tr>
-									<tr><td>@experience.getDuration</td><td>&nbsp;</td></tr>
+									<tr><td>@utils.Util.getDurationDescription(experience.getDuration)</td><td>&nbsp;</td></tr>
 								}
 								@if(experience.getScheduleDescription != "") {
 									<tr><th colspan="2" align="left" bgcolor="#E8E8E8">Schedule</th></tr>
