@@ -4,9 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import play.Configuration;
-import play.Play;
-
 import utils.Util;
 
 import models.ExperienceCategory;
@@ -14,8 +11,6 @@ import models.ExperienceCategory;
 public class ExperienceCategoryHandler {
 
 	
-	static Configuration config = Play.application().configuration();
-
 	/**
 	 * Updates the experience category
 	 */
@@ -57,7 +52,7 @@ public class ExperienceCategoryHandler {
 	 */
 	public static List<ExperienceCategory> getExperienceCategories() {
 		List<ExperienceCategory> list = ExperienceCategory.find.all(); 
-		ExperienceCategory all = new ExperienceCategory(config.getString("category.default"), "All", null);
+		ExperienceCategory all = new ExperienceCategory(Util.getProperty("category.default"), "All", null);
 		list.add(0, all);
 		return list;
 	}

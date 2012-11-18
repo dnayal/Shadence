@@ -8,6 +8,7 @@ import javax.persistence.ManyToOne;
 
 import play.Play;
 import play.db.ebean.Model;
+import utils.Util;
 
 @Entity
 public class EntityPhoto extends Model {
@@ -188,25 +189,25 @@ public class EntityPhoto extends Model {
 	}
 	
 	public String getOriginalPhotoURL() {
-		return "/".concat(Play.application().configuration().getString("photos.web.path"))
+		return "/".concat(Util.getProperty("photos.web.path"))
 				.concat("/").concat(location)
 				.concat("/").concat(originalPhoto);
 	}
 
 	public String getLargePhotoURL() {
-		return "/".concat(Play.application().configuration().getString("photos.web.path"))
+		return "/".concat(Util.getProperty("photos.web.path"))
 				.concat("/").concat(location)
 				.concat("/").concat(largePhoto);
 	}
 
 	public String getMediumPhotoURL() {
-		return "/".concat(Play.application().configuration().getString("photos.web.path"))
+		return "/".concat(Util.getProperty("photos.web.path"))
 				.concat("/").concat(location)
 				.concat("/").concat(mediumPhoto);
 	}
 
 	public String getSmallPhotoURL() {
-		return "/".concat(Play.application().configuration().getString("photos.web.path"))
+		return "/".concat(Util.getProperty("photos.web.path"))
 				.concat("/").concat(location)
 				.concat("/").concat(smallPhoto);
 	}

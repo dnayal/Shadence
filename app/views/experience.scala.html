@@ -9,7 +9,7 @@
 			<div class="span4">
 				<ul class="breadcrumb">
 					<li>
-						<a href="@routes.Application.getExperiences(experience.getVenue.getCity.getCityId, play.Play.application.configuration.getString("category.default"))">
+						<a href="@routes.Application.getExperiences(experience.getVenue.getCity.getCityId, utils.Util.getProperty("category.default"))">
 							@defining(experience.getVenue.getCity.getFlagPhotos.get(0)) { flagPhoto =>
 							<img width="30" height="30" src="@flagPhoto.getSmallPhotoURL"/>&nbsp;@experience.getVenue.getCity.getName
 							}
@@ -26,7 +26,7 @@
 				</ul>
 			</div>
 			<div class="span4 main-logo">
-	    		<h1 class="logo-text">@play.Play.application.configuration.getString("application.name")</h1>
+	    		<h1 class="logo-text">@utils.Util.getProperty("application.name")</h1>
 			</div>
 		</div>	
 		

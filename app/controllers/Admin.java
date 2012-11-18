@@ -16,7 +16,6 @@ import handlers.UserHandler;
 import handlers.VenueHandler;
 import play.Logger;
 import play.Play;
-import play.Configuration;
 import play.data.Form;
 import play.mvc.Http.MultipartFormData;
 import play.mvc.Controller;
@@ -28,12 +27,10 @@ import views.html.admin.*;
 
 public class Admin extends Controller {
 	
-	static Configuration config = Play.application().configuration();
-	
 	public static Result getMain() {
 		Logger.info("+-+-+-+-+-+-+-+");
 		Logger.info(String.valueOf(Play.isProd()));
-		Logger.info(config.getString("application.name"));
+		Logger.info(Util.getProperty("application.name"));
 		Logger.info("+-+-+-+-+-+-+-+");
 		return ok(main_admin.render(CityHandler.getCities()));
 	}

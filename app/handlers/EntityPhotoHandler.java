@@ -9,9 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import play.Configuration;
 import play.Logger;
-import play.Play;
 
 import utils.Util;
 
@@ -99,21 +97,20 @@ public class EntityPhotoHandler {
 	public static EntityPhoto saveEntityPhoto(String filename, File uploadedFile, String entityId, 
 			int entityType, String userId, String alternateText, String photoOrder) {
 		
-		Configuration config = Play.application().configuration();
 		String photoId = Util.getUniqueId();
 		
 		String fileExtension = Util.getFileExtension(filename);
 		String photos[] = new String[4];
-		photos[0] = photoId.concat(config.getString("photos.original.suffix")).concat(fileExtension);
-		photos[1] = photoId.concat(config.getString("photos.large.suffix")).concat(fileExtension);
-		photos[2] = photoId.concat(config.getString("photos.medium.suffix")).concat(fileExtension);
-		photos[3] = photoId.concat(config.getString("photos.small.suffix")).concat(fileExtension);
+		photos[0] = photoId.concat(Util.getProperty("photos.original.suffix")).concat(fileExtension);
+		photos[1] = photoId.concat(Util.getProperty("photos.large.suffix")).concat(fileExtension);
+		photos[2] = photoId.concat(Util.getProperty("photos.medium.suffix")).concat(fileExtension);
+		photos[3] = photoId.concat(Util.getProperty("photos.small.suffix")).concat(fileExtension);
 		
 		try {
 			FileChannel source = new FileInputStream(uploadedFile).getChannel();
 	
 			for(String photoName : photos) {
-				File photoFile = new File(config.getString("photos.upload.path") + "/" + entityId 
+				File photoFile = new File(Util.getProperty("photos.upload.path") + "/" + entityId 
 						+ "/" + photoName);
 				photoFile.getParentFile().mkdirs();
 				
@@ -138,20 +135,18 @@ public class EntityPhotoHandler {
 	public static EntityPhoto updateEntityPhoto(String filename, File uploadedFile, String photoId, 
 			String entityId, int entityType, String userId, String alternateText, String photoOrder) {
 		
-		Configuration config = Play.application().configuration();
-		
 		String fileExtension = Util.getFileExtension(filename);
 		String photos[] = new String[4];
-		photos[0] = photoId.concat(config.getString("photos.original.suffix")).concat(fileExtension);
-		photos[1] = photoId.concat(config.getString("photos.large.suffix")).concat(fileExtension);
-		photos[2] = photoId.concat(config.getString("photos.medium.suffix")).concat(fileExtension);
-		photos[3] = photoId.concat(config.getString("photos.small.suffix")).concat(fileExtension);
+		photos[0] = photoId.concat(Util.getProperty("photos.original.suffix")).concat(fileExtension);
+		photos[1] = photoId.concat(Util.getProperty("photos.large.suffix")).concat(fileExtension);
+		photos[2] = photoId.concat(Util.getProperty("photos.medium.suffix")).concat(fileExtension);
+		photos[3] = photoId.concat(Util.getProperty("photos.small.suffix")).concat(fileExtension);
 		
 		try {
 			FileChannel source = new FileInputStream(uploadedFile).getChannel();
 	
 			for(String photoName : photos) {
-				File photoFile = new File(config.getString("photos.upload.path") + "/" + entityId 
+				File photoFile = new File(Util.getProperty("photos.upload.path") + "/" + entityId 
 						+ "/" + photoName);
 				photoFile.getParentFile().mkdirs();
 				
