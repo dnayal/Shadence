@@ -11,7 +11,7 @@
 			<div class="row">
 				<div class="span6">
 					@defining(city_form("cityId")) { formField =>
-						@if(formField.value==null) {
+						@if(formField.value=="" || formField.value==null) {
 						    @inputText(city_form("cityId"), '_label -> "City Id")
 						} else {
 						    @inputText(city_form("cityId"), '_label -> "City Id", 'readonly->"readonly")

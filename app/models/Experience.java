@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 
+import play.data.validation.Constraints.Email;
+import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
 import utils.Util;
 
@@ -36,15 +38,18 @@ public class Experience extends Model {
 	@Column(length=100)
 	ExperienceCategory category;
 	
+	@Required
 	@Column(length=100)
 	String name;
 
+	@Email
 	@Column(length=50)
 	String email;
 
 	@Column(length=20)
 	String phone;
 
+	@Required
 	@Column(length=5000)
 	String description;
 

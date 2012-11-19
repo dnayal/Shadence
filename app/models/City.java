@@ -8,21 +8,25 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 
+import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
 
 @Entity
 public class City extends Model {
 
 	@Id
+	@Required
 	@Column(length=100)
 	String cityId;
 
+	@Required
 	@Column(length=100)
 	String name;
 	
 	@Column(length=100)
 	String stateOrCounty;
 	
+	@Required
 	@Column(length=100)
 	String country;
 	

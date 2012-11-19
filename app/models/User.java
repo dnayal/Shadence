@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 
+import play.data.validation.Constraints.Email;
+import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
 
 @Entity
@@ -17,12 +19,15 @@ public class User extends Model {
 	@Column(length=100)
 	String userId;
 
+	@Required
 	@Column(length=100)
 	String name;
 
+	@Email
 	@Column(length=100)
 	String email;
 
+	@Required
 	@Column(length=100)
 	String password;
 

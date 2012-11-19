@@ -6,6 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
 import utils.Util;
 
@@ -21,6 +22,7 @@ public class Venue extends Model {
 	@Column(length=100)
 	City city;
 	
+	@Required
 	@Column(length=100)
 	String name;
 
