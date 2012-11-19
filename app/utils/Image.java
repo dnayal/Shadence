@@ -4,13 +4,14 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import org.imgscalr.*;
 
+import play.Logger;
+
 import javax.imageio.ImageIO;
 
 public class Image {
 
-	public static boolean resizeAndSaveImage(File sourceImage, File targetImage, int targetImageSize, String targetImageType) {
-
-		boolean successful = false;
+	public static boolean resizeAndSaveImage(File sourceImage, File targetImage, 
+								int targetImageSize, String targetImageType) {
 
 		try {
 			BufferedImage originalImage = ImageIO.read(sourceImage);
@@ -33,18 +34,15 @@ public class Image {
 				ImageIO.write(originalImage, targetImageType, targetImage);
 			}
 
-			successful = true;
-
 			originalImage.flush();
-			originalImage = null;
-
-//			System.gc();
+			return true;
 
 		} catch (Exception exception) {
-			exception.printStackTrace();
+			Logger.error("Error while resizing and saving image " + sourceImage.getName() + " to " + targetImage.getName(), exception);
+			return false;
 		}
 
-		return successful;
-
 	}
+
+
 }

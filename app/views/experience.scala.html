@@ -9,7 +9,7 @@
 			<div class="span4">
 				<ul class="breadcrumb">
 					<li>
-						<a href="@routes.Application.getExperiences(experience.getVenue.getCity.getCityId, utils.Util.getProperty("category.default"))">
+						<a href="@routes.Application.getExperiences(experience.getVenue.getCity.getCityId, utils.Util.getStringProperty("category.default"))">
 							@defining(experience.getVenue.getCity.getFlagPhotos.get(0)) { flagPhoto =>
 							<img width="30" height="30" src="@flagPhoto.getSmallPhotoURL"/>&nbsp;@experience.getVenue.getCity.getName
 							}
@@ -26,12 +26,12 @@
 				</ul>
 			</div>
 			<div class="span4 main-logo">
-	    		<h1 class="logo-text">@utils.Util.getProperty("application.name")</h1>
+	    		<h1 class="logo-text">@utils.Util.getStringProperty("application.name")</h1>
 			</div>
 		</div>	
 		
 		<div class="row">
-			<div class="span6">
+			<div class="span10">
 	    		<h1>@experience.getName</h1>
 		    </div>
 		</div>
@@ -93,9 +93,11 @@
 					</div>
 				</div> <!-- end inner row -->
 				<br/>
-				<p>
-					<a class="original-source" style="text-decoration:none;" target="_new" href="@experience.getOriginalSource">Original Source</a>
-				</p>	
+				@if(experience.getOriginalSource!="") {
+					<p>
+						<a class="original-source" style="text-decoration:none;" target="_new" href="@experience.getOriginalSource">Original Source</a>
+					</p>	
+				}
 			</div>
 		</div> <!-- outer row -->
 		

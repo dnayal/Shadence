@@ -32,6 +32,10 @@ body, h1, h2, h3, h4, h5, h6, p, a {
 	margin-bottom: 10px;
 }
 
+.experience-stream-image {
+	width: 400px; /* should be equal to or more than .masonary-item width */
+}
+
 .experience-information {
 	padding: 10px;
 	-webkit-box-shadow: 0px 0px 10px 10px lightgray;

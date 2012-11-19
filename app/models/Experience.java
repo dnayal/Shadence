@@ -162,7 +162,7 @@ public class Experience extends Model {
 	}
 
 	public String getDescription() {
-		return description;
+		return Util.getString(description);
 	}
 
 	public void setDescription(String description) {
@@ -202,7 +202,7 @@ public class Experience extends Model {
 	}
 
 	public String getOriginalSource() {
-		return originalSource;
+		return Util.getString(originalSource);
 	}
 
 	public void setOriginalSource(String originalSource) {
@@ -210,7 +210,7 @@ public class Experience extends Model {
 	}
 
 	public String getTags() {
-		return tags;
+		return Util.getString(tags);
 	}
 
 	public void setTags(String tags) {

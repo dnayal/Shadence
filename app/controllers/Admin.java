@@ -30,7 +30,7 @@ public class Admin extends Controller {
 	public static Result getMain() {
 		Logger.info("+-+-+-+-+-+-+-+");
 		Logger.info(String.valueOf(Play.isProd()));
-		Logger.info(Util.getProperty("application.name"));
+		Logger.info(Util.getStringProperty("application.name"));
 		Logger.info("+-+-+-+-+-+-+-+");
 		return ok(main_admin.render(CityHandler.getCities()));
 	}
@@ -67,28 +67,29 @@ public class Admin extends Controller {
 			MultipartFormData body = request().body().asMultipartFormData();
 			Experience experience = experienceForm.get();
 			if (Util.getString(experience.getExperienceId()).equalsIgnoreCase("")) {
+				// save new record
 				experienceId = Util.getUniqueId();
 				experience.setExperienceId(experienceId);
 				experience.setCreateTimestamp(System.currentTimeMillis());
 				ExperienceHandler.saveExperience(experience);
 				
 			} else {
-				
+				// update existing record
 				experienceId = experience.getExperienceId();
 				experience.setCreateTimestamp(System.currentTimeMillis());
 				ExperienceHandler.updateExperience(experience);
-				// update photos of the experience
 				for (EntityPhoto entityPhoto : experience.getExperiencePhotos()) {
 					FilePart filePart = body.getFile(entityPhoto.getPhotoId());
 					if(filePart != null) {
-						EntityPhotoHandler.updateEntityPhoto(filePart.getFilename(), filePart.getFile(), 
-								entityPhoto.getPhotoId(), experienceId, EntityPhoto.ENTITY_EXPERIENCE, 
-								null, entityPhoto.getAlternateText(), entityPhoto.getPhotoOrder());
+						EntityPhotoHandler.processEntityPhoto(EntityPhotoHandler.UPDATE_OPERATION, 
+								filePart.getFilename(), filePart.getFile(), entityPhoto.getPhotoId(), 
+								experienceId, EntityPhoto.ENTITY_EXPERIENCE, null, 
+								entityPhoto.getAlternateText(), entityPhoto.getPhotoOrder());
 					} else {
 						EntityPhoto oldPhoto = EntityPhotoHandler.getEntityPhoto(entityPhoto.getPhotoId());
 						oldPhoto.setAlternateText(entityPhoto.getAlternateText());
 						oldPhoto.setPhotoOrder(entityPhoto.getPhotoOrder());
-						EntityPhotoHandler.updateEntityPhotoinDatabase(oldPhoto);
+						EntityPhotoHandler.saveEntityPhoto(oldPhoto, EntityPhotoHandler.UPDATE_OPERATION);
 					}
 				}
 			}
@@ -98,7 +99,8 @@ public class Admin extends Controller {
 			Map<String, String> photoMap = EntityPhotoHandler.getPhotoMap(experienceId, EntityPhoto.ENTITY_EXPERIENCE);
 			for(FilePart photo : body.getFiles() ) {
 				if(!photoMap.containsKey(photo.getKey())) {
-					EntityPhotoHandler.saveEntityPhoto(photo.getFilename(), photo.getFile(), 
+					EntityPhotoHandler.processEntityPhoto(EntityPhotoHandler.INSERT_OPERATION, 
+							photo.getFilename(), photo.getFile(), null,  
 							experienceId, EntityPhoto.ENTITY_EXPERIENCE, null, 
 							experienceForm.field(photo.getKey().concat("_alternate_text")).value(), 
 							experienceForm.field(photo.getKey().concat("_photo_order")).value());
@@ -237,14 +239,15 @@ public class Admin extends Controller {
 				for (EntityPhoto entityPhoto : city.getFlagPhotos()) {
 					FilePart filePart = body.getFile(entityPhoto.getPhotoId());
 					if(filePart != null) {
-						EntityPhotoHandler.updateEntityPhoto(filePart.getFilename(), filePart.getFile(), 
-								entityPhoto.getPhotoId(), city.getCityId(), EntityPhoto.ENTITY_CITY, 
-								null, entityPhoto.getAlternateText(), entityPhoto.getPhotoOrder());
+						EntityPhotoHandler.processEntityPhoto(EntityPhotoHandler.UPDATE_OPERATION, 
+								filePart.getFilename(), filePart.getFile(), entityPhoto.getPhotoId(), 
+								city.getCityId(), EntityPhoto.ENTITY_CITY, null, 
+								entityPhoto.getAlternateText(), entityPhoto.getPhotoOrder());
 					} else {
 						EntityPhoto oldPhoto = EntityPhotoHandler.getEntityPhoto(entityPhoto.getPhotoId());
 						oldPhoto.setAlternateText(entityPhoto.getAlternateText());
 						oldPhoto.setPhotoOrder(entityPhoto.getPhotoOrder());
-						EntityPhotoHandler.updateEntityPhotoinDatabase(oldPhoto);
+						EntityPhotoHandler.saveEntityPhoto(oldPhoto, EntityPhotoHandler.UPDATE_OPERATION);
 					}
 				}
 				
@@ -255,8 +258,9 @@ public class Admin extends Controller {
 			Map<String, String> photoMap = EntityPhotoHandler.getPhotoMap(city.getCityId(), EntityPhoto.ENTITY_CITY);
 			for(FilePart photo : body.getFiles() ) {
 				if(!photoMap.containsKey(photo.getKey())) {
-					EntityPhotoHandler.saveEntityPhoto(photo.getFilename(), photo.getFile(), 
-							city.getCityId(), EntityPhoto.ENTITY_CITY, null, 
+					EntityPhotoHandler.processEntityPhoto(EntityPhotoHandler.INSERT_OPERATION, 
+							photo.getFilename(), photo.getFile(), null, city.getCityId(), 
+							EntityPhoto.ENTITY_CITY, null, 
 							cityForm.field(photo.getKey().concat("_alternate_text")).value(), 
 							cityForm.field(photo.getKey().concat("_photo_order")).value());
 				}
@@ -311,14 +315,15 @@ public class Admin extends Controller {
 				for (EntityPhoto entityPhoto : user.getProfilePhotos()) {
 					FilePart filePart = body.getFile(entityPhoto.getPhotoId());
 					if(filePart != null) {
-						EntityPhotoHandler.updateEntityPhoto(filePart.getFilename(), filePart.getFile(), 
-								entityPhoto.getPhotoId(), userId, EntityPhoto.ENTITY_USER, 
-								null, entityPhoto.getAlternateText(), entityPhoto.getPhotoOrder());
+						EntityPhotoHandler.processEntityPhoto(EntityPhotoHandler.UPDATE_OPERATION, 
+								filePart.getFilename(), filePart.getFile(), entityPhoto.getPhotoId(), 
+								userId, EntityPhoto.ENTITY_USER, null, 
+								entityPhoto.getAlternateText(), entityPhoto.getPhotoOrder());
 					} else {
 						EntityPhoto oldPhoto = EntityPhotoHandler.getEntityPhoto(entityPhoto.getPhotoId());
 						oldPhoto.setAlternateText(entityPhoto.getAlternateText());
 						oldPhoto.setPhotoOrder(entityPhoto.getPhotoOrder());
-						EntityPhotoHandler.updateEntityPhotoinDatabase(oldPhoto);
+						EntityPhotoHandler.saveEntityPhoto(oldPhoto, EntityPhotoHandler.UPDATE_OPERATION);
 					}
 				}
 			}
@@ -328,8 +333,9 @@ public class Admin extends Controller {
 			Map<String, String> photoMap = EntityPhotoHandler.getPhotoMap(userId, EntityPhoto.ENTITY_USER);
 			for(FilePart photo : body.getFiles() ) {
 				if(!photoMap.containsKey(photo.getKey())) {
-					EntityPhotoHandler.saveEntityPhoto(photo.getFilename(), photo.getFile(), 
-							userId, EntityPhoto.ENTITY_USER, null, 
+					EntityPhotoHandler.processEntityPhoto(EntityPhotoHandler.INSERT_OPERATION, 
+							photo.getFilename(), photo.getFile(), null, userId, 
+							EntityPhoto.ENTITY_USER, null, 
 							userForm.field(photo.getKey().concat("_alternate_text")).value(), 
 							userForm.field(photo.getKey().concat("_photo_order")).value());
 				}

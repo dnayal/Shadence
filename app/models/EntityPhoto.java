@@ -6,7 +6,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import play.Play;
 import play.db.ebean.Model;
 import utils.Util;
 
@@ -189,25 +188,25 @@ public class EntityPhoto extends Model {
 	}
 	
 	public String getOriginalPhotoURL() {
-		return "/".concat(Util.getProperty("photos.web.path"))
+		return "/".concat(Util.getStringProperty("photos.web.path"))
 				.concat("/").concat(location)
 				.concat("/").concat(originalPhoto);
 	}
 
 	public String getLargePhotoURL() {
-		return "/".concat(Util.getProperty("photos.web.path"))
+		return "/".concat(Util.getStringProperty("photos.web.path"))
 				.concat("/").concat(location)
 				.concat("/").concat(largePhoto);
 	}
 
 	public String getMediumPhotoURL() {
-		return "/".concat(Util.getProperty("photos.web.path"))
+		return "/".concat(Util.getStringProperty("photos.web.path"))
 				.concat("/").concat(location)
 				.concat("/").concat(mediumPhoto);
 	}
 
 	public String getSmallPhotoURL() {
-		return "/".concat(Util.getProperty("photos.web.path"))
+		return "/".concat(Util.getStringProperty("photos.web.path"))
 				.concat("/").concat(location)
 				.concat("/").concat(smallPhoto);
 	}

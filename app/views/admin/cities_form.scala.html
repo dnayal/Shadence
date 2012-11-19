@@ -35,7 +35,7 @@
 					<table border="1">
 					@repeat(city_form("flagPhotos"), min = 0) { photoField =>
 						<tr>
-							<td><img width="50" height="50" src="/@utils.Util.getProperty("photos.web.path")/@photoField("location").value/@photoField("originalPhoto").value"></td>
+							<td><img width="50" height="50" src="/@utils.Util.getStringProperty("photos.web.path")/@photoField("location").value/@photoField("originalPhoto").value"></td>
 							<td><input type="file" name="@photoField("photoId").value"></td> 
 							<td>@inputText(photoField("alternateText"), '_label -> "Alternate Text")</td>
 							<td>@inputText(photoField("photoOrder"), '_label -> "Photo Order")</td>

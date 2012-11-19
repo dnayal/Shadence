@@ -1,7 +1,12 @@
 package utils;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.nio.channels.FileChannel;
 import java.util.UUID;
 
+import play.Logger;
 import play.Play;
 
 public class Util {
@@ -75,8 +80,43 @@ public class Util {
 	/**
 	 * Returns a property from application.conf file
 	 */
-	public static String getProperty(String property) {
+	public static String getStringProperty(String property) {
 		return getString(Play.application().configuration().getString(property));
+	}
+
+
+	/**
+	 * Returns a property from application.conf file
+	 */
+	public static Integer getIntegerProperty(String property) {
+		return Play.application().configuration().getInt(property);
+	}
+	
+	
+	/**
+	 * Copies file to the given destination
+	 */
+	public static boolean copyFile(File sourceFile, File destinationFile) {
+		
+		FileChannel sourceChannel = null;
+		FileChannel destinationChannel = null;
+		
+		try {
+			sourceChannel = new FileInputStream(sourceFile).getChannel();
+			destinationFile.getParentFile().mkdirs();
+			destinationChannel = new FileOutputStream(destinationFile).getChannel();
+			sourceChannel.transferTo(0, sourceChannel.size(), destinationChannel);
+			destinationChannel.close();
+			sourceChannel.close();
+			return true;
+		} catch (Exception exception) {
+			try {
+				destinationChannel.close();
+				sourceChannel.close();
+				Logger.error("Error while copying file " + sourceFile.getName() + " to " + destinationFile.getName(), exception);
+			} catch (Exception e) {}
+			return false;
+		}
 	}
 
 }

@@ -52,7 +52,7 @@ public class ExperienceCategoryHandler {
 	 */
 	public static List<ExperienceCategory> getExperienceCategories() {
 		List<ExperienceCategory> list = ExperienceCategory.find.all(); 
-		ExperienceCategory all = new ExperienceCategory(Util.getProperty("category.default"), "All", null);
+		ExperienceCategory all = new ExperienceCategory(Util.getStringProperty("category.default"), "All", null);
 		list.add(0, all);
 		return list;
 	}

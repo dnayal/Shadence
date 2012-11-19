@@ -18,14 +18,14 @@ public class Application extends Controller {
 	
 	
 	public static Result index() {
-		return redirect(routes.Application.getExperiences(Util.getProperty("city.default"), Util.getProperty("category.default")));
+		return redirect(routes.Application.getExperiences(Util.getStringProperty("city.default"), Util.getStringProperty("category.default")));
 	}
 
 
 	public static Result getExperiences(String cityId, String categoryId) {
 		List<Experience> experienceList = new ArrayList<Experience>();
 		
-		if(Util.getString(categoryId).equalsIgnoreCase(Util.getProperty("category.default")))
+		if(Util.getString(categoryId).equalsIgnoreCase(Util.getStringProperty("category.default")))
 			experienceList = ExperienceHandler.getExperiences(cityId);
 		else
 			experienceList = ExperienceHandler.getExperiences(cityId, categoryId);
