@@ -7,7 +7,7 @@
 		<div class="row">
 			<h1>Venue Form</h1>
 		</div>
-		@form(routes.Admin.saveVenue(city)) {
+		@form(routes.Admin.saveVenue(city), 'id -> "venue-form") {
 			<div class="row">
 				<div class="span6">
 					@defining(venue_form("venueId")) { formField =>
@@ -24,14 +24,37 @@
 				</div>
 				
 				<div class="span6">
-				    @inputText(venue_form("latitude"), '_label -> "Latitude")
-				    
-				    @inputText(venue_form("longitude"), '_label -> "Longitude")
-				    
+
+					<button type="submit" id="venue-form-submit" class="btn btn-primary">Submit</button>	    							
+					<a href="@routes.Admin.getVenues(city)" class="btn">Go Back</a>	    							
+	
+				    <input type="hidden" id="@venue_form("latitude").name" name="@venue_form("latitude").name" value="@venue_form("latitude").value">
+				    <input type="hidden" id="@venue_form("longitude").name" name="@venue_form("longitude").name" value="@venue_form("longitude").value">
+
 				</div>
 	
 			</div>
-			<button type="submit" class="btn btn-primary">Submit</button>	    							
 	    }
     </div>
+    
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#venue-form-submit').click(function(event) {
+				event.preventDefault();
+				var address = $('#address').val() + " " + $('#city_cityId option:selected').text() + " " + $('#postcode').val(); 
+				var geocoder = new google.maps.Geocoder();
+				geocoder.geocode({'address': address.trim()}, function(results, status) {
+					if (status == google.maps.GeocoderStatus.OK) {
+						$('#latitude').val(results[0].geometry.location.lat());
+						$('#longitude').val(results[0].geometry.location.lng());
+						$('#venue-form').submit();
+					} else {
+						console.log('Unable to produce geocodes for [' + address.trim() + ']');
+					}
+				});
+			});
+		});
+	</script>    
 }

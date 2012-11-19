@@ -1,2 +1,4 @@
 http://digitalsanctum.com/2012/06/01/play-framework-2-tutorial-ebean-orm/
 
+http://www.jamesward.com/2012/05/08/play-2-java-tutorial
+
