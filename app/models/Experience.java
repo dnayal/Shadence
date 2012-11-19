@@ -58,9 +58,10 @@ public class Experience extends Model {
 
 	/** 
 	 * 0 - Free
-	 * 1 - Cheap
-	 * 2 - Normal
-	 * 3 - Expensive 
+	 * 1 - Inexpensive
+	 * 2 - Moderate
+	 * 3 - Expensive
+	 * 4 - High End
 	 **/
 	Integer priceRating;
 
@@ -184,6 +185,20 @@ public class Experience extends Model {
 
 	public Integer getPriceRating() {
 		return priceRating;
+	}
+
+	/**
+	 * Returns string equivalent of price rating
+	 */
+	public String getPriceRatingDescription() {
+		switch(this.priceRating) {
+			case 0: return "Free";
+			case 1: return "Inexpensive";
+			case 2: return "Moderate";
+			case 3: return "Expensive";
+			case 4: return "High End";
+			default: return "High End";
+		}
 	}
 
 	public void setPriceRating(Integer priceRating) {

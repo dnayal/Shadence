@@ -77,9 +77,13 @@
 						<p>
 							<table border="0" cellpadding="3px">
 								@if(experience.getPriceDescription != "") {
-									<tr><th colspan="2" align="left" bgcolor="#E8E8E8">Price</th></tr>
+									<tr><th colspan="2" align="left" bgcolor="#E8E8E8">Price <small>[@experience.getPriceRatingDescription]</small></th></tr>
 									<tr><td>@experience.getPriceDescription</td><td>&nbsp;</td></tr>
+								} else {
+									<tr><th colspan="2" align="left" bgcolor="#E8E8E8">Price</th></tr>
+									<tr><td>[@experience.getPriceRatingDescription]</td><td>&nbsp;</td></tr>
 								}
+								
 								@if(experience.getDuration != null) {
 									<tr><th colspan="2" align="left" bgcolor="#E8E8E8">Duration</th></tr>
 									<tr><td>@utils.Util.getDurationDescription(experience.getDuration)</td><td>&nbsp;</td></tr>
