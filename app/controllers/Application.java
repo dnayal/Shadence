@@ -18,7 +18,8 @@ public class Application extends Controller {
 	
 	
 	public static Result index() {
-		return redirect(routes.Application.getExperiences(Util.getStringProperty("city.default"), Util.getStringProperty("category.default")));
+		return ok(menatwork.render());
+//		return redirect(routes.Application.getExperiences(Util.getStringProperty("city.default"), Util.getStringProperty("category.default")));
 	}
 	
 	public static Result aboutShadence() {
