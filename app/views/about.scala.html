@@ -1,0 +1,117 @@
+
+@main("About Shadence") {
+	<div class="container">
+	
+		<div class="row">
+			<div class="span4">
+				&nbsp;
+			</div>
+			<div class="span4 main-logo">
+	    		<h1 class="logo-text">@utils.Util.getStringProperty("application.name")</h1>
+			</div>
+		</div>
+		<br/>
+		<div class="row">
+			<div class="span3" style="border-right: 1px solid lightgray;" id="about_links">
+				<p>
+					<a data-toggle="tab" id="about_links_about" class="header_menu header_menu_active" href="#about">About</a>
+				</p>
+				<br/>
+				<p>
+					<a data-toggle="tab" id="about_links_terms" class="header_menu" href="#terms">Legal Stuff</a>
+				</p>
+				<br/>
+				<p>
+					<a href="@routes.Application.index()" style="color: black" class="header_menu">&lt;&lt; Home</a>
+				</p>
+				<br/>
+			</div>
+			<div class="span6">
+				<div class="tab-content">
+					<div class="tab-pane active" id="about">
+						<p>
+							Have you got bored of going out to same old places and doing same old activities 
+							in your weekends or other free days? Well, we did, and we realized that a 
+							lot of other people also face the same problem. So we decided to take up this 
+							challenge, and work out a solution. This led to the creation of Shadence.
+						</p>
+						<br/>
+						<p>
+							Shadence is a platform for discovering experiences in your city. Our purpose is 
+							to help you make the best use of your free time. To make this possible we are 
+							on constant look out for interesting experiences that young working people, such 
+							as ourselves, will enjoy after a week of hard work.
+						</p>
+						<br/>
+						<p>
+							Currently, Shadence is live only for the great city of London, as finding out 
+							quality experiences requires a lot of hard work and focus. 
+						</p>
+						<br/>
+						<p>
+							We would love to hear from you for any feedback or comment. We would also love 
+							to know about interesting experiences that you think we should cover.
+						</p>
+					</div>
+					<div class="tab-pane" id="terms">
+						<h3>
+							Terms of Use
+						</h3>
+						<p>Last Updated: 20 Nov, 2012</p>
+						<ul>
+							<li>
+								By accessing and using Shadence.com, you agree that you have read, 
+								understood and agree to these terms. 
+							</li>
+							<li>
+								Shadence and its partners exclusively own all right, title and 
+								interest in and to the website, services and content, including all 
+								associated intellectual property rights.  
+							</li>
+							<li>
+								Experiences posted on Shadence are only suggestions from our side, 
+								and it is completely up to the users to enjoy, live or buy any experience.
+							</li>
+							<li>
+								Shadence does not own or run any of the experiences on this website, and so 
+								is not liable for accuracy or quality of any of these. However, 
+								in case users are not happy with the quality of experience or inaccuracy 
+								of information, we would love to hear from you.     
+							</li>
+							<li>
+								Shadence is also not liable for any kind of damage or loss caused by any 
+								of the experiences suggested on its website.							
+							</li>
+							<li>
+								You agree to defend, indemnify, and hold Shadence, its officers, directors, 
+								employees and agents, harmless from and against any claims, liabilities, 
+								damages, losses, and expenses, including, without limitation, reasonable 
+								legal and accounting fees, arising out of or in any way connected with your 
+								access to or use of the website, or your violation of these terms.							
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="span3">&nbsp;</div>
+		</div>
+				
+    </div>
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script type="text/javascript" src="@routes.Assets.at("bootstrap/js/bootstrap.min.js")"></script>
+	<script>
+		$(document).ready(function() {
+			$("#about_links_about").click(function () {
+				$(this).addClass("header_menu_active");
+				$("#about_links_terms").removeClass("header_menu_active");
+			});
+		
+			$("#about_links_terms").click(function () {
+				$(this).addClass("header_menu_active");
+				$("#about_links_about").removeClass("header_menu_active");
+			});
+		
+		 });
+	</script>	
+}

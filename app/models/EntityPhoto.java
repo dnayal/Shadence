@@ -36,22 +36,22 @@ public class EntityPhoto extends Model {
 	@Column(length=100)
 	User user;
 
-	@Column(length=200)
+	@Column(length=500)
 	String location;
 
-	@Column(length=100)
+	@Column(length=500)
 	String originalPhoto;
 
-	@Column(length=100)
+	@Column(length=500)
 	String largePhoto;
 
-	@Column(length=100)
+	@Column(length=500)
 	String mediumPhoto;
 
-	@Column(length=100)
+	@Column(length=500)
 	String smallPhoto;
 
-	@Column(length=100)
+	@Column(length=200)
 	String alternateText;
 
 	// The order in which photos will be arranged.

@@ -77,3 +77,22 @@ body, h1, h2, h3, h4, h5, h6, p, a {
     color: brown;
 }
 
+.header_menu, .header_menu:hover {
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 1.25em;
+	color: #0076CC;
+	margin: 10px;
+	padding: 5px;
+}
+
+.header_menu_active, .header_menu_active:hover {
+	text-decoration: none;
+	border-bottom: 1px solid black;
+	font-weight: bold;
+	font-size: 1.25em;
+	color: #0076CC;
+	margin: 10px;
+	padding: 5px;
+}
+

@@ -12,6 +12,7 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 #############
 # Application
 #############
+GET		/about								controllers.Application.aboutShadence()
 GET		/experiences/:cityId/:categoryId	controllers.Application.getExperiences(cityId: String, categoryId: String)
 GET		/experiences/:experienceId			controllers.Application.getExperience(experienceId: String)
 GET 	/venues/:venueId					controllers.Application.getVenue(venueId: String)
