@@ -2,3 +2,8 @@ http://digitalsanctum.com/2012/06/01/play-framework-2-tutorial-ebean-orm/
 
 http://www.jamesward.com/2012/05/08/play-2-java-tutorial
 
+To setup and run Shadence in production on Amazon micro instance
+- Installed OpenJDK 1.7 (as javac was not present in the Amazon AMI)
+- Made sure that default java executable pointed to java7, to avoid java.lang.UnsupportedClassVersionError
+- Added (export _JAVA_OPTIONS="-Xms175M -Xmx175M") to play executable, before if-else starts
+
