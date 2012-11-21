@@ -81,6 +81,14 @@ public class Experience extends Model {
 	
 	Date endDate;
 	
+	/*
+	 * It is important to set a default value to 
+	 * this field so that ExperienceHandler.getExperiences()
+	 * method works properly (because of ebean ne() expression
+	 * which does not work for null values
+	 */
+	Boolean hidden = false;
+	
 	Long createTimestamp;
 	
 	@OneToMany(mappedBy="entityExperience")
@@ -94,7 +102,7 @@ public class Experience extends Model {
 	public Experience(String experienceId, String name, String email, String phone, 
 			String description, String priceDescription, Integer priceRating, Integer duration, 
 			String scheduleDescription,	String originalSource, String tags, Date startDate,
-			Date endDate, Long createTimestamp) {
+			Date endDate, Boolean hidden, Long createTimestamp) {
 		this.experienceId = experienceId;
 		this.name = name;
 		this.email = email;
@@ -108,6 +116,7 @@ public class Experience extends Model {
 		this.tags = tags;
 		this.startDate = startDate;
 		this.endDate = endDate;
+		this.hidden = hidden;
 		this.createTimestamp = createTimestamp;
 	}
 
@@ -267,6 +276,14 @@ public class Experience extends Model {
 
 	public void setExperiencePhotos(List<EntityPhoto> experiencePhotos) {
 		this.experiencePhotos = experiencePhotos;
+	}
+
+	public Boolean getHidden() {
+		return hidden;
+	}
+
+	public void setHidden(Boolean hidden) {
+		this.hidden = hidden;
 	}
 	
 }

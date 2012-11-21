@@ -46,6 +46,7 @@ create table experience (
   tags                      varchar(100),
   start_date                datetime,
   end_date                  datetime,
+  hidden                    tinyint(1) default 0,
   create_timestamp          bigint,
   constraint pk_experience primary key (experience_id))
 ;

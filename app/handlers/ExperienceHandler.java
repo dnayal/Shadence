@@ -1,9 +1,17 @@
 package handlers;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import play.Logger;
+
 import com.avaje.ebean.Expr;
+import com.avaje.ebean.Expression;
+import com.avaje.ebean.ExpressionList;
 
 import utils.Util;
 import models.Experience;
@@ -36,12 +44,12 @@ public class ExperienceHandler {
 	public static Experience saveExperience(String venueId, String userId, String categoryId, String name, 
 				String email, String phone, String description, String priceDescription, Integer priceRating, 
 				Integer duration, String scheduleDescription, String originalSource, String tags, 
-				Date startDate, Date endDate) {
+				Date startDate, Date endDate, Boolean hidden) {
 		
 		String experienceId = Util.getUniqueId();
 		Experience experience = new Experience(experienceId, name, email, phone, description, 
 				priceDescription, priceRating, duration, scheduleDescription, originalSource, tags,
-				startDate, endDate, System.currentTimeMillis());
+				startDate, endDate, hidden, System.currentTimeMillis());
 		
 		Venue venue = Venue.find.byId(venueId);
 		User user = User.find.byId(userId);
@@ -70,13 +78,7 @@ public class ExperienceHandler {
 	 * and where experience enddate has not expired
 	 */
 	public static List<Experience> getExperiences(String cityId) {
-		List<Experience> experiences = Experience.find
-				.where()
-				.in("venue_id", Venue.find.where().eq("city_id", cityId).findIds())
-				.or(Expr.ge("endDate", new Date()), Expr.isNull("endDate"))
-				.findList();
-		
-		return experiences;
+		return getExperiences(cityId, Util.getStringProperty("category.default"));
 	}
 	
 
@@ -84,12 +86,26 @@ public class ExperienceHandler {
 	 * Returns all experiences by city and category
 	 */
 	public static List<Experience> getExperiences(String cityId, String categoryId) {
-		List<Experience> experiences = Experience.find
-				.where()
+		
+		List<Experience> experiences = new ArrayList<Experience>();
+		Date currentDate = new Date();; 
+		
+		try {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			currentDate = dateFormat.parse(dateFormat.format(new Date()));
+		} catch (ParseException exception) {
+			Logger.error("Unable to parse current date", exception);
+		}
+		
+		ExpressionList<Experience> expressionList = Experience.find.where()
 				.in("venue_id", Venue.find.where().eq("city_id", cityId).findIds())
-				.eq("category_id", categoryId)
-				.or(Expr.ge("endDate", new Date()), Expr.isNull("endDate"))
-				.findList();
+				.ne("hidden", true)
+				.or(Expr.ge("endDate", currentDate), Expr.isNull("endDate"));
+		
+		if (categoryId.equalsIgnoreCase(Util.getStringProperty("category.default")))
+			experiences = expressionList.findList();
+		else 
+			experiences = expressionList.eq("category_id", categoryId).findList();
 		
 		return experiences;
 	}
