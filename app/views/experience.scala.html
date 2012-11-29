@@ -56,37 +56,47 @@
 						<strong>Email - </strong> @experience.getEmail
 						<br/>
 					}
+
+					@if(experience.getTwitter != "") {
+						<strong>Twitter - </strong> <a target="_new" href="http://twitter.com/@experience.getTwitter">@experience.getTwitter</a>
+						<br/>
+					}
+
 					<strong>Venue - </strong>
 					<br/>
-					<a href="@routes.Application.getVenue(experience.getVenue.getVenueId)">@experience.getVenue.getName</a>
+					@if(handlers.ExperienceHandler.getExperiencesAtVenue(experience.getVenue.getVenueId).size > 1) {
+						<a href="@routes.Application.getVenue(experience.getVenue.getVenueId)">@experience.getVenue.getName</a>
+					} else {
+						@experience.getVenue.getName
+					}
 					<br/> @experience.getVenue.getAddress, <br/> @experience.getVenue.getCity.getName, @experience.getVenue.getPostcode
 					<br/>
 					<div class="thumbnail" id="venue-map"></div>
 				</p>
 			</div>
 		</div>	
-			
+
 		<div class="row">
 			<div class="span10 experience-information">
 				<div class="div-header">About Experience</div>
 				<div class="row"> <!-- start inner row -->
-					<div class="span8">
+					<div class="span7">
 					@Html(experience.getDescription)
 					</div>
-					<div class="span2">
+					<div class="span3">
 						<p>
 							<table border="0" cellpadding="3px">
 								@if(experience.getPriceDescription != "") {
 									<tr><th colspan="2" align="left" bgcolor="#E8E8E8">Price <small>[@experience.getPriceRatingDescription]</small></th></tr>
-									<tr><td>@experience.getPriceDescription</td><td>&nbsp;</td></tr>
+									<tr><td colspan="2">@experience.getPriceDescription</td></tr>
 								} else {
 									<tr><th colspan="2" align="left" bgcolor="#E8E8E8">Price</th></tr>
-									<tr><td>[@experience.getPriceRatingDescription]</td><td>&nbsp;</td></tr>
+									<tr><td colspan="2">[@experience.getPriceRatingDescription]</td></tr>
 								}
 								
 								@if(experience.getDuration != null) {
 									<tr><th colspan="2" align="left" bgcolor="#E8E8E8">Duration</th></tr>
-									<tr><td>@utils.Util.getDurationDescription(experience.getDuration)</td><td>&nbsp;</td></tr>
+									<tr><td colspan="2">@utils.Util.getDurationDescription(experience.getDuration)</td></tr>
 								}
 								@if(experience.getScheduleDescription != "") {
 									<tr><th colspan="2" align="left" bgcolor="#E8E8E8">Schedule</th></tr>
@@ -96,7 +106,6 @@
 						</p>	
 					</div>
 				</div> <!-- end inner row -->
-				<br/>
 				@if(experience.getOriginalSource!="") {
 					<p>
 						<a class="original-source" style="text-decoration:none;" target="_new" href="@experience.getOriginalSource">Original Source</a>

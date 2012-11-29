@@ -3,14 +3,12 @@ package handlers;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import play.Logger;
 
 import com.avaje.ebean.Expr;
-import com.avaje.ebean.Expression;
 import com.avaje.ebean.ExpressionList;
 
 import utils.Util;
@@ -42,12 +40,12 @@ public class ExperienceHandler {
 	 * Saves the experience
 	 */
 	public static Experience saveExperience(String venueId, String userId, String categoryId, String name, 
-				String email, String phone, String description, String priceDescription, Integer priceRating, 
-				Integer duration, String scheduleDescription, String originalSource, String tags, 
-				Date startDate, Date endDate, Boolean hidden) {
+				String email, String twitter, String phone, String description, String priceDescription, 
+				Integer priceRating, Integer duration, String scheduleDescription, String originalSource, 
+				String tags, Date startDate, Date endDate, Boolean hidden) {
 		
 		String experienceId = Util.getUniqueId();
-		Experience experience = new Experience(experienceId, name, email, phone, description, 
+		Experience experience = new Experience(experienceId, name, email, twitter, phone, description, 
 				priceDescription, priceRating, duration, scheduleDescription, originalSource, tags,
 				startDate, endDate, hidden, System.currentTimeMillis());
 		

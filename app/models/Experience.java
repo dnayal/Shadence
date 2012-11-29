@@ -43,8 +43,11 @@ public class Experience extends Model {
 	String name;
 
 	@Email
-	@Column(length=50)
+	@Column(length=100)
 	String email;
+
+	@Column(length=100)
+	String twitter;
 
 	@Column(length=20)
 	String phone;
@@ -53,7 +56,7 @@ public class Experience extends Model {
 	@Column(length=5000)
 	String description;
 
-	@Column(length=100)
+	@Column(length=500)
 	String priceDescription;
 
 	/** 
@@ -68,13 +71,13 @@ public class Experience extends Model {
 	/** Number, stored in hours **/
 	Integer duration;
 
-	@Column(length=100)
+	@Column(length=500)
 	String scheduleDescription;
 
-	@Column(length=200)
+	@Column(length=500)
 	String originalSource;
 	
-	@Column(length=100)
+	@Column(length=200)
 	String tags;
 	
 	Date startDate;
@@ -99,13 +102,14 @@ public class Experience extends Model {
 
 	public Experience() {}
 
-	public Experience(String experienceId, String name, String email, String phone, 
+	public Experience(String experienceId, String name, String email, String twitter, String phone, 
 			String description, String priceDescription, Integer priceRating, Integer duration, 
 			String scheduleDescription,	String originalSource, String tags, Date startDate,
 			Date endDate, Boolean hidden, Long createTimestamp) {
 		this.experienceId = experienceId;
 		this.name = name;
 		this.email = email;
+		this.twitter = twitter;
 		this.phone = phone;
 		this.description = description;
 		this.priceDescription = priceDescription;
@@ -166,6 +170,14 @@ public class Experience extends Model {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getTwitter() {
+		return Util.getString(twitter);
+	}
+
+	public void setTwitter(String twitter) {
+		this.twitter = twitter;
 	}
 
 	public String getPhone() {
