@@ -6,15 +6,16 @@
 	<div class="container">
 	
 		<div class="row">
-			<div class="span4 affix">	    		
-				<h3>
+			<div class="span4">	    		
+				<h3 class="affix">
 					@defining(CityHandler.getCity(cityId).getFlagPhotos.get(0)) { flagPhoto =>
-					<img width="30" height="30" src="@flagPhoto.getSmallPhotoURL"/>&nbsp;@CityHandler.getCity(cityId).getName
+					<img width="30px" height="30px" src="@flagPhoto.getSmallPhotoURL"/>&nbsp;@CityHandler.getCity(cityId).getName
 					}
 				</h3>
 			</div>
+			
 			<!-- using offset here, because affix is used in the previous span -->
-			<div class="offset4 span4 main-logo">
+			<div class="span4 main-logo">
 	    		<h1 class="logo-text">@utils.Util.getStringProperty("application.name")</h1>
 			    <h5>Discover &amp; Share Experiences</h5>
 		    </div>
@@ -22,30 +23,33 @@
 		</div>
 		
 		<div class="row">
-	    	<div class="span3 affix">
-    			<ul class="nav nav-tabs nav-stacked navbar-experiences">
-    				@for(category <- ExperienceCategoryHandler.getExperienceCategories) {
-		    			<li class='@{if(category.getCategoryId.toLowerCase == categoryId.toLowerCase) "active" else ""}'>
-	    					<a href="@routes.Application.getExperiences(cityId, category.getCategoryId)">
-	    						@category.getName<i class="icon-chevron-right"></i>
-    						</a>
-	    				</li>
-    				}
-	    		</ul>
-<!-- 
-				<h5>Price <small>[Free - Expensive]</small></h5> 
-    			<div id="price-slider"></div>
-				<h5>Duration <small>[1 hour - 1 day]</small></h5>
-    			<div id="duration-slider"></div>
- -->    			
-				<br/>
-	    		<p>
-    				| <a href="@routes.Application.aboutShadence()">About</a>
-    				| Shadence &copy; 2012 |
-	    		</p>
+	    	<div class="span3">
+		    	<div class="affix">
+	    			<ul class="nav nav-tabs nav-stacked navbar-experiences">
+	    				@for(category <- ExperienceCategoryHandler.getExperienceCategories) {
+			    			<li class='@{if(category.getCategoryId.toLowerCase == categoryId.toLowerCase) "active" else ""}'>
+		    					<a href="@routes.Application.getExperiences(cityId, category.getCategoryId)">
+		    						@category.getName<i class="icon-chevron-right"></i>
+	    						</a>
+		    				</li>
+	    				}
+		    		</ul>
+	<!-- 
+					<h5>Price <small>[Free - Expensive]</small></h5> 
+	    			<div id="price-slider"></div>
+					<h5>Duration <small>[1 hour - 1 day]</small></h5>
+	    			<div id="duration-slider"></div>
+	 -->    			
+					<br/>
+		    		<p>
+	    				| <a href="@routes.Application.aboutShadence()">About</a>
+	    				| Shadence &copy; 2012 |
+		    		</p>
+		    	</div>
 	    	</div>
+	    	
 			<!-- using offset here, because affix is used in the previous span -->
-			<div class="offset3 span9">
+			<div class="span9">
 		    	<div class="masonary-container experiences-stream">
 		    	@for(experience <- experiences) {
 					<div class="thumbnail masonary-item">

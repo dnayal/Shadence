@@ -19,6 +19,7 @@
 			$(containerId).masonry({
 				itemSelector : itemId,
 				isFitWidth: true,
+				isAnimated: false,
         		gutterWidth: 10,
 				isResizable: true
 			});
