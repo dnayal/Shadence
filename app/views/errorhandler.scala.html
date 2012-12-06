@@ -1,0 +1,40 @@
+@(errorCode: Integer)
+
+@main("Shadence") {
+	<div class="container">
+	
+		<div class="row">
+			<div class="span4">&nbsp;</div>
+			<div class="span4 main-logo">
+	    		<h1 class="logo-text">@utils.Util.getStringProperty("application.name")</h1>
+			</div>
+		</div>	
+		
+   		<br/>
+		<br/>
+		<div class="row">
+			<div class="span6"><img src="@routes.Assets.at("shadence/images/oops.png")" alt="oops!"></div>
+			<div class="span6">
+	    		<br/>
+				<p style="font-size: 1.5em;line-height: 1.25;">
+		    		@if(errorCode == utils.Util.HTTP_400) {
+		    			There is some problem with the request you have made.
+		    		}
+					@if(errorCode == utils.Util.HTTP_404) {
+		    			The page you have requested does not exist.
+		    		}
+					@if(errorCode == utils.Util.HTTP_500) {
+		    			There has been some problem while processing the request you have made.
+		    		}
+		    		
+		    		<br/>
+		    		<br/>
+
+		    		Please <a href="@routes.Application.index()">click here</a> to go to Shadence home page 
+		    		or click on the back button of your web browser.
+	    		</p>
+	    		<br/>
+		    </div>
+		</div>
+	</div>	
+}

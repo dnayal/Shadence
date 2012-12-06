@@ -72,6 +72,28 @@ public class ExperienceHandler {
 	
 	
 	/**
+	 * Generates common expression to get Experiences
+	 */
+	private static ExpressionList<Experience> getCommonExpressionToGetExperiences(List<Object> venueIds) {
+		Date currentDate = new Date();
+
+		try {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			currentDate = dateFormat.parse(dateFormat.format(new Date()));
+		} catch (ParseException exception) {
+			Logger.error("Unable to parse current date", exception);
+		}
+		
+		ExpressionList<Experience> expressionList = Experience.find.where()
+				.in("venue_id", venueIds)
+				.ne("hidden", true)
+				.or(Expr.ge("endDate", currentDate), Expr.isNull("endDate"));
+		
+		return expressionList;
+	}
+	
+
+	/**
 	 * Returns all experiences by city
 	 * and where experience enddate has not expired
 	 */
@@ -86,31 +108,24 @@ public class ExperienceHandler {
 	public static List<Experience> getExperiences(String cityId, String categoryId) {
 		
 		List<Experience> experiences = new ArrayList<Experience>();
-		Date currentDate = new Date();; 
+
+		ExpressionList<Experience> expressionList = 
+				getCommonExpressionToGetExperiences(Venue.find.where().eq("city_id", cityId).findIds());
 		
-		try {
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-			currentDate = dateFormat.parse(dateFormat.format(new Date()));
-		} catch (ParseException exception) {
-			Logger.error("Unable to parse current date", exception);
-		}
+		if (!categoryId.equalsIgnoreCase(Util.getStringProperty("category.default")))
+			expressionList = expressionList.eq("category_id", categoryId);
 		
-		ExpressionList<Experience> expressionList = Experience.find.where()
-				.in("venue_id", Venue.find.where().eq("city_id", cityId).findIds())
-				.ne("hidden", true)
-				.or(Expr.ge("endDate", currentDate), Expr.isNull("endDate"));
-		
-		if (categoryId.equalsIgnoreCase(Util.getStringProperty("category.default")))
-			experiences = expressionList.findList();
-		else 
-			experiences = expressionList.eq("category_id", categoryId).findList();
-		
+		// show latest experiences first
+		experiences = expressionList.orderBy("createTimestamp desc").findList();
+
 		return experiences;
 	}
 
 	
 	/**
 	 * Returns all experiences by city, category, duration and price
+	 * 
+	 * TODO - needs to be integrated with other getExperience() method
 	 */
 	public static List<Experience> getExperiences(String cityId, String categoryId, String durationLow, 
 						String durationHigh, String priceLow, String priceHigh) {
@@ -131,17 +146,18 @@ public class ExperienceHandler {
 	 * Returns all experiences at the given venue
 	 */
 	public static List<Experience> getExperiencesAtVenue(String venueId) {
-		List<Experience> experiences = Experience.find
-				.where()
-				.eq("venue_id", venueId)
-				.findList();
+		List<Object> list = new ArrayList<Object>();
+		list.add(venueId);
 		
+		List<Experience> experiences = getCommonExpressionToGetExperiences(list)
+											.orderBy("createTimestamp desc").findList();
+
 		return experiences;
 	}
 	
 	
 	/**
-	 * Returns all experiences by city - even the expired ones
+	 * Returns all experiences by city - even the expired and hidden ones
 	 */
 	public static List<Experience> getAllExperiences(String cityId) {
 		List<Experience> experiences = Experience.find

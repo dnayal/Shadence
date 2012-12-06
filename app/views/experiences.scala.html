@@ -2,7 +2,7 @@
 
 @import handlers._
 
-@main("Experience Stream") {
+@main(ExperienceCategoryHandler.getCategoryName(categoryId) + " Experiences in " + CityHandler.getCity(cityId).getName) {
 	<div class="container">
 	
 		<div class="row">

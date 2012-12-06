@@ -48,6 +48,17 @@ public class ExperienceCategoryHandler {
 	
 	
 	/**
+	 * Returns the name of the category based on Id
+	 */
+	public static String getCategoryName(String categoryId) {
+		if (categoryId.equalsIgnoreCase(Util.getStringProperty("category.default")))
+			return "All";
+		else 
+			return ExperienceCategory.find.byId(Util.getString(categoryId)).getName();
+	}
+	
+	
+	/**
 	 * Returns all experience categories 
 	 */
 	public static List<ExperienceCategory> getExperienceCategories() {
