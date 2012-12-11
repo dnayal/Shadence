@@ -17,13 +17,13 @@
 			<div class="span6">
 	    		<br/>
 				<p style="font-size: 1.5em;line-height: 1.25;">
-		    		@if(errorCode == utils.Util.HTTP_400) {
+		    		@if(errorCode == utils.Util.getIntegerProperty("HTTP_400")) {
 		    			There is some problem with the request you have made.
 		    		}
-					@if(errorCode == utils.Util.HTTP_404) {
+					@if(errorCode == utils.Util.getIntegerProperty("HTTP_404")) {
 		    			The page you have requested does not exist.
 		    		}
-					@if(errorCode == utils.Util.HTTP_500) {
+					@if(errorCode == utils.Util.getIntegerProperty("HTTP_500")) {
 		    			There has been some problem while processing the request you have made.
 		    		}
 		    		

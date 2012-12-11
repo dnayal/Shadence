@@ -6,6 +6,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import play.db.ebean.Model;
 import utils.Util;
 
@@ -16,38 +19,47 @@ public class EntityPhoto extends Model {
 	@Column(length=100)
 	String photoId;
 
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="entity_city_id")
 	@Column(length=100)
 	City entityCity; 
 	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="entity_experience_id")
 	@Column(length=100)
 	Experience entityExperience; 
 
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="entity_user_id")
 	@Column(length=100)
 	User entityUser;
 
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	@Column(length=100)
 	User user;
 
+	@JsonIgnore
 	@Column(length=500)
 	String location;
 
+	@JsonIgnore
 	@Column(length=500)
 	String originalPhoto;
 
+	@JsonIgnore
 	@Column(length=500)
 	String largePhoto;
 
+	@JsonIgnore
 	@Column(length=500)
 	String mediumPhoto;
 
+	@JsonIgnore
 	@Column(length=500)
 	String smallPhoto;
 
@@ -60,6 +72,7 @@ public class EntityPhoto extends Model {
 	@Column(length=3)
 	String photoOrder;
 
+	@JsonIgnore
 	Long createTimestamp;
 	
 	public static Finder<String, EntityPhoto> find = new Finder<String, EntityPhoto>(String.class, EntityPhoto.class);

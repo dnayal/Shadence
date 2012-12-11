@@ -11,11 +11,6 @@ import play.Play;
 
 public class Util {
 	
-	public static final int HTTP_400 = 400;
-	public static final int HTTP_404 = 404;
-	public static final int HTTP_500 = 500;
-
-	
 	/**
 	 * Returns a unique id
 	 */

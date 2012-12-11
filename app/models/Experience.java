@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import play.data.validation.Constraints.Email;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
@@ -23,16 +25,19 @@ public class Experience extends Model {
 	@Column(length=100)
 	String experienceId;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="venue_id")
 	@Column(length=100)
 	Venue venue;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	@Column(length=100)
 	User user;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="category_id")
 	@Column(length=100)
@@ -42,20 +47,25 @@ public class Experience extends Model {
 	@Column(length=100)
 	String name;
 
+	@JsonIgnore
 	@Email
 	@Column(length=100)
 	String email;
 
+	@JsonIgnore
 	@Column(length=100)
 	String twitter;
 
+	@JsonIgnore
 	@Column(length=20)
 	String phone;
 
+	@JsonIgnore
 	@Required
 	@Column(length=5000)
 	String description;
 
+	@JsonIgnore
 	@Column(length=500)
 	String priceDescription;
 
@@ -66,22 +76,29 @@ public class Experience extends Model {
 	 * 3 - Expensive
 	 * 4 - High End
 	 **/
+	@JsonIgnore
 	Integer priceRating;
 
 	/** Number, stored in hours **/
+	@JsonIgnore
 	Integer duration;
 
+	@JsonIgnore
 	@Column(length=500)
 	String scheduleDescription;
 
+	@JsonIgnore
 	@Column(length=500)
 	String originalSource;
 	
+	@JsonIgnore
 	@Column(length=200)
 	String tags;
 	
+	@JsonIgnore
 	Date startDate;
 	
+	@JsonIgnore
 	Date endDate;
 	
 	/*
@@ -90,8 +107,10 @@ public class Experience extends Model {
 	 * method works properly (because of ebean ne() expression
 	 * which does not work for null values
 	 */
+	@JsonIgnore
 	Boolean hidden = false;
 	
+	@JsonIgnore
 	Long createTimestamp;
 	
 	@OneToMany(mappedBy="entityExperience")
@@ -211,6 +230,7 @@ public class Experience extends Model {
 	/**
 	 * Returns string equivalent of price rating
 	 */
+	@JsonIgnore
 	public String getPriceRatingDescription() {
 		switch(this.priceRating) {
 			case 0: return "Free";

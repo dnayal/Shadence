@@ -13,6 +13,7 @@
             position: latlng
         });
 	}
+	
 
 	function initMasonry(containerId, itemId) {
 		$(containerId).imagesLoaded(function() {
@@ -25,3 +26,28 @@
 			});
 		});	
 	}
+	
+	function getPriceText(value) {
+		switch(value) {
+    		case 0: return "Free";
+    		case 1: return "Inexpensive";
+    		case 2: return "Moderate";
+    		case 3: return "Expensive";
+    		case 4:	return "High End";
+    		default: return "High End";	
+		}
+	}
+
+
+	function getDurationText(value) {
+		switch(value) {
+    		case 1: return "1 hour";
+    		case 2: return "2 hours";
+    		case 3: return "3 hours";
+    		case 4:	return "Half day";
+    		case 5: return "One day";	
+    		default: return "One day";	
+		}
+	}
+
+	

@@ -14,7 +14,6 @@
 				</h3>
 			</div>
 			
-			<!-- using offset here, because affix is used in the previous span -->
 			<div class="span4 main-logo">
 	    		<h1 class="logo-text">@utils.Util.getStringProperty("application.name")</h1>
 			    <h5>Discover interesting experiences in your city</h5>
@@ -34,12 +33,22 @@
 		    				</li>
 	    				}
 		    		</ul>
-	<!-- 
-					<h5>Price <small>[Free - Expensive]</small></h5> 
+
+
+					<div id="price-text">
+						<h5>Price <small>[Free - High End]</small></h5>
+					</div>	 
 	    			<div id="price-slider"></div>
-					<h5>Duration <small>[1 hour - 1 day]</small></h5>
+
+	    			<br/>
+					<div id="duration-text">
+						<h5>Duration <small>[1 hour - One day]</small></h5>
+					</div>	
 	    			<div id="duration-slider"></div>
-	 -->    			
+					<div id="loader" align="center" style="display:none;">
+						<img alt="Loading..." src="@routes.Assets.at("shadence/images/loader.gif")">
+					</div>
+					<br/>
 					<br/>
 		    		<p>
 	    				| <a href="@routes.Application.aboutShadence()">About</a>
@@ -48,9 +57,8 @@
 		    	</div>
 	    	</div>
 	    	
-			<!-- using offset here, because affix is used in the previous span -->
 			<div class="span9">
-		    	<div class="masonary-container experiences-stream">
+		    	<div id="experiences" class="masonary-container experiences-stream">
 		    	@for(experience <- experiences) {
 					<div class="thumbnail masonary-item">
 						<a href="@routes.Application.getExperience(experience.getExperienceId)">
@@ -68,29 +76,79 @@
     </div>
     
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-	<script type="text/javascript" src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="@routes.Assets.at("shadence/js/jquery.masonry.min.js")"></script>
 	<script type="text/javascript" src="@routes.Assets.at("shadence/js/jquery.imagesloaded.min.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("bootstrap/js/bootstrap.min.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("shadence/js/main.js")"></script>
     <script type="text/javascript">
+    	
+		function getExperiencesForPriceAndDuration() {
+			$('#loader').show();
+			priceLow = $("#price-slider").slider( "values", 0 );
+			priceHigh = $("#price-slider").slider( "values", 1 );
+			durationLow = $("#duration-slider").slider( "values", 0 );
+			durationHigh = $("#duration-slider").slider( "values", 1 );
+			durationLow = (durationLow==5)?24:durationLow;
+			durationHigh = (durationHigh==5)?24:durationHigh;
+			// console.log("Price low : " + priceLow + " high : " + priceHigh + "..Duration low : " + durationLow + " high : " + durationHigh);
+			jsonString = "format=json&priceLow="+priceLow+"&priceHigh="+priceHigh+"&durationLow="+durationLow+"&durationHigh="+durationHigh;
+			
+			$.getJSON('@routes.Application.getExperiences(cityId, categoryId.toLowerCase)?' + jsonString, function(data) {
+				var result = "";
+				if (data.length < 1) {
+					result='<div class="masonary-item"><br/><br/><h3>No experiences found for your price-duration criteria.</h3><br/></div>'
+				} else {
+					$.each(data, function(index,experience){
+						result=result+'<div class="thumbnail masonary-item">' +
+							'<a href="/experiences/'+experience.experienceId+'">' +
+							'<img class="experience-stream-image" src="'+experience.experiencePhotos[0].mediumPhotoURL+'" alt="'+experience.experiencePhotos[0].alternateText+'">' +
+							'<h4>'+experience.name+'</h4></a></div>';
+					});
+				}
+				
+				$('#experiences').html(result);
+				$('#experiences').masonry('destroy');
+				initMasonry(".masonary-container", ".masonary-item")
+				$('#loader').hide();
+			});
+		}
+
+    
     	$(document).ready(function(){
-			initMasonry(".masonary-container", ".masonary-item")
+			initMasonry(".masonary-container", ".masonary-item");
 			
 			$("#price-slider").slider({
 				range:true,
 				min:0,
 				max:4,
 				values: [0,4],
-				step:1
+				step:1,
+				slide: function(event, ui) {
+					priceLow = getPriceText(ui.values[0]);
+					priceHigh = getPriceText(ui.values[1]);
+					$("#price-text").html("<h5>Price <small>[" + priceLow + " - " + priceHigh + "]</small></h5>");
+				},
+				change: function(event, ui) {
+					getExperiencesForPriceAndDuration();
+				}
 			});
+			
 			
 			$("#duration-slider").slider({
 				range:true,
 				min:1,
-				max:24,
-				values: [0,24],
-				step:4
+				max:5,
+				values: [1, 5],
+				step:1,
+				slide: function(event, ui) {
+					durationLow = getDurationText(ui.values[0]);
+					durationHigh = getDurationText(ui.values[1]);
+					$("#duration-text").html("<h5>Duration <small>[" + durationLow + " - " + durationHigh + "]</small></h5>");
+				},
+				change: function(event, ui) {
+					getExperiencesForPriceAndDuration();
+				}
 			});
 			
     	});

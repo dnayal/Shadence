@@ -107,6 +107,18 @@ public class ExperienceHandler {
 	 */
 	public static List<Experience> getExperiences(String cityId, String categoryId) {
 		
+		return getExperiences(cityId, categoryId, 
+				Util.getStringProperty("duration.min"), Util.getStringProperty("duration.max"),
+				Util.getStringProperty("priceRating.min"), Util.getStringProperty("priceRating.max"));
+	}
+
+	
+	/**
+	 * Returns all experiences by city, category, duration and price
+	 */
+	public static List<Experience> getExperiences(String cityId, String categoryId, String durationLow, 
+						String durationHigh, String priceLow, String priceHigh) {
+
 		List<Experience> experiences = new ArrayList<Experience>();
 
 		ExpressionList<Experience> expressionList = 
@@ -115,29 +127,11 @@ public class ExperienceHandler {
 		if (!categoryId.equalsIgnoreCase(Util.getStringProperty("category.default")))
 			expressionList = expressionList.eq("category_id", categoryId);
 		
-		// show latest experiences first
+		expressionList = expressionList.between("duration", durationLow, durationHigh)
+										.between("priceRating", priceLow, priceHigh);
+
 		experiences = expressionList.orderBy("createTimestamp desc").findList();
 
-		return experiences;
-	}
-
-	
-	/**
-	 * Returns all experiences by city, category, duration and price
-	 * 
-	 * TODO - needs to be integrated with other getExperience() method
-	 */
-	public static List<Experience> getExperiences(String cityId, String categoryId, String durationLow, 
-						String durationHigh, String priceLow, String priceHigh) {
-		List<Experience> experiences = Experience.find
-				.where()
-				.in("venue_id", Venue.find.where().eq("city_id", cityId).findIds())
-				.eq("category_id", categoryId)
-				.between("duration", durationLow, durationHigh)
-				.between("priceRating", priceLow, priceHigh)
-				.or(Expr.ge("endDate", new Date()), Expr.isNull("endDate"))
-				.findList();
-		
 		return experiences;
 	}
 	
