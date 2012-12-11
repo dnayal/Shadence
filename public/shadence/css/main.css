@@ -96,8 +96,27 @@ body, h1, h2, h3, h4, h5, h6, p, a {
 	padding: 5px;
 }
 
+/*
+	Helps the experiences stream not overlay 
+	on the categories on a small screen
+*/
 @media (max-width: 767px) {
 	.affix {
 		position: static;
 	}
+}
+
+/*
+	Settings the improve the look and feel of price and duration slider
+*/
+.ui-slider-horizontal .ui-state-default {
+	background: transparent url(/assets/shadence/images/handle.png) no-repeat scroll center;
+	background-size: 21px 21px;
+	border: 0px;
+}
+.ui-slider-horizontal .ui-slider-range {
+	background: #cee1ef;
+}
+.ui-slider-horizontal {
+	height: 0.6em;
 }
