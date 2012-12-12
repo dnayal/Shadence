@@ -17,24 +17,3 @@ GET		/experiences/:cityId/:categoryId	controllers.Application.getExperiences(cit
 GET		/experiences/:experienceId			controllers.Application.getExperience(experienceId: String)
 GET 	/venues/:venueId					controllers.Application.getVenue(venueId: String)
 
-#######
-# Admin
-#######
-GET		/admin/main						controllers.Admin.getMain()
-GET		/admin/:cityId/experiences					controllers.Admin.getExperiences(cityId: String)
-POST	/admin/:cityId/experiences					controllers.Admin.saveExperience(cityId: String)
-GET		/admin/:cityId/experiences/:experienceId	controllers.Admin.showExperienceForm(cityId: String, experienceId: String)
-GET		/admin/:cityId/venues				controllers.Admin.getVenues(cityId: String)
-POST	/admin/:cityId/venues				controllers.Admin.saveVenue(cityId: String)
-GET		/admin/:cityId/venues/:venueId		controllers.Admin.showVenueForm(cityId: String, venueId: String)
-GET		/admin/categories					controllers.Admin.getCategories()
-POST	/admin/categories					controllers.Admin.saveCategory()
-GET		/admin/categories/:categoryId		controllers.Admin.showCategoryForm(categoryId: String)
-GET		/admin/cities				controllers.Admin.getCities()
-POST	/admin/cities				controllers.Admin.saveCity()
-GET		/admin/cities/:cityId		controllers.Admin.showCityForm(cityId: String)
-GET		/admin/users				controllers.Admin.getUsers()
-POST	/admin/users				controllers.Admin.saveUser()
-GET		/admin/users/:userId		controllers.Admin.showUserForm(userId: String)
-
-
