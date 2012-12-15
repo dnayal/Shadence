@@ -10,7 +10,8 @@ object ApplicationBuild extends Build {
     val appDependencies = Seq(
       // Add your project dependencies here,
       "mysql" % "mysql-connector-java" % "5.1.18",
-      "org.imgscalr" % "imgscalr-lib" % "4.2"
+      "org.imgscalr" % "imgscalr-lib" % "4.2",
+      "javax.mail" % "mail" % "1.4.1"
     )
 	
     val main = PlayProject(appName, appVersion, appDependencies, mainLang = JAVA).settings(

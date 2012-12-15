@@ -2,6 +2,10 @@ package handlers;
 
 import java.util.List;
 
+import exceptions.DuplicateEntityException;
+
+import utils.Security;
+import utils.Server;
 import utils.Util;
 import models.User;
 
@@ -17,10 +21,15 @@ public class UserHandler {
 
 	
 	/**
-	 * Saves the user
+	 * Saves the user. If a user is already registered with 
+	 * the same email id, an error is thrown
 	 */
 	public static void saveUser(User user) {
-		user.save();
+		User userObject = User.find.where().eq("email", user.getEmail()).findUnique();
+		if (userObject == null) {
+			user.save();
+		} else
+			throw new DuplicateEntityException("Duplicate email id");
 	}
 	
 
@@ -47,6 +56,30 @@ public class UserHandler {
 	
 
 	/**
+	 * Returns a user based on email id
+	 */
+	public static User getUserByEmail(String email) {
+		return User.find.where().eq("email", email).findUnique();
+	}
+	
+
+	/**
+	 * Returns a user based on email id and confirms it using password
+	 * Used for user login
+	 */
+	public static User getUserByEmailAndPassword(String email, String password) {
+		User user = getUserByEmail(email);
+		if (user == null)
+			return null;
+		else
+			if (Security.generateHash(user.getUserId(), password).equalsIgnoreCase(user.getPassword()))
+				return user;
+			else 
+				return null;
+	}
+	
+
+	/**
 	 * Returns all users
 	 */
 	public static List<User> getUsers() {
@@ -54,4 +87,46 @@ public class UserHandler {
 	}
 	
 	
+	/**
+	 * Based on the email initiates the forgot password request of the user
+	 */
+	public static void forgotPassword(String email) {
+		User user = getUserByEmail(email);
+		if (user == null)
+			return;
+
+		String url = Server.getForgotPasswordServerURL() 
+						+ "?" + Server.PASSWORD_REQUEST_TYPE + "=" + Server.RESET_PASSWORD  
+						+ "&" + Security.PARAM_USERID + "=" + user.getUserId()
+						+ "&" + Security.PARAM_TIMESTAMP + "=" + String.valueOf(System.currentTimeMillis());
+		
+		Util.sendMail(email, "Shadence Password Reset Request", views.html.email.forgotpassword.render(url).toString());
+	}
+	
+
+	/**
+	 * Changes password of the given user
+	 */
+	public static Boolean changePassword(User user, String password) {
+		if (user == null)
+			return false;
+		
+		user.setPassword(Security.generateHash(user.getUserId(), password));
+		user.update();
+		return true;
+	}
+	
+
+	/**
+	 * Checks whether the profile is being accessed by the owner
+	 */
+	public static Boolean isUserProfileOwner(String userId) {
+		String sessionUserId = Server.getCurrentSessionUserId();
+		
+		if(sessionUserId==null || (!sessionUserId.equalsIgnoreCase(userId)))
+			return false;
+		
+		return true;
+	}
+
 }

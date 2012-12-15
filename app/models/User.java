@@ -11,6 +11,7 @@ import javax.persistence.OrderBy;
 import play.data.validation.Constraints.Email;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
+import utils.Server;
 
 @Entity
 public class User extends Model {
@@ -19,12 +20,12 @@ public class User extends Model {
 	@Column(length=100)
 	String userId;
 
-	@Required
 	@Column(length=100)
 	String name;
 
+	@Required
 	@Email
-	@Column(length=100)
+	@Column(length=100, unique=true)
 	String email;
 
 	@Required
@@ -108,6 +109,27 @@ public class User extends Model {
 
 	public void setProfilePhotos(List<EntityPhoto> profilePhotos) {
 		this.profilePhotos = profilePhotos;
+	}
+	
+	public Boolean hasProfilePhotos() {
+		if (profilePhotos == null)
+			return false;
+		else 
+			if (profilePhotos.size() < 1)
+				return false;
+			else
+				return true;
+	}
+	
+	/**
+	 * Returns main profile photo
+	 */
+	public String getMainProfilePhoto() {
+		if(profilePhotos == null || profilePhotos.size() < 1) {
+			return Server.getAssetAt("shadence/images/_default_user_.png");
+		} else {
+			return profilePhotos.get(0).getMediumPhotoURL();
+		}
 	}
 	
 }

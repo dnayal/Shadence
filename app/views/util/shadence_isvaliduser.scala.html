@@ -1,0 +1,32 @@
+@if(utils.Server.isValidUser()) {
+	@defining(utils.Server.getCurrentSessionUser) { user =>
+ 		<div class="dropdown pull-right" style="padding-top: 10px">
+			<a class="dropdown-toggle" style="text-decoration: none;" data-toggle="dropdown" href="#">
+			 	<img style="border-radius:5px;" height="22" width="22" src="@user.getMainProfilePhoto">
+				 @user.getName
+				<span class="caret"></span>
+			</a>
+			<ul class="dropdown-menu" role="menu">
+				<li>
+					<a href="@routes.Application.getUserProfile(user.getUserId)">My Profile</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					<a href="@routes.Application.logout()">Logout</a>
+				</li>
+			</ul>
+		</div>
+	}
+}
+
+@if(!utils.Server.isValidUser()) {
+	<ul class="breadcrumb">
+		<li>
+			<a href="@routes.Application.viewLoginRegister()">Login</a>
+			<span class="divider">|</span>
+		</li>
+		<li>
+			<a href="@routes.Application.viewLoginRegister()">Register</a>
+		</li>
+	</ul>
+}

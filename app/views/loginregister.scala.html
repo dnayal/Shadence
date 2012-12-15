@@ -1,0 +1,145 @@
+@(user_form: Form[User])
+
+@import helper._
+
+@main("Shadence - discover interesting experiences in your city") {
+	<div class="container">
+	
+		<div class="row">
+			<div class="span4">
+				<ul class="breadcrumb">
+					<li>
+						<a href="@routes.Application.index()">
+							Shadence Home
+						</a> 
+					</li>
+				</ul>
+			</div>
+			<div class="span4 main-logo">
+	    		<h1 class="logo-text">@utils.Util.getStringProperty("application.name")</h1>
+			    <h5>Discover interesting experiences in your city</h5>
+		    </div>
+		</div>
+		<br/>
+		<br/>
+		<div class="row">
+			<div class="offset7 span4">
+				<p>Sign up with Shadence to get email updates on exciting experiences!</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="offset1 span5" style="border-right: 1px solid lightgray;">
+				<div class="row">
+					<div class="span4">
+						<h3>Login</h3>
+					</div>
+				</div>
+				@form(routes.Application.login()) {
+					<div class="row">
+						<div class="span4">
+							<span class="error">@if(user_form.error("login_error")!=null) {@user_form.error("login_error").message}&nbsp;</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="span1">
+							<label for="@user_form("email").name"><strong>Email</strong></label>
+						</div>
+						<div class="span3">
+							<input type="text" name="@user_form("email").name" placeholder="Email">
+						</div>
+					</div>
+					<div class="row">
+						<div class="span1">
+							<label for="@user_form("password").name"><strong>Password</strong></label>
+						</div>
+						<div class="span3">
+							<input type="password" name="@user_form("password").name" placeholder="Password">
+						</div>
+					</div>
+					<div class="row">
+						<div class="span2">
+							<a href="@routes.Application.viewForgotPassword()">Forgot Password?</a>
+						</div>
+						<div class="span2">
+							<label class="checkbox">
+								<input type="checkbox" name="@utils.Server.REMEMBER_ME" value="true"> Remember Me
+							</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="span1">
+							&nbsp;
+						</div>
+						<div class="span3">
+							<button type="submit" class="btn btn-info btn-large">Login</button>
+						</div>
+					</div>
+				}
+			</div>
+			<div class="offset1 span4">
+				<div class="row">
+					<div class="span4">
+						<h3>Sign Up</h3>
+					</div>
+				</div>
+				@form(routes.Application.register()) {
+					<div class="row">
+						<div class="span4">
+							<span class="error">@if(user_form.error("register_error")!=null) {@user_form.error("register_error").message}&nbsp;</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="span1">
+							<label for="@user_form("name").name"><strong>Name</strong></label>
+						</div>
+						<div class="span3">
+							<input type="text" name="@user_form("name").name" placeholder="Name">
+						</div>
+					</div>
+					<div class="row">
+						<div class="span1">
+							<label for="@user_form("email").name"><strong>Email</strong></label>
+						</div>
+						<div class="span3">
+							<input type="text" name="@user_form("email").name" placeholder="Email">
+						</div>
+					</div>
+					<div class="row">
+						<div class="span1">
+							<label for="@user_form("password").name"><strong>Password</strong></label>
+						</div>
+						<div class="span3">
+							<input type="password" name="@user_form("password").name" placeholder="Password">
+						</div>
+					</div>
+					<div class="row">
+						<div class="span2">
+							&nbsp;
+						</div>
+						<div class="span2">
+							<label class="checkbox">
+								<input type="checkbox" name="@utils.Server.REMEMBER_ME" value="true"> Remember Me
+							</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="span1">
+							&nbsp;
+						</div>
+						<div class="span3">
+							<button type="submit" class="btn btn-info btn-large">Sign Up</button>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+				
+    </div>
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script type="text/javascript" src="@routes.Assets.at("bootstrap/js/bootstrap.min.js")"></script>
+	<script>
+		$(document).ready(function() {
+		 });
+	</script>	
+}

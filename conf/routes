@@ -13,7 +13,16 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 # Application
 #############
 GET		/about								controllers.Application.aboutShadence()
+GET		/loginregister						controllers.Application.viewLoginRegister()
+POST	/login								controllers.Application.login()
+GET		/logout								controllers.Application.logout()
+POST	/register							controllers.Application.register()
+GET		/forgotpassword						controllers.Application.viewForgotPassword()
+POST	/forgotpassword						controllers.Application.forgotPassword()
+
 GET		/experiences/:cityId/:categoryId	controllers.Application.getExperiences(cityId: String, categoryId: String)
 GET		/experiences/:experienceId			controllers.Application.getExperience(experienceId: String)
 GET 	/venues/:venueId					controllers.Application.getVenue(venueId: String)
+GET 	/users/:userId						controllers.Application.getUserProfile(userId: String)
+POST 	/users/:userId						controllers.Application.updateProfile(userId: String)
 

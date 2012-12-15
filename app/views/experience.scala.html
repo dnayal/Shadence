@@ -1,7 +1,5 @@
 @(experience: Experience)
 
-@import util._
-
 @main(experience.getVenue.getCity.getName + " - " + experience.getName) {
 	<div class="container">
 	
@@ -27,6 +25,9 @@
 			</div>
 			<div class="span4 main-logo">
 	    		<h1 class="logo-text">@utils.Util.getStringProperty("application.name")</h1>
+			</div>
+			<div class="span4" align="right">
+	    		@util.shadence_isvaliduser()
 			</div>
 		</div>	
 		
@@ -100,7 +101,7 @@
 								}
 								@if(experience.getScheduleDescription != "") {
 									<tr><th colspan="2" align="left" bgcolor="#E8E8E8">Schedule</th></tr>
-									@shadence_schedule(experience.getScheduleDescription)
+									@util.shadence_schedule(experience.getScheduleDescription)
 								}
 							</table>
 						</p>	

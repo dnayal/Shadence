@@ -4,7 +4,13 @@
 	
 		<div class="row">
 			<div class="span4">
-				&nbsp;
+				<ul class="breadcrumb">
+					<li>
+						<a href="@routes.Application.index()">
+							Shadence Home
+						</a> 
+					</li>
+				</ul>
 			</div>
 			<div class="span4 main-logo">
 	    		<h1 class="logo-text">@utils.Util.getStringProperty("application.name")</h1>
@@ -22,10 +28,12 @@
 					<a data-toggle="tab" id="about_links_terms" class="header_menu" href="#terms">Legal Stuff</a>
 				</p>
 				<br/>
+				<!-- 
 				<p>
 					<a href="@routes.Application.index()" style="color: black" class="header_menu">&lt;&lt; Home</a>
 				</p>
 				<br/>
+				 -->
 			</div>
 			<div class="span6">
 				<div class="tab-content">

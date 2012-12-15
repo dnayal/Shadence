@@ -1,4 +1,4 @@
-body, h1, h2, h3, h4, h5, h6, p, a {
+body, h1, h2, h3, h4, h5, h6, p, a, button {
 	font-family: 'Marcellus', "Helvetica Neue", Verdana, Helvetica, Arial, sans-serif;
 }
  
@@ -9,7 +9,7 @@ body, h1, h2, h3, h4, h5, h6, p, a {
 
 .main-logo {
 	text-align: center;
-	padding: 15px;
+	padding-bottom: 15px;
 }
 
 .logo-text {
@@ -119,4 +119,14 @@ body, h1, h2, h3, h4, h5, h6, p, a {
 }
 .ui-slider-horizontal {
 	height: 0.6em;
+}
+
+
+.error {
+	font-size: 0.80em;
+	color: red;
+}
+
+.profile_cell {
+ 	padding: 10px 10px 10px 0px;	
 }
