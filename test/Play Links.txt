@@ -1,3 +1,6 @@
+
+Yum Updates in Amazon micro instance have been stopped - sudo service yum-updatesd stop
+
 https://devcenter.heroku.com/articles/using-amazon-s3-for-file-uploads-with-java-and-play-2
 
 http://digitalsanctum.com/2012/06/01/play-framework-2-tutorial-ebean-orm/

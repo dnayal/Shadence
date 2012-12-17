@@ -145,4 +145,9 @@ public class Server extends Controller {
 		return routes.Assets.at(asset).toString();
 	}
 	
+	
+	public static String getPhoto(String filename) {
+		return routes.Application.getPhoto(filename).toString();
+	}
+	
 }

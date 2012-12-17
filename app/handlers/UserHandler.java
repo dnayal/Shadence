@@ -100,8 +100,8 @@ public class UserHandler {
 
 		String url = Server.getForgotPasswordServerURL() 
 						+ "?" + Server.PASSWORD_REQUEST_TYPE + "=" + Server.RESET_PASSWORD  
-						+ "&" + Security.PARAM_USERID + "=" + user.getUserId()
-						+ "&" + Security.PARAM_TIMESTAMP + "=" + String.valueOf(System.currentTimeMillis());
+						+ "&" + Security.PARAM_USERID + "=" + Security.encrypt(user.getUserId())
+						+ "&" + Security.PARAM_TIMESTAMP + "=" + Security.encrypt(String.valueOf(System.currentTimeMillis()));
 		
 		Util.sendMail(email, "Shadence Password Reset Request", views.html.email.forgotpassword.render(url).toString());
 	}

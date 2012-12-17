@@ -68,6 +68,14 @@ public class EntityPhotoHandler {
 	public static EntityPhoto processEntityPhoto(int operationType, String filename, File uploadedFile, String photoId, 
 			String entityId, int entityType, String userId, String alternateText, String photoOrder) {
 		
+		EntityPhoto previousEntityPhoto = null;
+		boolean photoExists = false;
+		
+		if (photoId!=null && operationType==UPDATE_OPERATION) {
+			photoExists = true;
+			previousEntityPhoto = EntityPhotoHandler.getEntityPhoto(photoId);
+		}
+		
 		if (operationType==INSERT_OPERATION)
 			photoId = Util.getUniqueId();
 		
@@ -95,9 +103,41 @@ public class EntityPhotoHandler {
 		EntityPhoto photo = saveEntityPhoto(operationType, photoId, entityId, entityType, 
 				userId, entityId, photos[0], photos[1], photos[2], photos[3], alternateText, photoOrder);
 		
+		if (photoExists)
+			deletePreviousEntityPhotos(previousEntityPhoto, photo);
+		
 		return photo;
 			
 	}
+	
+	
+	private static void deletePreviousEntityPhotos(EntityPhoto oldPhoto, EntityPhoto newPhoto) {
+		if(!oldPhoto.getOriginalPhotoURL().equalsIgnoreCase(newPhoto.getOriginalPhotoURL())) {
+			File file = new File(Util.getStringProperty("photos.upload.path") 
+					+ "/" + oldPhoto.getLocation() + "/" + oldPhoto.getOriginalPhoto());
+			file.delete();
+		}
+			
+		if(!oldPhoto.getLargePhotoURL().equalsIgnoreCase(newPhoto.getLargePhotoURL())) {
+			File file = new File(Util.getStringProperty("photos.upload.path") 
+					+ "/" + oldPhoto.getLocation() + "/" + oldPhoto.getLargePhoto());
+			file.delete();
+		}
+			
+		if(!oldPhoto.getMediumPhotoURL().equalsIgnoreCase(newPhoto.getMediumPhotoURL())) {
+			File file = new File(Util.getStringProperty("photos.upload.path") 
+					+ "/" + oldPhoto.getLocation() + "/" + oldPhoto.getMediumPhoto());
+			file.delete();
+		}
+			
+		if(!oldPhoto.getSmallPhotoURL().equalsIgnoreCase(newPhoto.getSmallPhotoURL())) {
+			File file = new File(Util.getStringProperty("photos.upload.path") 
+					+ "/" + oldPhoto.getLocation() + "/" + oldPhoto.getSmallPhoto());
+			file.delete();
+		}
+	}
+	
+	
 	
 	
 	/**

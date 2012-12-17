@@ -61,7 +61,7 @@
 						<a data-toggle="tab" class="btn btn-info btn-large" href="#profile_edit">Edit</a>
 					</div>
 					<div class="tab-pane" id="profile_edit">
-					@form(routes.Application.updateProfile(user.getUserId), 'id -> "user_form") {
+					@form(routes.Application.updateProfile(user.getUserId), 'id -> "user_form", 'enctype -> "multipart/form-data") {
 						<table border="0">
 							<tr>
 								<td class="profile_cell"><strong>Name</strong></td>
@@ -107,6 +107,12 @@
 								<td class="profile_cell"><strong>Country</strong></td>
 								<td class="profile_cell">
 									<input type="text" name="@user_form("country").name" value="@user_form("country").value" placeholder="Country">
+								</td>
+							</tr>
+							<tr>
+								<td class="profile_cell"><strong>Profile Photo</strong></td>
+								<td class="profile_cell">
+									<input type="file" id="profile_photo" name="profile_photo">
 								</td>
 							</tr>
 						</table>

@@ -201,27 +201,19 @@ public class EntityPhoto extends Model {
 	}
 	
 	public String getOriginalPhotoURL() {
-		return Server.getAssetAt("shadence/entity_photos")
-				.concat("/").concat(location)
-				.concat("/").concat(originalPhoto);
+		return Server.getPhoto(location + "/" + originalPhoto);
 	}
 
 	public String getLargePhotoURL() {
-		return Server.getAssetAt("shadence/entity_photos")
-				.concat("/").concat(location)
-				.concat("/").concat(largePhoto);
+		return Server.getPhoto(location + "/" + largePhoto);
 	}
 
 	public String getMediumPhotoURL() {
-		return Server.getAssetAt("shadence/entity_photos")
-				.concat("/").concat(location)
-				.concat("/").concat(mediumPhoto);
+		return Server.getPhoto(location + "/" + mediumPhoto);
 	}
 
 	public String getSmallPhotoURL() {
-		return Server.getAssetAt("shadence/entity_photos")
-				.concat("/").concat(location)
-				.concat("/").concat(smallPhoto);
+		return Server.getPhoto(location + "/" + smallPhoto);
 	}
 
 }

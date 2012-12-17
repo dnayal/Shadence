@@ -18,8 +18,6 @@
 				    
 				    @inputText(user_form("email"), '_label -> "Email")
 				    
-				    @inputPassword(user_form("password"), '_label -> "Password")
-	
 				    @inputText(user_form("gender"), '_label -> "Gender")
 				</div>
 				<div class="span4">
@@ -33,7 +31,7 @@
 					<table border="1">
 					@repeat(user_form("profilePhotos"), min = 0) { photoField =>
 						<tr>
-							<td><img width="50" height="50" src="@utils.Server.getAssetAt("shadence/entity_photos")/@photoField("location").value/@photoField("originalPhoto").value"></td>
+							<td><img width="50" height="50" src="@utils.Server.getPhoto(photoField("location").value.get+"/"+photoField("largePhoto").value.get)"></td>
 							<td><input type="file" name="@photoField("photoId").value"></td> 
 							<td>@inputText(photoField("alternateText"), '_label -> "Alternate Text")</td>
 							<td>@inputText(photoField("photoOrder"), '_label -> "Photo Order")</td>

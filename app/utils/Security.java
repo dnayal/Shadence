@@ -6,9 +6,9 @@ import java.security.MessageDigest;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.apache.commons.codec.binary.Base64;
+
 import play.Logger;
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
 
 public class Security {
 	
@@ -31,8 +31,7 @@ public class Security {
 			String data = salt.concat(string);
 			for (int i=0 ; i<100 ; i++)
 				md.update(data.getBytes(Util.getStringProperty("application.encoding")));
-			BASE64Encoder encoder = new BASE64Encoder();
-			return encoder.encode(md.digest());
+			return Base64.encodeBase64URLSafeString(md.digest());
 		} catch (Exception exception) {
 			Logger.error("Error while generating hash string", exception);
 			return "";
@@ -48,8 +47,7 @@ public class Security {
 			Key key = new SecretKeySpec(KEY.getBytes(Util.getStringProperty("application.encoding")), CIPHER_ALGO);
 			Cipher cipher = Cipher.getInstance(CIPHER_ALGO);
 			cipher.init(Cipher.ENCRYPT_MODE, key);
-			BASE64Encoder encoder = new BASE64Encoder();
-			return encoder.encode(cipher.doFinal(string.getBytes(Util.getStringProperty("application.encoding"))));
+			return Base64.encodeBase64URLSafeString(cipher.doFinal(string.getBytes(Util.getStringProperty("application.encoding"))));
 		} catch (Exception exception) {
 			Logger.error("Error while encrypting string", exception);
 			return "";
@@ -65,8 +63,7 @@ public class Security {
 			Key key = new SecretKeySpec(KEY.getBytes(Util.getStringProperty("application.encoding")), CIPHER_ALGO);
 			Cipher cipher = Cipher.getInstance(CIPHER_ALGO);
 			cipher.init(Cipher.DECRYPT_MODE, key);
-			BASE64Decoder decoder = new BASE64Decoder();
-			byte[] bytes = cipher.doFinal(decoder.decodeBuffer(encryptedString));
+			byte[] bytes = cipher.doFinal(Base64.decodeBase64(encryptedString));
 			return new String(bytes);
 		} catch (Exception exception) {
 			Logger.error("Error while decrypting string", exception);

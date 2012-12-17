@@ -1,9 +1,11 @@
 package controllers;
 
+import handlers.EntityPhotoHandler;
 import handlers.ExperienceHandler;
 import handlers.UserHandler;
 import handlers.VenueHandler;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +18,10 @@ import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
+import play.mvc.Http.MultipartFormData;
+import play.mvc.Http.MultipartFormData.FilePart;
 import play.mvc.Result;
+import models.EntityPhoto;
 import models.Experience;
 import models.User;
 import models.Venue;
@@ -111,9 +116,9 @@ public class Application extends Controller {
 		if (userIds==null || timestamps==null)
 			return ok(forgotpassword.render(false));
 		
-		String userId = userIds[0];
+		String userId = Security.decrypt(userIds[0]);
 		User user = UserHandler.getUser(userId);
-		long createTimestamp = Long.parseLong(timestamps[0]);
+		long createTimestamp = Long.parseLong(Security.decrypt(timestamps[0]));
 		long timeDifference = (System.currentTimeMillis() - createTimestamp)/(1000*60*60);
 		
 		if (timeDifference>=24 || user == null)
@@ -234,7 +239,40 @@ public class Application extends Controller {
 		else
 			user.setPassword(Security.generateHash(user.getUserId(), user.getPassword()));
 		user.setRoles(oldUser.getRoles());
+		user.setProfilePhotos(oldUser.getProfilePhotos());
 		UserHandler.updateUser(user);
+		
+		MultipartFormData formData = request().body().asMultipartFormData();
+		FilePart filePart = formData.getFile("profile_photo");
+
+		if (filePart != null) {
+
+			String supportContentType = Util.getStringProperty("application.photo.type");
+			long maxFileSize = Util.getIntegerProperty("application.photo.size");
+			long uploadedFilesize = (filePart.getFile().length()/1024/1024);
+			String uploadedContentType = filePart.getContentType();
+			if((!supportContentType.contains(uploadedContentType)) || (maxFileSize < uploadedFilesize)) {
+				Logger.error("Upload file is not supported. File: " + filePart.getFilename() 
+						+ " Type: " + uploadedContentType + " Size: " + uploadedFilesize);
+				filePart.getFile().delete();
+				userForm.reject("Upload file is not supported");
+				return badRequest(userprofile.render(user, userForm));
+			}
+			
+			int operation = EntityPhotoHandler.UPDATE_OPERATION;
+			List<EntityPhoto> list = user.getProfilePhotos();
+			String photoId = null;
+			
+			if(list==null || list.size()<1)
+				operation = EntityPhotoHandler.INSERT_OPERATION;
+			else
+				photoId = list.get(0).getPhotoId();
+			
+			EntityPhotoHandler.processEntityPhoto(operation, 
+					filePart.getFilename(), filePart.getFile(), photoId,  
+					user.getUserId(), EntityPhoto.ENTITY_USER, user.getUserId(), 
+					user.getName(),	"1");
+		}
 		
 		return redirect(routes.Application.getUserProfile(user.getUserId()));
 	}
@@ -244,7 +282,7 @@ public class Application extends Controller {
 	 * This action allows photos folder to be moved outside 
 	 * Play installation and serving dynamically uploaded images 
 	 */
-	public static Result getImage(String filename) {
-		  return ok(new java.io.File(Util.getStringProperty("photos.upload.path") + "/" + filename) );
+	public static Result getPhoto(String filename) {
+		  return ok(new File(Util.getStringProperty("photos.upload.path") + "/" + filename) );
 	}
 }
