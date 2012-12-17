@@ -1,5 +1,7 @@
 package models;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -28,12 +30,22 @@ public class User extends Model {
 	@Column(length=100, unique=true)
 	String email;
 
-	@Required
 	@Column(length=100)
 	String password;
 
 	@Column(length=5)
 	String gender;
+
+	Date birthdate;
+
+	@Column(length=100)
+	String city;
+
+	@Column(length=100)
+	String country;
+
+	@Column(length=500)
+	String roles;
 
 	Long createTimestamp;
 	
@@ -45,13 +57,17 @@ public class User extends Model {
 
 	public User() {}
 	
-	public User(String userId, String name, String email, String password, 
-								String gender, Long createTimestamp) {
+	public User(String userId, String name, String email, String password, String gender, 
+						Date birthdate, String city, String country, String roles, Long createTimestamp) {
 		this.userId = userId;
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.gender = gender;
+		this.birthdate = birthdate;
+		this.city = city;
+		this.country = country;
+		this.roles = roles;
 		this.createTimestamp = createTimestamp;
 	}
 
@@ -95,6 +111,38 @@ public class User extends Model {
 		this.gender = gender;
 	}
 
+	public Date getBirthdate() {
+		return birthdate;
+	}
+
+	public void setBirthdate(Date birthdate) {
+		this.birthdate = birthdate;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getRoles() {
+		return roles;
+	}
+
+	public void setRoles(String roles) {
+		this.roles = roles;
+	}
+
 	public Long getCreateTimestamp() {
 		return createTimestamp;
 	}
@@ -130,6 +178,18 @@ public class User extends Model {
 		} else {
 			return profilePhotos.get(0).getMediumPhotoURL();
 		}
+	}
+	
+	
+	/**
+	 * Returns the birthdate in a user friendly format
+	 */
+	public String getFormatedBirthdate() {
+		if (birthdate == null)
+			return "";
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMMM, yyyy");
+		return dateFormat.format(birthdate);
+		
 	}
 	
 }

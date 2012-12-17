@@ -160,9 +160,7 @@ public class Util {
 			Logger.error("Error while sending the email", exception);
 			return false;
 		}
-
+		
 	}
-
-
 
 }

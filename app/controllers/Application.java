@@ -212,8 +212,39 @@ public class Application extends Controller {
 		return ok(userprofile.render(user, userForm));
 	}
 	
+	
 	public static Result updateProfile(String userId) {
-		return TODO;
+		Form<User> userForm = form(User.class).bindFromRequest();
+		User oldUser = UserHandler.getUser(userId);
+		if(userForm.hasErrors()) {
+			userForm.reject("Error while processing your request");
+			return badRequest(userprofile.render(oldUser, userForm));
+		}
+		
+		if (!UserHandler.isUserProfileOwner(userId)) {
+			userForm.reject("Invalid Request");
+			return badRequest(userprofile.render(oldUser, userForm));
+		}
+		
+		User user = userForm.get();
+		user.setUserId(oldUser.getUserId());
+		user.setCreateTimestamp(oldUser.getCreateTimestamp());
+		if (user.getPassword().length() < 1)
+			user.setPassword(oldUser.getPassword());
+		else
+			user.setPassword(Security.generateHash(user.getUserId(), user.getPassword()));
+		user.setRoles(oldUser.getRoles());
+		UserHandler.updateUser(user);
+		
+		return redirect(routes.Application.getUserProfile(user.getUserId()));
 	}
 
+	
+	/**
+	 * This action allows photos folder to be moved outside 
+	 * Play installation and serving dynamically uploaded images 
+	 */
+	public static Result getImage(String filename) {
+		  return ok(new java.io.File(Util.getStringProperty("photos.upload.path") + "/" + filename) );
+	}
 }

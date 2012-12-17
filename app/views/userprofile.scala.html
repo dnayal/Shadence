@@ -39,26 +39,29 @@
 							</tr>
 							<tr>
 								<td class="profile_cell"><strong>Gender</strong></td>
-								<td class="profile_cell">&nbsp;</td>
+								<td class="profile_cell">
+									@if(user.getGender=="F") {Female}
+									@if(user.getGender=="M") {Male}
+								</td>
 							</tr>
 							<tr>
-								<td class="profile_cell"><strong>Birthday</strong></td>
-								<td class="profile_cell">&nbsp;</td>
+								<td class="profile_cell"><strong>Birthdate</strong></td>
+								<td class="profile_cell">@user.getFormatedBirthdate</td>
 							</tr>
 							<tr>
 								<td class="profile_cell"><strong>City</strong></td>
-								<td class="profile_cell">&nbsp;</td>
+								<td class="profile_cell">@user.getCity</td>
 							</tr>
 							<tr>
 								<td class="profile_cell"><strong>Country</strong></td>
-								<td class="profile_cell">&nbsp;</td>
+								<td class="profile_cell">@user.getCountry</td>
 							</tr>
 						</table>
 						<br/>
 						<a data-toggle="tab" class="btn btn-info btn-large" href="#profile_edit">Edit</a>
 					</div>
 					<div class="tab-pane" id="profile_edit">
-					@form(routes.Application.updateProfile(user.getUserId)) {
+					@form(routes.Application.updateProfile(user.getUserId), 'id -> "user_form") {
 						<table border="0">
 							<tr>
 								<td class="profile_cell"><strong>Name</strong></td>
@@ -73,20 +76,38 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="profile_cell"><strong>Gender</strong></td>
-								<td class="profile_cell">&nbsp;</td>
+								<td class="profile_cell"><strong>Password</strong><br/><strong>Confirm Password</strong></td>
+								<td class="profile_cell">
+									<input type="password" id="@user_form("password").name" name="@user_form("password").name" placeholder="&#149;&#149;&#149;&#149;&#149;&#149;&#149;&#149;">
+									<br/><input type="password" name="confirm" placeholder="&#149;&#149;&#149;&#149;&#149;&#149;&#149;&#149;">
+								</td>
 							</tr>
 							<tr>
-								<td class="profile_cell"><strong>Birthday</strong></td>
-								<td class="profile_cell">&nbsp;</td>
+								<td class="profile_cell"><strong>Birthdate</strong></td>
+								<td class="profile_cell">
+									<input type="text" id="@user_form("birthdate").name" name="@user_form("birthdate").name" value="@user_form("birthdate").value">
+								</td>
+							</tr>
+							<tr>
+								<td class="profile_cell"><strong>Gender</strong></td>
+								<td class="profile_cell">
+									<select name="@user_form("gender").name" class="input-small">
+										<option value="M" @if(user_form("gender").value=="M") {selected}>Male
+										<option value="F" @if(user_form("gender").value=="F") {selected}>Female
+									</select>
+								</td>
 							</tr>
 							<tr>
 								<td class="profile_cell"><strong>City</strong></td>
-								<td class="profile_cell">&nbsp;</td>
+								<td class="profile_cell">
+									<input type="text" name="@user_form("city").name" value="@user_form("city").value" placeholder="City">
+								</td>
 							</tr>
 							<tr>
 								<td class="profile_cell"><strong>Country</strong></td>
-								<td class="profile_cell">&nbsp;</td>
+								<td class="profile_cell">
+									<input type="text" name="@user_form("country").name" value="@user_form("country").value" placeholder="Country">
+								</td>
 							</tr>
 						</table>
 						<br/>
@@ -106,14 +127,44 @@
 			</div>
 		</div> 
 	}
+		
     </div>
 
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
     <script type="text/javascript" src="@routes.Assets.at("bootstrap/js/bootstrap.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("shadence/js/jquery.validate.min.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("shadence/js/main.js")"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
+			$( "#@user_form("birthdate").name" ).datepicker({ dateFormat: "yy-mm-dd" });
 
+			$('#user_form').validate({
+				rules: {
+					@user_form("name").name: {required: true, maxlength: 100},
+					@user_form("email").name: {required: true, maxlength: 100, email: true},
+					@user_form("birthdate").name: {date: true},
+					@user_form("city").name: {maxlength: 100},
+					@user_form("country").name: {maxlength: 100},
+					@user_form("password").name: {maxlength: 100},
+					confirm: {equalTo: "#@user_form("password").name"}
+				},
+				messages: {
+					@user_form("name").name: {required: "Please enter your name",
+												maxlength: "Name should not exceed 100 characters"},
+					@user_form("email").name: {required: "Please enter your email id",
+												maxlength: "Email id should not exceed 100 characters",
+												email: "Please enter a valid email id"},
+					@user_form("birthdate").name: {date: "Please enter a valid date"},
+					@user_form("city").name: {maxlength: "City should not exceed 100 characters"},
+					@user_form("country").name: {maxlength: "Country should not exceed 100 characters"},
+					@user_form("password").name: {maxlength: "Password should not exceed 100 characters"},
+					confirm: {equalTo: "Passwords do not match"}
+				},
+				submitHandler: function(form){
+					form.submit();
+				}
+			});
 		});
 		
 	</script>

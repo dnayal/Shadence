@@ -1,5 +1,6 @@
 package handlers;
 
+import java.util.Date;
 import java.util.List;
 
 import exceptions.DuplicateEntityException;
@@ -36,10 +37,12 @@ public class UserHandler {
 	/**
 	 * Saves the user
 	 */
-	public static User saveUser(String name, String email, String password, String gender) {
+	public static User saveUser(String name, String email, String password, String gender, 
+								Date birthdate, String city, String country, String roles) {
 
 		String userId = Util.getUniqueId();
-		User user = new User(userId, name, email, password, gender, System.currentTimeMillis());
+		User user = new User(userId, name, email, password, gender, birthdate, 
+										city, country, roles, System.currentTimeMillis());
 		
 		saveUser(user);
 		
