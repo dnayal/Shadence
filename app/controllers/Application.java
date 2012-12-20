@@ -166,9 +166,11 @@ public class Application extends Controller {
 				?Util.getStringProperty("duration.min"):Util.getString(parameters.get("durationLow")[0]);
 		String durationHigh = (parameters.get("durationHigh")==null)
 				?Util.getStringProperty("duration.max"):Util.getString(parameters.get("durationHigh")[0]);
-		
+		Integer pageStart = (parameters.get("pageStart")==null)
+				?Util.getIntegerProperty("application.pagestart"):Integer.parseInt(Util.getString(parameters.get("pageStart")[0]));
+
 		experienceList = ExperienceHandler.getExperiences(cityId, Util.getString(categoryId), 
-													durationLow, durationHigh, priceLow, priceHigh);
+													durationLow, durationHigh, priceLow, priceHigh, pageStart);
 		
 		String format = (parameters.get("format")==null)?"":Util.getString(parameters.get("format")[0]);
 		

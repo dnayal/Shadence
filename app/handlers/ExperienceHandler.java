@@ -109,7 +109,8 @@ public class ExperienceHandler {
 		
 		return getExperiences(cityId, categoryId, 
 				Util.getStringProperty("duration.min"), Util.getStringProperty("duration.max"),
-				Util.getStringProperty("priceRating.min"), Util.getStringProperty("priceRating.max"));
+				Util.getStringProperty("priceRating.min"), Util.getStringProperty("priceRating.max"),
+				Util.getIntegerProperty("application.pagestart"));
 	}
 
 	
@@ -117,7 +118,7 @@ public class ExperienceHandler {
 	 * Returns all experiences by city, category, duration and price
 	 */
 	public static List<Experience> getExperiences(String cityId, String categoryId, String durationLow, 
-						String durationHigh, String priceLow, String priceHigh) {
+						String durationHigh, String priceLow, String priceHigh, Integer firstRow) {
 
 		List<Experience> experiences = new ArrayList<Experience>();
 
@@ -130,7 +131,9 @@ public class ExperienceHandler {
 		expressionList = expressionList.between("duration", durationLow, durationHigh)
 										.between("priceRating", priceLow, priceHigh);
 
-		experiences = expressionList.orderBy("createTimestamp desc").findList();
+		experiences = expressionList.orderBy("createTimestamp desc")
+							.setMaxRows(Util.getIntegerProperty("application.pagesize"))
+							.setFirstRow(firstRow).findList();
 
 		return experiences;
 	}
