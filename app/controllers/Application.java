@@ -197,7 +197,7 @@ public class Application extends Controller {
 		if(exp==null)
 			return redirect(routes.Application.index());
 		else
-			return ok(experience.render(exp));
+			return ok(experience.render(exp, ExperienceHandler.getSimilarExperiences(experienceId)));
 	}
 	
 	

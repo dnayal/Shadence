@@ -2,7 +2,7 @@
 
 @import helper._
 
-@main("Shadence - discover interesting experiences in your city") {
+@main("Shadence - " + utils.Util.getStringProperty("application.slogan")) {
 	<div class="container">
 	
 		<div class="row">
@@ -17,7 +17,7 @@
 			</div>
 			<div class="span4 main-logo">
 	    		<h1 class="logo-text">@utils.Util.getStringProperty("application.name")</h1>
-			    <h5>Discover interesting experiences in your city</h5>
+			    <h5>@utils.Util.getStringProperty("application.slogan")</h5>
 		    </div>
 		</div>
 		<br/>
