@@ -49,6 +49,12 @@ body, h1, h2, h3, h4, h5, h6, p, a, button, input {
 	border-radius: 5px; 
 }
 
+.icon-image {
+	width: 25px;
+	height: 25px;
+	border-radius:5px;
+}
+
 #image-gallery img {
 	max-height: 300px;
 	width: 98%;

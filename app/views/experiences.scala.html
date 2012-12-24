@@ -9,7 +9,7 @@
 			<div class="span4">	    		
 				<h3 class="affix">
 					@defining(CityHandler.getCity(cityId).getFlagPhotos.get(0)) { flagPhoto =>
-					<img width="30px" height="30px" src="@flagPhoto.getSmallPhotoURL"/>&nbsp;@CityHandler.getCity(cityId).getName
+					<img class="icon-image" src="@flagPhoto.getSmallPhotoURL"/>&nbsp;@CityHandler.getCity(cityId).getName
 					}
 				</h3>
 			</div>
