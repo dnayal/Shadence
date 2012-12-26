@@ -9,7 +9,7 @@
 					<li>
 						<a href="@routes.Application.getExperiences(experience.getVenue.getCity.getCityId, utils.Util.getStringProperty("category.default"))">
 							@defining(experience.getVenue.getCity.getFlagPhotos.get(0)) { flagPhoto =>
-							<img width="30" height="30" src="@flagPhoto.getSmallPhotoURL"/>&nbsp;@experience.getVenue.getCity.getName
+							<img class="image-icon" src="@flagPhoto.getSmallPhotoURL"/>&nbsp;@experience.getVenue.getCity.getName
 							}
 						</a> 
 						<span class="divider">></span>
