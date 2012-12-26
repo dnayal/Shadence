@@ -1,0 +1,7 @@
+@(content: Html)
+
+@if(handlers.UserHandler.isCurrentUserAdmin) {
+	@content
+} else {
+	@views.html.errorhandler.render(utils.Util.getIntegerProperty("HTTP_404"))
+}

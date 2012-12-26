@@ -1,6 +1,7 @@
 @(cities: List[City])
 
 @main("Main Admin") {
+@util.shadence_admincontent {
 	<div class="container">
 		<div class="row">
 			<h1>Main Admin - @utils.Util.getStringProperty("application.name")</h1>
@@ -29,4 +30,5 @@
 		   	</div>
 		</div>
 	</div>	    							
+}
 }

@@ -131,5 +131,21 @@ public class UserHandler {
 		
 		return true;
 	}
+	
+	
+	/**
+	 * Returns true if the current user is an administrator
+	 */
+	public static Boolean isCurrentUserAdmin() {
+		User user = Server.getCurrentSessionUser();
+		if (user==null) {
+			return false;
+		} else {
+			if (user.getRoles().toUpperCase().contains("ADMIN"))
+				return true;
+			else
+				return false;
+		}
+	}
 
 }

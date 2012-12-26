@@ -1,6 +1,7 @@
 @(city: String, experiences: List[Experience])
 
 @main("Experiences") {
+@util.shadence_admincontent {
 	<div class="container">
 		<div class="row">
 			<h5><a href="@routes.Admin.getMain()">[Main Page]</a></h5>
@@ -26,4 +27,5 @@
 		    </table>
 		</div>
 	</div>	    							
+}
 }
