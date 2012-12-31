@@ -12,7 +12,8 @@ object ApplicationBuild extends Build {
       "mysql" % "mysql-connector-java" % "5.1.18",
       "org.imgscalr" % "imgscalr-lib" % "4.2",
       "javax.mail" % "mail" % "1.4.1",
-      "commons-codec" % "commons-codec" % "1.7"
+      "commons-codec" % "commons-codec" % "1.7",
+      "com.amazonaws" % "aws-java-sdk" % "1.3.27"
     )
 	
     val main = PlayProject(appName, appVersion, appDependencies, mainLang = JAVA).settings(

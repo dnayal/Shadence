@@ -12,8 +12,6 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 #############
 # Application
 #############
-GET 	/photos/*file						controllers.Application.getPhoto(file)
-
 GET		/about								controllers.Application.aboutShadence()
 GET		/loginregister						controllers.Application.viewLoginRegister()
 POST	/login								controllers.Application.login()

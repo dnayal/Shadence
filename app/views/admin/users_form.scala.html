@@ -32,7 +32,7 @@
 					<table border="1">
 					@repeat(user_form("profilePhotos"), min = 0) { photoField =>
 						<tr>
-							<td><img width="50" height="50" src="@utils.Server.getPhoto(photoField("location").value.get+"/"+photoField("largePhoto").value.get)"></td>
+							<td><img width="50" height="50" src="@utils.Image.getPhoto(photoField("location").value.get+"/"+photoField("largePhoto").value.get)"></td>
 							<td><input type="file" name="@photoField("photoId").value"></td> 
 							<td>@inputText(photoField("alternateText"), '_label -> "Alternate Text")</td>
 							<td>@inputText(photoField("photoOrder"), '_label -> "Photo Order")</td>

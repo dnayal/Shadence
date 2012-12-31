@@ -10,8 +10,8 @@ import javax.imageio.ImageIO;
 
 public class Image {
 
-	public static boolean resizeAndSaveImage(File sourceImage, File targetImage, 
-								int targetImageSize, String targetImageType) {
+	public static boolean resizeAndSaveImage(File sourceImage, 
+			File targetImage, int targetImageSize, String targetImageType) {
 
 		try {
 			BufferedImage originalImage = ImageIO.read(sourceImage);
@@ -43,6 +43,15 @@ public class Image {
 		}
 
 	}
-
+	
+	
+	/**
+	 * Returns the web url where the photo can be accessed
+	 */
+	public static String getPhoto(String filename) {
+		return "http://" + Util.getStringProperty("aws.s3.bucket.uploaded.photos") 
+				+ "." + Util.getStringProperty("aws.s3.endpoint") 
+				+ "/" + filename; 
+	}
 
 }

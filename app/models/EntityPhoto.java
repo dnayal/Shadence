@@ -10,7 +10,7 @@ import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import play.db.ebean.Model;
-import utils.Server;
+import utils.Image;
 
 @Entity
 public class EntityPhoto extends Model {
@@ -201,19 +201,19 @@ public class EntityPhoto extends Model {
 	}
 	
 	public String getOriginalPhotoURL() {
-		return Server.getPhoto(location + "/" + originalPhoto);
+		return Image.getPhoto(location + "/" + originalPhoto);
 	}
 
 	public String getLargePhotoURL() {
-		return Server.getPhoto(location + "/" + largePhoto);
+		return Image.getPhoto(location + "/" + largePhoto);
 	}
 
 	public String getMediumPhotoURL() {
-		return Server.getPhoto(location + "/" + mediumPhoto);
+		return Image.getPhoto(location + "/" + mediumPhoto);
 	}
 
 	public String getSmallPhotoURL() {
-		return Server.getPhoto(location + "/" + smallPhoto);
+		return Image.getPhoto(location + "/" + smallPhoto);
 	}
 
 }
