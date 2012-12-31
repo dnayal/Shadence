@@ -43,14 +43,16 @@ public class AwsS3 {
 	 * file to be uploaded and the key of the file (location + filename) 
 	 * as the target destination in Amazon S3 
 	 */
-	public void uploadFile(String fullFilePathForUpload, String fileKey) {
-		File file = new File(fullFilePathForUpload);
-		PutObjectRequest putObjectRequest = new PutObjectRequest(s3Bucket, fileKey, file); //"experience/photo.jpeg"
+	public void uploadFile(File sourceFile, String fileKey) {
+		PutObjectRequest putObjectRequest = new PutObjectRequest(s3Bucket, fileKey, sourceFile);
 		putObjectRequest.withCannedAcl(CannedAccessControlList.PublicRead);
 		amazonS3.putObject(putObjectRequest);
 	}
 	
 	
+	/**
+	 * Deletes the file from Amazon S3 
+	 */
 	public void deleteFile(String fileKey) {
 		DeleteObjectRequest deleteObjectRequest = new DeleteObjectRequest(s3Bucket, fileKey);
 		amazonS3.deleteObject(deleteObjectRequest);

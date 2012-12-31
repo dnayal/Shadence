@@ -5,7 +5,6 @@ import handlers.ExperienceHandler;
 import handlers.UserHandler;
 import handlers.VenueHandler;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -150,8 +149,6 @@ public class Application extends Controller {
 	
 	
 	public static Result getExperiences(String cityId, String categoryId) {
-		Server.setLastUrl();
-		
 		List<Experience> experienceList = new ArrayList<Experience>();
 		
 		// Refer Experience model for min and max values of priceRating
@@ -184,6 +181,9 @@ public class Application extends Controller {
 			}
 			return ok(json.toString());
 		} else {
+			// Set last url here, else JSON string will 
+			// be returned if user logs in after using sliders
+			Server.setLastUrl();
 			return ok(experiences.render(cityId, categoryId, experienceList));
 		}
 		
@@ -280,11 +280,4 @@ public class Application extends Controller {
 	}
 
 	
-	/**
-	 * This action allows photos folder to be moved outside 
-	 * Play installation and serving dynamically uploaded images 
-	 */
-	public static Result getPhoto(String filename) {
-		  return ok(new File(Util.getStringProperty("photos.upload.path") + "/" + filename) );
-	}
 }

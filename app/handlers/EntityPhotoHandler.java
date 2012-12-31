@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import utils.AwsS3;
 import utils.Image;
 import utils.Util;
 
@@ -86,19 +87,29 @@ public class EntityPhotoHandler {
 		photos[2] = photoId.concat(Util.getStringProperty("photos.medium.suffix")).concat(fileExtension);
 		photos[3] = photoId.concat(Util.getStringProperty("photos.small.suffix")).concat(fileExtension);
 		
-		String pathPrefix = Util.getStringProperty("photos.upload.path") + "/" + entityId + "/";
-
-		// copy original file first
-		File originalPhoto = new File(pathPrefix.concat(photos[0]));
+		File originalPhoto = new File(Util.getStringProperty("photos.temp.upload.path") + "/" + photos[0]);
+		File largePhoto = new File(Util.getStringProperty("photos.temp.upload.path") + "/" + photos[1]);
+		File mediumPhoto = new File(Util.getStringProperty("photos.temp.upload.path") + "/" + photos[2]);
+		File smallPhoto = new File(Util.getStringProperty("photos.temp.upload.path") + "/" + photos[3]);
 		Util.copyFile(uploadedFile, originalPhoto);
 		uploadedFile.delete();
 
-		Image.resizeAndSaveImage(originalPhoto, new File(pathPrefix.concat(photos[1])), 
-				Util.getIntegerProperty("photos.large.size"), Util.getFileExtension(filename).substring(1));
-		Image.resizeAndSaveImage(originalPhoto, new File(pathPrefix.concat(photos[2])), 
-				Util.getIntegerProperty("photos.medium.size"), Util.getFileExtension(filename).substring(1));
-		Image.resizeAndSaveImage(originalPhoto, new File(pathPrefix.concat(photos[3])), 
-				Util.getIntegerProperty("photos.small.size"), Util.getFileExtension(filename).substring(1));
+		Image.resizeAndSaveImage(originalPhoto, largePhoto, Util.getIntegerProperty("photos.large.size"), 
+				Util.getFileExtension(filename).substring(1));
+		Image.resizeAndSaveImage(originalPhoto, mediumPhoto, Util.getIntegerProperty("photos.medium.size"), 
+				Util.getFileExtension(filename).substring(1));
+		Image.resizeAndSaveImage(originalPhoto, smallPhoto, Util.getIntegerProperty("photos.small.size"), 
+				Util.getFileExtension(filename).substring(1));
+		
+		AwsS3 awsS3 = new AwsS3();
+		awsS3.uploadFile(originalPhoto, entityId + "/" + photos[0]);
+		originalPhoto.delete();
+		awsS3.uploadFile(largePhoto, entityId + "/" + photos[1]);
+		largePhoto.delete();
+		awsS3.uploadFile(mediumPhoto, entityId + "/" + photos[2]);
+		mediumPhoto.delete();
+		awsS3.uploadFile(smallPhoto, entityId + "/" + photos[3]);
+		smallPhoto.delete();
 		
 		EntityPhoto photo = saveEntityPhoto(operationType, photoId, entityId, entityType, 
 				userId, entityId, photos[0], photos[1], photos[2], photos[3], alternateText, photoOrder);
@@ -111,33 +122,27 @@ public class EntityPhotoHandler {
 	}
 	
 	
+	/**
+	 * This function deletes previously uploaded photos, 
+	 * if they do not have the same name as the new one, 
+	 * for example, they might have different extension
+	 */
 	private static void deletePreviousEntityPhotos(EntityPhoto oldPhoto, EntityPhoto newPhoto) {
-		if(!oldPhoto.getOriginalPhotoURL().equalsIgnoreCase(newPhoto.getOriginalPhotoURL())) {
-			File file = new File(Util.getStringProperty("photos.upload.path") 
-					+ "/" + oldPhoto.getLocation() + "/" + oldPhoto.getOriginalPhoto());
-			file.delete();
-		}
+		
+		AwsS3 awsS3 = new AwsS3();
+
+		if(!oldPhoto.getOriginalPhotoURL().equalsIgnoreCase(newPhoto.getOriginalPhotoURL()))
+			awsS3.deleteFile(oldPhoto.getLocation() + "/" + oldPhoto.getOriginalPhoto());
 			
-		if(!oldPhoto.getLargePhotoURL().equalsIgnoreCase(newPhoto.getLargePhotoURL())) {
-			File file = new File(Util.getStringProperty("photos.upload.path") 
-					+ "/" + oldPhoto.getLocation() + "/" + oldPhoto.getLargePhoto());
-			file.delete();
-		}
+		if(!oldPhoto.getLargePhotoURL().equalsIgnoreCase(newPhoto.getLargePhotoURL()))
+			awsS3.deleteFile(oldPhoto.getLocation() + "/" + oldPhoto.getLargePhoto());
 			
-		if(!oldPhoto.getMediumPhotoURL().equalsIgnoreCase(newPhoto.getMediumPhotoURL())) {
-			File file = new File(Util.getStringProperty("photos.upload.path") 
-					+ "/" + oldPhoto.getLocation() + "/" + oldPhoto.getMediumPhoto());
-			file.delete();
-		}
+		if(!oldPhoto.getMediumPhotoURL().equalsIgnoreCase(newPhoto.getMediumPhotoURL()))
+			awsS3.deleteFile(oldPhoto.getLocation() + "/" + oldPhoto.getMediumPhoto());
 			
-		if(!oldPhoto.getSmallPhotoURL().equalsIgnoreCase(newPhoto.getSmallPhotoURL())) {
-			File file = new File(Util.getStringProperty("photos.upload.path") 
-					+ "/" + oldPhoto.getLocation() + "/" + oldPhoto.getSmallPhoto());
-			file.delete();
-		}
+		if(!oldPhoto.getSmallPhotoURL().equalsIgnoreCase(newPhoto.getSmallPhotoURL()))
+			awsS3.deleteFile(oldPhoto.getLocation() + "/" + oldPhoto.getSmallPhoto());
 	}
-	
-	
 	
 	
 	/**
