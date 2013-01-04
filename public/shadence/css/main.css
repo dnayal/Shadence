@@ -141,3 +141,7 @@ body, h1, h2, h3, h4, h5, h6, p, a, button, input {
 .profile_cell {
  	padding: 10px 10px 10px 0px;	
 }
+
+.galleria-container {
+	z-index: 0;
+}
