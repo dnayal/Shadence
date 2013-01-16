@@ -1,4 +1,4 @@
-body, h1, h2, h3, h4, h5, h6, p, a, button, input {
+body, h1, h2, h3, h4, h5, h6, p, a, button, input, div, img {
 	font-family: 'Marcellus', "Helvetica Neue", Verdana, Helvetica, Arial, sans-serif;
 }
  
@@ -17,8 +17,8 @@ body, h1, h2, h3, h4, h5, h6, p, a, button, input {
 }
 
 .navbar-experiences {
-	font-size: 1.25em;
-	width: 250px;
+	font-size: 1.2em;
+	/*width: 250px;*/
 }
 
 .masonary-container {
@@ -115,6 +115,10 @@ body, h1, h2, h3, h4, h5, h6, p, a, button, input {
 	.affix {
 		position: static;
 	}
+	
+	.navbar-experiences {
+		width: 80%;
+	}
 }
 
 /*
@@ -144,4 +148,17 @@ body, h1, h2, h3, h4, h5, h6, p, a, button, input {
 
 .galleria-container {
 	z-index: 0;
+}
+
+.text-over-image {
+	background: black;
+	opacity: 0.75;
+	padding: 8px;
+	font-size: 24px;
+	position: absolute;
+	top: 20px;
+}
+
+.experiences-slider {
+	width: 95%;
 }

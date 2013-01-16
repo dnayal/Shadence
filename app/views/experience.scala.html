@@ -192,8 +192,17 @@
 		$(document).ready(function() {
 
 			Galleria.loadTheme("@routes.Assets.at("shadence/js/galleria.classic.min.js")");
+	    	Galleria.configure({
+	    		autoplay: true,
+	    		transition: 'fade',
+	    		transitionSpeed: 1000,
+	    		imageCrop: true
+	    	});
 	    	Galleria.run("#galleria");
 		    $('#galleria').show();
+		    Galleria.ready(function(options) {
+				this.play(4000);
+		    });
 		    
 		    drawMap("venue-map", @experience.getVenue.getLatitude, @experience.getVenue.getLongitude);
 		});
