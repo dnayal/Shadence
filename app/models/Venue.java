@@ -29,6 +29,10 @@ public class Venue extends Model {
 	@Column(length=100)
 	String address;
 	
+	// Name of the city, in case the venue is outside the main city
+	@Column(length=100)
+	String venueCity;
+	
 	@Column(length=100)
 	String postcode;
 
@@ -44,11 +48,12 @@ public class Venue extends Model {
 
 	public Venue() {}
 	
-	public Venue(String venueId, String name, String address, String postcode, String latitude, 
+	public Venue(String venueId, String name, String address, String venueCity, String postcode, String latitude, 
 														String longitude, Long createTimestamp) {
 		this.venueId = venueId;
 		this.name = name;
 		this.address = address;
+		this.venueCity = venueCity;
 		this.postcode = postcode;
 		this.latitude = latitude;
 		this.longitude = longitude;
@@ -85,6 +90,14 @@ public class Venue extends Model {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public String getVenueCity() {
+		return Util.getString(venueCity);
+	}
+
+	public void setVenueCity(String venueCity) {
+		this.venueCity = venueCity;
 	}
 
 	public String getPostcode() {

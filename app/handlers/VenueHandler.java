@@ -30,11 +30,11 @@ public class VenueHandler {
 	/**
 	 * Saves the venue
 	 */
-	public static Venue saveVenue(String cityId, String name, String address, 
+	public static Venue saveVenue(String cityId, String name, String address, String venueCity,
 								String postcode, String latitude, String longitude) {
 
 		String venueId = Util.getUniqueId();
-		Venue venue = new Venue(venueId, name, address, postcode, latitude, longitude, 
+		Venue venue = new Venue(venueId, name, address, venueCity, postcode, latitude, longitude, 
 				System.currentTimeMillis());
 		
 		City city = City.find.byId(cityId);

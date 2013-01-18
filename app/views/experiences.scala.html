@@ -30,7 +30,7 @@
 	    				@for(category <- ExperienceCategoryHandler.getExperienceCategories) {
 			    			<li class='@{if(category.getCategoryId.toLowerCase == categoryId.toLowerCase) "active" else ""}'>
 		    					<a href="@routes.Application.getExperiences(cityId, category.getCategoryId)">
-		    						<h4 style="padding: 0;margin: 0;">@category.getName&nbsp;&nbsp;<i class="icon-chevron-right"></i></h4>
+		    						@category.getName&nbsp;&nbsp;&nbsp;<i class="icon-chevron-right"></i>
 	    						</a>
 		    				</li>
 	    				}
@@ -77,8 +77,8 @@
 							<img data-layer="<span class=text-over-image>@experiences.get(experiences.size-4).getName<span>" alt="@experiences.get(experiences.size-4).getName" src="@experiences.get(experiences.size-4).getExperiencePhotos.get(0).getLargePhotoURL" data-link="@routes.Application.getExperience(experiences.get(experiences.size-4).getExperienceId)">
 							}
 	  					</div>
-						<br/>
-						<hr style="border: 1px solid lightgray"/>
+							<br/>
+							<hr style="border: 1px solid lightgray"/>
 					</div>	
 					<br/>
 				</div>	
@@ -90,7 +90,7 @@
 							@defining(experience.getExperiencePhotos.get(0)) { experiencePhoto =>
 								<img class="experience-stream-image" src="@experiencePhoto.getMediumPhotoURL" alt="@experiencePhoto.getAlternateText">
 							}
-							<h4>@experience.getName</h4>
+							<span class="stream-experience-name">@experience.getName</span>
 						</a>	
 					</div>
 				}
@@ -123,7 +123,7 @@
 					result=result+'<div class="thumbnail masonary-item">' +
 						'<a href="/experiences/'+experience.experienceId+'">' +
 						'<img class="experience-stream-image" src="'+experience.experiencePhotos[0].mediumPhotoURL+'" alt="'+experience.experiencePhotos[0].alternateText+'">' +
-						'<h4>'+experience.name+'</h4></a></div>';
+						'<span class="stream-experience-name">'+experience.name+'</span></a></div>';
 				});
 			}
 			

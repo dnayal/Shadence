@@ -34,6 +34,7 @@ body, h1, h2, h3, h4, h5, h6, p, a, button, input, div, img {
 
 .experience-stream-image {
 	width: 400px; /* should be equal to or more than .masonary-item width */
+	padding-bottom: 8px;
 }
 
 .suggestion-experience {
@@ -108,20 +109,6 @@ body, h1, h2, h3, h4, h5, h6, p, a, button, input, div, img {
 }
 
 /*
-	Helps the experiences stream not overlay 
-	on the categories on a small screen
-*/
-@media (max-width: 767px) {
-	.affix {
-		position: static;
-	}
-	
-	.navbar-experiences {
-		width: 80%;
-	}
-}
-
-/*
 	Settings the improve the look and feel of price and duration slider
 */
 .ui-slider-horizontal .ui-state-default {
@@ -135,7 +122,6 @@ body, h1, h2, h3, h4, h5, h6, p, a, button, input, div, img {
 .ui-slider-horizontal {
 	height: 0.6em;
 }
-
 
 .error {
 	font-size: 0.80em;
@@ -162,3 +148,59 @@ body, h1, h2, h3, h4, h5, h6, p, a, button, input, div, img {
 .experiences-slider {
 	width: 95%;
 }
+
+.stream-experience-name {
+	font-size: 18px;
+}
+
+
+/*
+	Helps the experiences stream not overlay 
+	on the categories on a small screen
+*/
+@media (max-width: 767px) {
+	.affix {
+		position: static;
+	}
+
+	.experiences-slider {
+		width: 80%;
+	}
+	
+	.navbar-experiences {
+		width: 80%;
+	}
+
+	.masonary-item {
+		width: 275px;
+		margin-bottom: 5px;
+	}
+	
+	.stream-experience-name {
+		font-size: 15px;
+	}
+}
+
+@media (max-width: 979px) and (min-width: 768px) {
+	.affix {
+		position: fixed;
+	}
+	
+	.masonary-item {
+		width: 250px;
+		margin-bottom: 5px;
+	}
+	
+	.experiences-slider {
+		width: 80%;
+	}
+	
+	.navbar-experiences {
+		width: 80%;
+	}
+
+	.stream-experience-name {
+		font-size: 14px;
+	}
+}
+

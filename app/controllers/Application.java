@@ -96,6 +96,8 @@ public class Application extends Controller {
 			return badRequest(loginregister.render(userForm));
 		}
 		
+		Util.sendMail(user.getEmail(), "Welcome to Shadence!", views.html.email.userregistration.render(Server.getServerURL()).toString());
+
 		Boolean rememberMe = new Boolean(userForm.field(Server.REMEMBER_ME).value());
 		if (rememberMe)
 			Server.rememberUser(user);

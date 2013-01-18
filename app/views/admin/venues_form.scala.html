@@ -21,6 +21,8 @@
 				    
 				    @inputText(venue_form("address"), '_label -> "Address")
 				    
+				    @inputText(venue_form("venueCity"), '_label -> "Venue City (not mandatory)")
+				    
 				    @inputText(venue_form("postcode"), '_label -> "Postcode")
 				</div>
 				
@@ -44,7 +46,10 @@
 		$(document).ready(function() {
 			$('#venue-form-submit').click(function(event) {
 				event.preventDefault();
-				var address = $('#address').val() + " " + $('#city_cityId option:selected').text() + " " + $('#postcode').val(); 
+				city = $('input[name=@venue_form("venueCity").name]').val().trim();
+				if (!city)
+					city = $('#city_cityId option:selected').text();
+				var address = $('#address').val() + " " + city + " " + $('#postcode').val(); 
 				var geocoder = new google.maps.Geocoder();
 				geocoder.geocode({'address': address.trim()}, function(results, status) {
 					if (status == google.maps.GeocoderStatus.OK) {
