@@ -360,4 +360,18 @@ public class Application extends Controller {
 		
 		return redirect(routes.Application.showCollectionsOfUser(collection.getUser().getUserId()));
 	}
+	
+	
+	public static Result moveExperienceFromCollection(String collectionId) {
+		DynamicForm form = form().bindFromRequest();
+		String targetCollectionId = form.field("user_collection").value();
+		String experienceToMove = form.field("user_experience").value();
+		Collection collection = CollectionHandler.getCollection(collectionId);
+		if (UserHandler.isUserProfileOwner(collection.getUser().getUserId())) {
+			CollectionHandler.removeExperienceFromCollection(collectionId, experienceToMove);
+			CollectionHandler.addExperienceToCollection(targetCollectionId, experienceToMove);
+		}
+		
+		return redirect(routes.Application.showCollection(collectionId));
+	}
 }

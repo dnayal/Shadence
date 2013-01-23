@@ -52,6 +52,9 @@
     				<a href="@routes.Application.removeExperienceFromCollection(collection.getCollectionId, experience.getExperienceId)" class="btn btn-danger btn-small delete-collection-item">
     					<i class="icon-trash icon-white"></i>&nbsp;Delete
    					</a>
+    				<a data-id="@experience.getExperienceId" data-toggle="modal" href="#move_experience_modal" class="btn btn-warning btn-small move-collection-item">
+    					<i class="icon-trash icon-white"></i>&nbsp;Move
+   					</a>
    					}
 					<a href="@routes.Application.getExperience(experience.getExperienceId)">
 						@defining(experience.getExperiencePhotos.get(0)) { experiencePhoto =>
@@ -73,9 +76,11 @@
 							<h3>Edit Collection</h3>
 						</div>
 						<div class="span2 pull-right">
-							<a class="btn btn-danger" href="@routes.Application.deleteCollection(collection.getCollectionId)">
+							@helper.form(routes.Application.deleteCollection(collection.getCollectionId)) {
+							<button type="submit" class="btn btn-danger">
 								<i class="icon-trash icon-white"></i>&nbsp;Delete Collection	
-							</a>
+							</button>
+							}
 						</div>
 					</div>
 				</div>
@@ -105,6 +110,43 @@
 				}
 		</div>
 		<!-- End of EDIT COLLECTION MODAL -->
+
+		<!-- Start of MOVE EXPERIENCE MODAL -->
+		<div class="modal hide fade" id="move_experience_modal">
+				<div class="modal-header">
+					<div class="row">
+						<div class="span3">
+							<h3>Move Experience </h3>
+						</div>
+					</div>
+				</div>
+				@helper.form(routes.Application.moveExperienceFromCollection(collection.getCollectionId)) {
+				<div class="modal-body">
+					<div class="row">
+						<div class="span4">
+							<p>Move to collection</p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="span4">
+							<select name="user_collection">
+							@for(coll <- handlers.CollectionHandler.getCollectionsOfUser(utils.Server.getCurrentSessionUserId)) {	
+								@if(!(collection.getCollectionId==coll.getCollectionId)) {
+								<option value="@coll.getCollectionId">@coll.getName</option>
+								}
+							}
+							</select>
+							<input type="hidden" name="user_experience" id="user_experience">
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-primary">Move</button>
+					<button class="btn" data-dismiss="modal">Cancel</button>
+				</div>
+				}
+		</div>
+		<!-- End of MOVE EXPERIENCE MODAL -->
 		}
 
     </div>
@@ -122,10 +164,16 @@
 			
 			$('.masonary-item').mouseover(function(){
 				$(this).children('.delete-collection-item').css("opacity", "1");
+				$(this).children('.move-collection-item').css("opacity", "1");
 			});
 
 			$('.masonary-item').mouseleave(function(){
 				$(this).children('.delete-collection-item').css("opacity", "0.5");
+				$(this).children('.move-collection-item').css("opacity", "0.5");
+			});
+			
+			$('.move-collection-item').click(function(event) {
+				$('#user_experience').val($(this).attr("data-id"));
 			});
 
 		});

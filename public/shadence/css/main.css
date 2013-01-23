@@ -203,6 +203,13 @@ body, h1, h2, h3, h4, h5, h6, p, a, button, input, div, img, select, option, tex
 	margin: 3px 0 0 3px;
 }
 
+.move-collection-item {
+	position:absolute;
+	top:0;
+	left:77px;
+	opacity: 0.5;
+	margin: 3px 0 0 3px;
+}
 
 .box-with-border {
 	display: table;
