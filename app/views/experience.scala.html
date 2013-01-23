@@ -70,83 +70,135 @@
 			</div>
 		</div>
 
-		<div class="row">
-			<div class="offset1 span6">  
-				<div id="galleria" class="img-polaroid" style="width:100%;height:380px;display:none;">
-				@for(photo <- experience.getExperiencePhotos) {
-					<img src="@photo.getLargePhotoURL" alt="@photo.getAlternateText">
-				}
+		<div class="row"> <!-- main outer row -->
+			<div class="offset1 span6"> <!-- first column --> 
+				<div class="row">
+					<div class="span6">  
+						<div id="galleria" class="img-polaroid" style="width:100%;height:380px;display:none;">
+						@for(photo <- experience.getExperiencePhotos) {
+							<img src="@photo.getLargePhotoURL" alt="@photo.getAlternateText">
+						}
+						</div>
+						<br/>
+					</div>
+				</div>	
+				<div class="row">
+					<div class="span6 experience-information">
+						<div class="div-header">The Experience</div>
+						<div class="row"> <!-- start inner row -->
+							<div class="span6">
+							@Html(experience.getDescription)
+							</div>
+						</div> <!-- end inner row -->
+						@if(experience.getOriginalSource!="") {
+							<p>
+								<a class="original-source" style="text-decoration:none;" target="_new" href="@experience.getOriginalSource">Original Source</a>
+							</p>	
+						}
+					</div>
 				</div>
-				<br/>
 			</div> 
-			<div class="span3 experience-information">
-					<div class="div-header">Contact</div>
-					@if(experience.getPhone != "") {
-						<strong>Phone - </strong> @experience.getPhone
-						<br/>
-					}
-
-					@if(experience.getEmail != "") {
-						<strong>Email - </strong> @experience.getEmail
-						<br/>
-					}
-
-					@if(experience.getTwitter != "") {
-						<strong>Twitter - </strong> <a target="_new" href="http://twitter.com/@experience.getTwitter">@experience.getTwitter</a>
-						<br/>
-					}
-
-					<strong>Venue - </strong>
-					<br/>
-					@if(handlers.ExperienceHandler.getExperiencesAtVenue(experience.getVenue.getVenueId).size > 1) {
-						<a href="@routes.Application.getVenue(experience.getVenue.getVenueId)">@experience.getVenue.getName</a>
+			<div class="span3"> <!-- second column -->
+				<div class="row"> <!-- collection section -->
+					<div class="span3 experience-information">
+					@if(!utils.Server.isUserLoggedIn) {
+						<a class="btn btn-info btn-large" href="#collection_guest_modal" data-toggle="modal">
+							<i class="icon-th-large icon-white"></i>&nbsp;Add to Collection
+						</a>
 					} else {
-						@experience.getVenue.getName
+						@if(!handlers.CollectionHandler.isExperienceCollectedByCurrentUser(experience.getExperienceId)) {
+							<a class="btn btn-info btn-large" href="#add_to_collection_modal" data-toggle="modal">
+								<i class="icon-th-large icon-white"></i>&nbsp;Add to Collection
+							</a>
+						} else {
+							<a class="btn btn-info btn-large disabled" href="#">Collected</a>
+						}
 					}
-					<br/> @experience.getVenue.getAddress, <br/> @{if(experience.getVenue.getVenueCity) experience.getVenue.getVenueCity else experience.getVenue.getCity.getName}, @experience.getVenue.getPostcode
-					<br/>
-					<div class="thumbnail" id="venue-map"></div>
-			</div>
-		</div>
-		
-		<div class="row">
-			<div class="offset1 span9 experience-information">
-				<div class="div-header">About Experience</div>
-				<div class="row"> <!-- start inner row -->
-					<div class="span6">
-					@Html(experience.getDescription)
-					</div>
-					<div class="span3">
-						<p>
-							<table border="0" cellpadding="3px">
-								@if(experience.getPriceDescription != "") {
-									<tr><th colspan="2" align="left" bgcolor="#E8E8E8">Price <small>[@experience.getPriceRatingDescription]</small></th></tr>
-									<tr><td colspan="2">@experience.getPriceDescription</td></tr>
+						<br/><br/>
+						<p style="font-size: 0.9em;">
+							@defining(experience.getCollections.size) { size =>
+								@if(size < 1) {
+									Be the first to collect this experience
 								} else {
-									<tr><th colspan="2" align="left" bgcolor="#E8E8E8">Price</th></tr>
-									<tr><td colspan="2">[@experience.getPriceRatingDescription]</td></tr>
+									Collected by @{size} @{if(size==1) "person" else "people"} 
 								}
-								
-								@if(experience.getDuration != null) {
-									<tr><th colspan="2" align="left" bgcolor="#E8E8E8">Duration</th></tr>
-									<tr><td colspan="2">@utils.Util.getDurationDescription(experience.getDuration)</td></tr>
-								}
-								@if(experience.getScheduleDescription != "") {
-									<tr><th colspan="2" align="left" bgcolor="#E8E8E8">Schedule</th></tr>
-									@util.shadence_schedule(experience.getScheduleDescription)
-								}
-							</table>
-						</p>	
+							}
+						</p>
+						<p>
+							@for(collection <- experience.getCollections) {
+								<span style="display:table-cell;">
+									<a href="@routes.Application.showCollectionsOfUser(collection.getUser.getUserId)">
+										<img class="thumbnail" src="@collection.getUser.getMainProfilePhoto()" style="width:20px;height:20px;">
+									</a>	
+								</span>
+							}
+						</p>
 					</div>
-				</div> <!-- end inner row -->
-				@if(experience.getOriginalSource!="") {
-					<p>
-						<a class="original-source" style="text-decoration:none;" target="_new" href="@experience.getOriginalSource">Original Source</a>
-					</p>	
-				}
-			</div>
-		</div> <!-- outer row -->
-
+				</div>
+				<br/>	
+				<div class="row"> <!-- about experience section -->
+					<div class="span3 experience-information">
+						<div class="row">
+							<div class="span3">
+								<div class="div-header">About Experience</div>
+								<p>
+									<table border="0" cellpadding="3px" style="width:100%;">
+										@if(experience.getPriceDescription != "") {
+											<tr><th colspan="2" align="left" bgcolor="#E8E8E8">Price <small>[@experience.getPriceRatingDescription]</small></th></tr>
+											<tr><td colspan="2">@experience.getPriceDescription</td></tr>
+										} else {
+											<tr><th colspan="2" align="left" bgcolor="#E8E8E8">Price</th></tr>
+											<tr><td colspan="2">[@experience.getPriceRatingDescription]</td></tr>
+										}
+										
+										@if(experience.getDuration != null) {
+											<tr><th colspan="2" align="left" bgcolor="#E8E8E8">Duration</th></tr>
+											<tr><td colspan="2">@utils.Util.getDurationDescription(experience.getDuration)</td></tr>
+										}
+										@if(experience.getScheduleDescription != "") {
+											<tr><th colspan="2" align="left" bgcolor="#E8E8E8">Schedule</th></tr>
+											@util.shadence_schedule(experience.getScheduleDescription)
+										}
+									</table>
+								</p>	
+							</div>
+						</div>
+						<hr class="thin-line"/>
+						<div class="row">
+							<div class="span3 ">
+									<div class="div-header" style="font-size:20px;">Contact</div>
+									@if(experience.getPhone != "") {
+										<strong>Phone - </strong> @experience.getPhone
+										<br/>
+									}
+				
+									@if(experience.getEmail != "") {
+										<strong>Email - </strong> @experience.getEmail
+										<br/>
+									}
+				
+									@if(experience.getTwitter != "") {
+										<strong>Twitter - </strong> <a target="_new" href="http://twitter.com/@experience.getTwitter">@experience.getTwitter</a>
+										<br/>
+									}
+				
+									<strong>Venue - </strong>
+									<br/>
+									@if(handlers.ExperienceHandler.getExperiencesAtVenue(experience.getVenue.getVenueId).size > 1) {
+										<a href="@routes.Application.getVenue(experience.getVenue.getVenueId)">@experience.getVenue.getName</a>
+									} else {
+										@experience.getVenue.getName
+									}
+									<br/> @experience.getVenue.getAddress, <br/> @{if(experience.getVenue.getVenueCity) experience.getVenue.getVenueCity else experience.getVenue.getCity.getName}, @experience.getVenue.getPostcode
+									<br/>
+									<div class="thumbnail" id="venue-map"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div> <!-- end of second column -->
+		</div> <!-- end of main outer row -->
+		
 		<br/>	
 		<div class="row">
 			<div class="offset1 span10">
@@ -170,7 +222,60 @@
 			</div>
 		</div>	
 
-    </div>
+		<!-- Start of ADD TO COLLECTION MODAL -->
+		<div class="modal hide fade" id="add_to_collection_modal">
+				<div class="modal-header">
+					<h3>Add to Collection</h3>
+				</div>
+				@helper.form(routes.Application.addExperienceToCollection(experience.getExperienceId), 'id -> "collection_form") {
+				<div class="modal-body">
+					<div class="row">
+						<div class="span5">
+							<p style="font-size:1.15em">
+								Add '<b>@experience.getName</b>' to -
+							</p>
+						</div>
+					</div>	
+					<div class="row">
+						<div class="span4">
+							<select id="user_collection" name="user_collection">
+							@for(collection <- handlers.CollectionHandler.getCollectionsOfUser(utils.Server.getCurrentSessionUserId)) {	
+								<option value="@collection.getCollectionId">@collection.getName</option>
+							}
+								<option value="_new_">-- Create New Collection --</option>
+							</select>
+						</div>
+					</div>	
+					<div class="row" id="new_collection_name_row" style="display:none">
+						<div class="span4">
+							<input type="text" id="new_collection" name="new_collection" placeholder="Collection Name">
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-primary">Collect</button>
+					<button class="btn" data-dismiss="modal">Cancel</button>
+				</div>
+				}
+		</div>
+		<!-- End of ADD TO COLLECTION MODAL -->
+    
+		<!-- Start of COLLECTION GUEST MODAL -->
+		<div class="modal hide fade" id="collection_guest_modal">
+				<div class="modal-body">
+					<div class="row">
+						<div class="span5">
+							<h4>Please <a href="@routes.Application.viewLoginRegister()">login or register</a> to collect experiences</h4>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn" data-dismiss="modal">Cancel</button>
+				</div>
+		</div>
+		<!-- End of COLLECTION GUEST MODAL -->
+
+	</div>
 
 	<!-- SOCIAL SDK STARTS -->
 	<!-- Place this tag after the last +1 button tag. -->
@@ -187,10 +292,10 @@
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
     <script type="text/javascript" src="@routes.Assets.at("bootstrap/js/bootstrap.min.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("shadence/js/galleria-1.2.8.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("shadence/js/jquery.validate.min.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("shadence/js/main.js")"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
-
 			Galleria.loadTheme("@routes.Assets.at("shadence/js/galleria.classic.min.js")");
 	    	Galleria.configure({
 	    		autoplay: true,
@@ -207,5 +312,27 @@
 		    drawMap("venue-map", @experience.getVenue.getLatitude, @experience.getVenue.getLongitude);
 		});
 		
+	    $('#user_collection').bind('change focus', function(){
+			if($(this).val()=='_new_') {
+				$('#new_collection_name_row').show();
+				$('#new_collection').focus();
+			} else { 
+				$('#new_collection_name_row').hide();
+			}
+		});
+		
+		$('#collection_form').validate({
+			ignore: "input[type='text']:hidden",
+			rules: {
+				new_collection: {required: true, maxlength: 100},
+			},
+			messages: {
+				new_collection: {required: "Please enter the new collection",
+								maxlength: "Collection name should not exceed 100 characters"},
+			},
+			submitHandler: function(form){
+				form.submit();
+			}
+		});
 	</script>
 }

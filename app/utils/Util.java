@@ -4,7 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.nio.channels.FileChannel;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.mail.Authenticator;
@@ -166,6 +169,12 @@ public class Util {
 		
 		new Thread(mailThread).start();
 		
+	}
+	
+	
+	public static <E> List<E> convertSetToList(Set<E> set) {
+		List<E> list = new ArrayList<E>(set);
+		return list;
 	}
 
 }

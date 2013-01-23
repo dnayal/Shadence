@@ -6,13 +6,16 @@
 				 @user.getName
 				<span class="caret"></span>
 			</a>
-			<ul class="dropdown-menu" role="menu">
+			<ul class="dropdown-menu" role="menu" style="text-align: left;">
 				<li>
-					<a href="@routes.Application.getUserProfile(user.getUserId)">My Profile</a>
+					<a href="@routes.Application.getUserProfile(user.getUserId)"><i class="icon-user"></i>&nbsp;My Profile</a>
+				</li>
+				<li>
+					<a href="@routes.Application.showCollectionsOfUser(user.getUserId)"><i class="icon-th-large"></i>&nbsp;My Collections</a>
 				</li>
 				<li class="divider"></li>
 				<li>
-					<a href="@routes.Application.logout()">Logout</a>
+					<a href="@routes.Application.logout()"><i class="icon-off"></i>&nbsp;Logout</a>
 				</li>
 			</ul>
 		</div>

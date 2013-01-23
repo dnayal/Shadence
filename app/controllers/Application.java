@@ -1,5 +1,6 @@
 package controllers;
 
+import handlers.CollectionHandler;
 import handlers.EntityPhotoHandler;
 import handlers.ExperienceHandler;
 import handlers.UserHandler;
@@ -20,6 +21,7 @@ import play.mvc.Controller;
 import play.mvc.Http.MultipartFormData;
 import play.mvc.Http.MultipartFormData.FilePart;
 import play.mvc.Result;
+import models.Collection;
 import models.EntityPhoto;
 import models.Experience;
 import models.User;
@@ -96,6 +98,7 @@ public class Application extends Controller {
 			return badRequest(loginregister.render(userForm));
 		}
 		
+		CollectionHandler.createInitialCollectionsForUser(user);
 		Util.sendMail(user.getEmail(), "Welcome to Shadence!", views.html.email.userregistration.render(Server.getServerURL()).toString());
 
 		Boolean rememberMe = new Boolean(userForm.field(Server.REMEMBER_ME).value());
@@ -282,4 +285,79 @@ public class Application extends Controller {
 	}
 
 	
+	public static Result addExperienceToCollection(String experienceId) {
+		DynamicForm form = form().bindFromRequest();
+		String collectionId = form.field("user_collection").value();
+		String newCollectionName = form.field("new_collection").value();
+		Collection collection = null;
+		
+		if(collectionId.equalsIgnoreCase("_new_")) {
+			collection = CollectionHandler.saveCollection(Util.getUniqueId(), newCollectionName, "", 
+					Server.getCurrentSessionUser(), System.currentTimeMillis());
+		} else {
+			collection = CollectionHandler.getCollection(collectionId);
+		}
+		
+		CollectionHandler.addExperienceToCollection(collection.getCollectionId(), experienceId);
+		
+		return redirect(routes.Application.getExperience(experienceId));
+		
+	}
+	
+	
+	public static Result newCollection(String userId) {
+		DynamicForm form = form().bindFromRequest();
+		String name = form.field("name").value();
+		String description = form.field("description").value();
+
+		CollectionHandler.saveCollection(Util.getUniqueId(), name, description, 
+				UserHandler.getUser(userId), System.currentTimeMillis());
+		
+		return redirect(routes.Application.showCollectionsOfUser(userId));
+	}
+	
+	
+	public static Result removeExperienceFromCollection(String collectionId, String experienceId) {
+		Collection collection = CollectionHandler.getCollection(collectionId);
+		if (UserHandler.isUserProfileOwner(collection.getUser().getUserId()))
+			CollectionHandler.removeExperienceFromCollection(collectionId, experienceId);
+		
+		return redirect(routes.Application.showCollection(collectionId));
+	}
+	
+
+	public static Result showCollectionsOfUser(String userId) {
+		List<Collection> collections = CollectionHandler.getCollectionsOfUser(userId);	
+		return ok(usercollections.render(UserHandler.getUser(userId), collections));
+	}
+	
+	
+	public static Result showCollection(String collectionId) {
+		Collection collection = CollectionHandler.getCollection(collectionId);
+		return ok(usercollection.render(collection.getUser(), collection));
+	}
+	
+	
+	public static Result updateCollection(String collectionId) {
+		DynamicForm form = form().bindFromRequest();
+		String name = form.field("name").value();
+		String description = form.field("description").value();
+		Collection collection = CollectionHandler.getCollection(collectionId);
+		if (UserHandler.isUserProfileOwner(collection.getUser().getUserId())) {
+			collection.setName(name);
+			collection.setDescription(description);
+			CollectionHandler.updateCollection(collection);
+		}
+		
+		return redirect(routes.Application.showCollection(collectionId));
+	}
+	
+	
+	public static Result deleteCollection(String collectionId) {
+		Collection collection = CollectionHandler.getCollection(collectionId);
+		if (UserHandler.isUserProfileOwner(collection.getUser().getUserId()))
+			CollectionHandler.deleteCollection(collectionId);
+		
+		return redirect(routes.Application.showCollectionsOfUser(collection.getUser().getUserId()));
+	}
 }

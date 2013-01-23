@@ -1,0 +1,140 @@
+@(user: User, collections: List[models.Collection])
+
+@import helper._
+
+@main("Shadence - " + user.getName) {
+	<div class="container">
+		<div class="row">
+			<div class="span4">
+				<ul class="breadcrumb">
+					<li>
+						<a href="@routes.Application.index()">
+							Shadence Home
+						</a> 
+					</li>
+				</ul>
+			</div>
+			<div class="span4 main-logo">
+	    		<h1 class="logo-text">@utils.Util.getStringProperty("application.name")</h1>
+			</div>
+			<div class="span4" align="right">
+	    		@util.shadence_isvaliduser()
+			</div>
+		</div>	
+				
+		<br/>
+		<div class="row">
+			<div class="offset2 span2">
+				<img class="thumbnail" style="height:150px;" src="@user.getMainProfilePhoto">  
+			</div>
+			<div class="span8">
+				<!-- 
+				<span style="font-size: 30px;padding: 5px">@user.getName's Collections</span>
+				 -->
+				<div style="font-size: 30px;padding: 7px">@user.getName</div>
+				<div style="font-size: 18px;padding: 7px">
+					Collections
+				</div>
+				@util.shadence_ownercontent(user.getUserId) {
+				<div style="padding: 7px">
+					<a href="#create_new_collection_modal" data-toggle="modal" class="btn btn-info">Create New Collection</a>
+				</div>
+				}
+			</div>
+		</div>	
+		<br/>
+		<div class="row">
+			<hr class="thin-line"/>
+			<div class="collections-container">
+    		@for(collection <- collections) {
+				<a href="@routes.Application.showCollection(collection.getCollectionId)" style="text-decoration: none;color: black;">
+				@defining(utils.Util.convertSetToList(collection.getExperiences)) { experienceList =>	
+				<div class="collection-cover">
+					<h4 style="display: table;">@collection.getName</h4>
+					<div class="box-with-border">
+						@for(counter <- 1 to 4) {
+							@if(counter==1||counter==2){
+							<div style="display: table;">
+							<div style="display: table-row;">
+							}
+							@if(experienceList.size >= counter) {
+							 	<div class="@{if(counter==1) "collection-cover-main" else "collection-cover-item"}" style="background-image:url(@experienceList.get(counter-1).getExperiencePhotos.get(0).getMediumPhotoURL);"></div>
+							} else {
+								<div class="@{if(counter==1) "collection-cover-main" else "collection-cover-item"}" style="background-image:url(@routes.Assets.at("shadence/images/blank.png"));"></div>
+							}
+							@if(counter==1||counter==4){
+							</div>
+							</div>
+							}
+						}
+					</div>
+				</div>
+    			}
+    			</a>
+    		}
+			</div>
+		</div>	
+
+		@util.shadence_ownercontent(user.getUserId) {
+		<!-- Start of CREATE NEW COLLECTION MODAL -->
+		<div class="modal hide fade" id="create_new_collection_modal">
+				<div class="modal-header">
+					<h3>Create New Collection</h3>
+				</div>
+				@helper.form(routes.Application.newCollection(user.getUserId), 'id -> "collection_form") {
+				<div class="modal-body">
+					<div class="row">
+						<div class="span1">
+							<label for="name">Name</label>
+						</div>
+						<div class="span3">
+							<input type="text" name="name" placeholder="Collection Name">
+						</div>
+					</div>
+					<div class="row">
+						<div class="span1">
+							<label for="description">Description</label>
+						</div>
+						<div class="span3">
+							<textarea name="description" rows="5" cols="50" placeholder="Description"></textarea>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-primary">Create Collection</button>
+					<button class="btn" data-dismiss="modal">Cancel</button>
+				</div>
+				}
+		</div>
+		<!-- End of CREATE NEW COLLECTION MODAL -->
+		}
+    </div>
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="@routes.Assets.at("bootstrap/js/bootstrap.min.js")"></script>
+	<script type="text/javascript" src="@routes.Assets.at("shadence/js/jquery.masonry.min.js")"></script>
+	<script type="text/javascript" src="@routes.Assets.at("shadence/js/jquery.imagesloaded.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("shadence/js/jquery.validate.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("shadence/js/main.js")"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			initMasonry(".collections-container", ".collection-cover");
+		});
+		
+		$('#collection_form').validate({
+			rules: {
+				name: {required: true, maxlength: 100},
+				description: {maxlength: 2000}
+			},
+			messages: {
+				name: {required: "Please enter the name of new collection",
+						maxlength: "Collection name should not exceed 100 characters"},
+				description: {maxlength: "Collection description should not exceed 2000 characters"}
+			},
+			submitHandler: function(form){
+				form.submit();
+			}
+		});
+	</script>
+}

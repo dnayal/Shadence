@@ -1,0 +1,5 @@
+@(userId: String)(content: Html)
+
+@if(handlers.UserHandler.isUserProfileOwner(userId)) {
+	@content
+}

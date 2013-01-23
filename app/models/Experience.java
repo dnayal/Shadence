@@ -1,12 +1,15 @@
 package models;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
@@ -116,7 +119,11 @@ public class Experience extends Model {
 	@OneToMany(mappedBy="entityExperience")
 	@OrderBy("photoOrder asc, createTimestamp desc")
 	List<EntityPhoto> experiencePhotos;
-	
+
+	@JsonIgnore
+	@ManyToMany
+	Set<Collection> collections = new HashSet<Collection>();
+
 	public static Finder<String, Experience> find = new Finder<String, Experience>(String.class, Experience.class);
 
 	public Experience() {}
@@ -308,6 +315,14 @@ public class Experience extends Model {
 
 	public void setExperiencePhotos(List<EntityPhoto> experiencePhotos) {
 		this.experiencePhotos = experiencePhotos;
+	}
+
+	public Set<Collection> getCollections() {
+		return collections;
+	}
+
+	public void setCollections(Set<Collection> collections) {
+		this.collections = collections;
 	}
 
 	public Boolean getHidden() {

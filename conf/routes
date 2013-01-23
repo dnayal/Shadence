@@ -26,6 +26,14 @@ GET 	/venues/:venueId					controllers.Application.getVenue(venueId: String)
 GET 	/users/:userId						controllers.Application.getUserProfile(userId: String)
 POST 	/users/:userId						controllers.Application.updateProfile(userId: String)
 
+POST	/collections/experiences/:experienceId		controllers.Application.addExperienceToCollection(experienceId: String)
+POST	/collections/user/:userId					controllers.Application.newCollection(userId: String)
+GET		/collections/:collectionId/delete			controllers.Application.deleteCollection(collectionId: String)
+GET		/collections/:collectionId/:experienceId	controllers.Application.removeExperienceFromCollection(collectionId: String, experienceId: String)
+GET		/users/:userId/collections					controllers.Application.showCollectionsOfUser(userId: String)
+GET		/collections/:collectionId					controllers.Application.showCollection(collectionId: String)
+POST 	/collections/:collectionId					controllers.Application.updateCollection(collectionId: String)
+
 #######
 # Admin
 #######
