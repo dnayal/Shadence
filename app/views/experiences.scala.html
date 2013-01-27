@@ -47,8 +47,8 @@
 						<h5>Duration <small>[1 hour - One day]</small></h5>
 					</div>	
 	    			<div id="duration-slider" class="experiences-slider"></div>
-					<div id="loader" align="center" style="display:none;">
-						<img alt="Loading..." src="@routes.Assets.at("shadence/images/loader.gif")">
+					<div class="loader">
+						<img alt="Loading..." style="width: 18px;height:18px;" src="@routes.Assets.at("shadence/images/loader.gif")">
 					</div>
 					<br/>
 					<br/>
@@ -95,6 +95,10 @@
 					</div>
 				}
 				</div>
+				
+				<div class="loader">
+					<img alt="Loading..." src="@routes.Assets.at("shadence/images/loader.gif")">
+				</div>
 			</div>
 		</div>
 						
@@ -131,7 +135,8 @@
 		}
     
     	function getExperiencesForPriceAndDuration(firstLoad) {
-			$('#loader').show();
+			$('.loader').show();
+			
 			priceLow = $("#price-slider").slider( "values", 0 );
 			priceHigh = $("#price-slider").slider( "values", 1 );
 			durationLow = $("#duration-slider").slider( "values", 0 );
@@ -165,7 +170,8 @@
 					}
 					
 				});	
-				$('#loader').hide();
+				$('.loader').hide();
+
 			});
 		}
 
@@ -230,6 +236,10 @@
 				}
 			});
 			
-    	});
+			
+			$(window).resize(function () {
+				reloadMasonry('.masonary-container');
+			});
+		});
     </script>
 }

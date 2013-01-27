@@ -27,6 +27,14 @@
 		});	
 	}
 	
+	
+	function reloadMasonry(containerId) {
+		$(containerId).imagesLoaded(function() {
+			$(containerId).masonry('reload');
+		});	
+	}
+	
+	
 	function getPriceText(value) {
 		switch(value) {
     		case 0: return "Free";

@@ -176,6 +176,9 @@
 				$('#user_experience').val($(this).attr("data-id"));
 			});
 
+			$(window).resize(function () {
+				reloadMasonry('.masonary-container');
+			});
 		});
 		
 		$('#collection_form').validate({

@@ -96,8 +96,9 @@
 							</p>	
 						}
 					</div>
+					<br/> 
 				</div>
-			</div> 
+			</div>
 			<div class="span3"> <!-- second column -->
 				<div class="row"> <!-- collection section -->
 					<div class="span3 experience-information">
@@ -128,7 +129,7 @@
 							@for(collection <- experience.getCollections) {
 								<span style="display:table-cell;">
 									<a href="@routes.Application.showCollectionsOfUser(collection.getUser.getUserId)">
-										<img class="thumbnail" src="@collection.getUser.getMainProfilePhoto()" style="width:20px;height:20px;">
+										<img class="thumbnail" src="@collection.getUser.getMainProfilePhoto()" style="width:23px;height:23px;padding:1px;">
 									</a>	
 								</span>
 							}

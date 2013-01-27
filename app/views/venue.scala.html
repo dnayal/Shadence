@@ -84,6 +84,10 @@
 		$(document).ready(function() {
 			initMasonry(".masonary-container", ".masonary-item")
 			drawMap("venue-map", @venue.getLatitude, @venue.getLongitude);
+
+			$(window).resize(function () {
+				reloadMasonry('.masonary-container');
+			});
 		});
 		
 	</script>

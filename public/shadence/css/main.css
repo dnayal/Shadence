@@ -67,7 +67,7 @@ body, h1, h2, h3, h4, h5, h6, p, a, button, input, div, img, select, option, tex
 
 #venue-map {
 	height:175px;
-	width: 97%;
+	width: 96%;
 }
 
 .div-header {
@@ -227,6 +227,12 @@ body, h1, h2, h3, h4, h5, h6, p, a, button, input, div, img, select, option, tex
 }
 
 
+.loader {
+	display: none;
+	text-align: center;
+}
+
+
 /*
 	Helps the experiences stream not overlay 
 	on the categories on a small screen
@@ -274,6 +280,21 @@ body, h1, h2, h3, h4, h5, h6, p, a, button, input, div, img, select, option, tex
 
 	.stream-experience-name {
 		font-size: 14px;
+	}
+}
+
+@media (max-width: 1199px) and (min-width: 980px) {
+	.affix {
+		position: fixed;
+	}
+	
+	.masonary-item {
+		width: 330px;
+		margin-bottom: 5px;
+	}
+	
+	.stream-experience-name {
+		font-size: 17px;
 	}
 }
 
