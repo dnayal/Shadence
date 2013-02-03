@@ -193,6 +193,7 @@
 									<br/> @experience.getVenue.getAddress, <br/> @{if(experience.getVenue.getVenueCity) experience.getVenue.getVenueCity else experience.getVenue.getCity.getName}, @experience.getVenue.getPostcode
 									<br/>
 									<div class="thumbnail" id="venue-map"></div>
+									<div style="font-size: 0.85em"><a target="_new" href="https://maps.google.com/maps?daddr=@{java.net.URLEncoder.encode(experience.getVenue.getName,"UTF-8")}+@{experience.getVenue.getAddress}+@{if(experience.getVenue.getVenueCity) experience.getVenue.getVenueCity else experience.getVenue.getCity.getName}+@experience.getVenue.getPostcode">Get Directions</a></div>
 							</div>
 						</div>
 					</div>
@@ -311,6 +312,11 @@
 		    });
 		    
 		    drawMap("venue-map", @experience.getVenue.getLatitude, @experience.getVenue.getLongitude);
+
+			$(window).resize(function () {
+				rescaleGalleria('#galleria', '.galleria-container');
+			});
+
 		});
 		
 	    $('#user_collection').bind('change focus', function(){

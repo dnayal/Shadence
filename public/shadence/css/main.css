@@ -47,7 +47,8 @@ body, h1, h2, h3, h4, h5, h6, p, a, button, input, div, img, select, option, tex
 	-webkit-box-shadow: 0px 0px 8px 8px lightgray;
 	-moz-box-shadow: 0px 0px 8px 8px lightgray;
 	box-shadow: 0px 0px 8px 8px lightgray;
-	border-radius: 5px; 
+	border-radius: 5px;
+	border: 1px solid lightgray; 
 }
 
 .image-icon {

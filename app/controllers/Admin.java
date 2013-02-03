@@ -72,6 +72,8 @@ public class Admin extends Controller {
 				experienceId = experience.getExperienceId();
 				experience.setCreateTimestamp(System.currentTimeMillis());
 				ExperienceHandler.updateExperience(experience);
+				
+				// save existing photos of the experience
 				for (EntityPhoto entityPhoto : experience.getExperiencePhotos()) {
 					FilePart filePart = body.getFile(entityPhoto.getPhotoId());
 					if(filePart != null) {

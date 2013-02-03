@@ -169,8 +169,9 @@
 						pagestart = pagestart + pagesize;
 					}
 					
+					// hide the loader after masonry items are appended
+					$('.loader').hide();
 				});	
-				$('.loader').hide();
 
 			});
 		}
@@ -238,6 +239,7 @@
 			
 			
 			$(window).resize(function () {
+				rescaleGalleria('#galleria', '.galleria-container');
 				reloadMasonry('.masonary-container');
 			});
 		});

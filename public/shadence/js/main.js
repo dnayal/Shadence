@@ -4,6 +4,7 @@
 	    var myOptions = {
 	      zoom: 14,
 	      center: latlng,
+	      scrollwheel: false,
 	      mapTypeId: google.maps.MapTypeId.ROADMAP
 	    };
 	    var map = new google.maps.Map(document.getElementById(mapElementId), myOptions);
@@ -58,4 +59,12 @@
 		}
 	}
 
+	
+	function rescaleGalleria(galleriaId, galleriaContainer) {
+	    Galleria.ready(function(options) {
+	    	this.bind("rescale", function(event){
+		    	$(galleriaContainer).height($(galleriaId).height());
+	    	});
+	    });
+	}
 	
