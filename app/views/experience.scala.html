@@ -190,7 +190,7 @@
 									} else {
 										@experience.getVenue.getName
 									}
-									<br/> @experience.getVenue.getAddress, <br/> @{if(experience.getVenue.getVenueCity) experience.getVenue.getVenueCity else experience.getVenue.getCity.getName}, @experience.getVenue.getPostcode
+									<br/> @experience.getVenue.getAddress, <br/> @{if(experience.getVenue.getVenueCity) experience.getVenue.getVenueCity else experience.getVenue.getCity.getName}@{if(experience.getVenue.getPostcode) ", "+experience.getVenue.getPostcode else ""}
 									<br/>
 									<div class="thumbnail" id="venue-map"></div>
 									<div style="font-size: 0.85em"><a target="_new" href="https://maps.google.com/maps?daddr=@{java.net.URLEncoder.encode(experience.getVenue.getName,"UTF-8")}+@{experience.getVenue.getAddress}+@{if(experience.getVenue.getVenueCity) experience.getVenue.getVenueCity else experience.getVenue.getCity.getName}+@experience.getVenue.getPostcode">Get Directions</a></div>
