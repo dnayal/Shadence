@@ -84,15 +84,22 @@
 				</div>	
 				<div class="row">
 					<div class="span6 experience-information">
-						<div class="div-header">The Experience</div>
+						@if(experience.getBookNow) {
+						<div class="span4 div-header">The Experience</div>
+						<div class="span2" style="text-align: right;">
+							<a href="@experience.getBookNow" target="_new" class="btn btn-info btn-large">Book Now</a>
+						</div>
+						} else {
+						<div class="span6 div-header">The Experience</div>
+						}
 						<div class="row"> <!-- start inner row -->
 							<div class="span6">
 							@Html(experience.getDescription)
 							</div>
 						</div> <!-- end inner row -->
-						@if(experience.getOriginalSource!="") {
+						@if(experience.getOriginalSource) {
 							<p>
-								<a class="original-source" style="text-decoration:none;" target="_new" href="@experience.getOriginalSource">Original Source</a>
+								<a class="original-source" style="text-decoration:none;" target="_new" href="@experience.getOriginalSource">More Information</a>
 							</p>	
 						}
 					</div>

@@ -95,6 +95,10 @@ public class Experience extends Model {
 	String originalSource;
 	
 	@JsonIgnore
+	@Column(length=500)
+	String bookNow;
+	
+	@JsonIgnore
 	@Column(length=200)
 	String tags;
 	
@@ -130,7 +134,7 @@ public class Experience extends Model {
 
 	public Experience(String experienceId, String name, String email, String twitter, String phone, 
 			String description, String priceDescription, Integer priceRating, Integer duration, 
-			String scheduleDescription,	String originalSource, String tags, Date startDate,
+			String scheduleDescription,	String originalSource, String bookNow, String tags, Date startDate,
 			Date endDate, Boolean hidden, Long createTimestamp) {
 		this.experienceId = experienceId;
 		this.name = name;
@@ -143,6 +147,7 @@ public class Experience extends Model {
 		this.duration = duration;
 		this.scheduleDescription = scheduleDescription;
 		this.originalSource = originalSource;
+		this.bookNow = bookNow;
 		this.tags = tags;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -275,6 +280,14 @@ public class Experience extends Model {
 
 	public void setOriginalSource(String originalSource) {
 		this.originalSource = originalSource;
+	}
+
+	public String getBookNow() {
+		return Util.getString(bookNow);
+	}
+
+	public void setBookNow(String bookNow) {
+		this.bookNow = bookNow;
 	}
 
 	public String getTags() {

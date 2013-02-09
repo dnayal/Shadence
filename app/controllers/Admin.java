@@ -70,7 +70,9 @@ public class Admin extends Controller {
 			} else {
 				// update existing record
 				experienceId = experience.getExperienceId();
-				experience.setCreateTimestamp(System.currentTimeMillis());
+				if(Boolean.valueOf(experienceForm.field("update_timestamp").value()))
+					experience.setCreateTimestamp(System.currentTimeMillis());
+				
 				ExperienceHandler.updateExperience(experience);
 				
 				// save existing photos of the experience

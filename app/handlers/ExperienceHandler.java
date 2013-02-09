@@ -49,11 +49,11 @@ public class ExperienceHandler {
 	public static Experience saveExperience(String venueId, String userId, String categoryId, String name, 
 				String email, String twitter, String phone, String description, String priceDescription, 
 				Integer priceRating, Integer duration, String scheduleDescription, String originalSource, 
-				String tags, Date startDate, Date endDate, Boolean hidden) {
+				String bookNow, String tags, Date startDate, Date endDate, Boolean hidden) {
 		
 		String experienceId = Util.getUniqueId();
 		Experience experience = new Experience(experienceId, name, email, twitter, phone, description, 
-				priceDescription, priceRating, duration, scheduleDescription, originalSource, tags,
+				priceDescription, priceRating, duration, scheduleDescription, originalSource, bookNow, tags,
 				startDate, endDate, hidden, System.currentTimeMillis());
 		
 		Venue venue = VenueHandler.getVenue(venueId);
