@@ -28,7 +28,6 @@ public class Experience extends Model {
 	@Column(length=100)
 	String experienceId;
 
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="venue_id")
 	@Column(length=100)

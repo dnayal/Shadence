@@ -6,6 +6,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
 import utils.Util;
@@ -17,6 +19,7 @@ public class Venue extends Model {
 	@Column(length=100)
 	String venueId;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="city_id")
 	@Column(length=100)
@@ -26,22 +29,28 @@ public class Venue extends Model {
 	@Column(length=100)
 	String name;
 
+	@JsonIgnore
 	@Column(length=100)
 	String address;
 	
 	// Name of the city, in case the venue is outside the main city
+	@JsonIgnore
 	@Column(length=100)
 	String venueCity;
 	
+	@JsonIgnore
 	@Column(length=100)
 	String postcode;
 
+	@JsonIgnore
 	@Column(length=100)
 	String latitude;
 
+	@JsonIgnore
 	@Column(length=100)
 	String longitude;
 	
+	@JsonIgnore
 	Long createTimestamp;
 	
 	public static Finder<String, Venue> find = new Finder<String, Venue>(String.class, Venue.class);

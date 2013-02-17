@@ -64,8 +64,11 @@
 							@defining(experience.getExperiencePhotos.get(0)) { experiencePhoto =>
 								<img class="experience-stream-image" src="@experiencePhoto.getMediumPhotoURL" alt="@experiencePhoto.getAlternateText">
 							}
-							<h4>@experience.getName</h4>
+							<span class="stream-experience-name">@experience.getName</span>
 						</a>	
+						<div style="color:gray;font-size: 0.9em;">
+							<i class="icon-map-marker"></i>&nbsp;@experience.getVenue.getName
+						</div>
 					</div>
 				}
     			</div>

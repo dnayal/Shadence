@@ -92,6 +92,9 @@
 							}
 							<span class="stream-experience-name">@experience.getName</span>
 						</a>	
+						<div style="color:gray;font-size: 0.9em;">
+							<i class="icon-map-marker"></i>&nbsp;@experience.getVenue.getName
+						</div>
 					</div>
 				}
 				</div>
@@ -127,7 +130,9 @@
 					result=result+'<div class="thumbnail masonary-item">' +
 						'<a href="/experiences/'+experience.experienceId+'">' +
 						'<img class="experience-stream-image" src="'+experience.experiencePhotos[0].mediumPhotoURL+'" alt="'+experience.experiencePhotos[0].alternateText+'">' +
-						'<span class="stream-experience-name">'+experience.name+'</span></a></div>';
+						'<span class="stream-experience-name">'+experience.name+'</span></a>'+
+						'<div style="color:gray;font-size: 0.9em;"><i class="icon-map-marker"></i>&nbsp;'+experience.venue.name + '</div>' +
+						'</div>';
 				});
 			}
 			
