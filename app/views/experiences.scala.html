@@ -127,7 +127,7 @@
 				result='<div class="masonary-item"><br/><br/><h3>No experiences found for your price &amp; duration criteria.</h3><br/></div>';
 			} else {
 				$.each(data, function(index,experience){
-					result=result+'<div class="thumbnail masonary-item">' +
+					result=result+'<div class="thumbnail masonary-item" style="display:none;">' +
 						'<a href="/experiences/'+experience.experienceId+'">' +
 						'<img class="experience-stream-image" src="'+experience.experiencePhotos[0].mediumPhotoURL+'" alt="'+experience.experiencePhotos[0].alternateText+'">' +
 						'<span class="stream-experience-name">'+experience.name+'</span></a>'+
@@ -176,6 +176,7 @@
 					
 					// hide the loader after masonry items are appended
 					$('.loader').hide();
+					$('.masonary-item').show();
 				});	
 
 			});
