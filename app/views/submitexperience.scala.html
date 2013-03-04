@@ -1,0 +1,107 @@
+@(experienceForm: Form[ProviderExperience])
+
+@import helper._
+
+@main("Submit An Experience") {
+ 
+	<div class="container">
+	
+		<div class="row">
+			<div class="span4">
+				<ul class="breadcrumb">
+					<li>
+						<a href="@routes.Application.index()">
+							Shadence Home
+						</a> 
+					</li>
+				</ul>
+			</div>
+			<div class="span4 main-logo">
+	    		<h1 class="logo-text">@utils.Util.getStringProperty("application.name")</h1>
+			</div>
+			<div class="span4" align="right">
+	    		@util.shadence_isvaliduser()
+			</div>
+		</div>	
+		
+		<br/><br/>
+		<div class="row"> <!-- main outer row -->
+			<div class="span4">
+				<h4>
+					Are you a local business in your city?<br/> 
+					Do you have an interesting experience to offer or share?
+				</h4>
+				<p>
+					If so, then tell us about your experience. While we do not 
+					promise that we will publish every submitted experience on Shadence, 
+					we do promise that we will go through each submission. We will 
+					definitely publish the experiences that will seem to appeal to our users.
+				</p>
+				<p>
+					In order to deliver the high standards that our users have come 
+					to expect from us we will make sure that we keep publishing 
+					the most interesting experiences in their city. 
+				</p>
+			</div>
+			
+			@form(routes.Application.submitProviderExperience(), 'id -> "experience_form") {
+			<div class="offset1 span6">
+				<label for="@experienceForm("name").id">Experience Name <span class="error">Required</span></label>
+				<input type="text" class="span4" name="@experienceForm("name").name" id="@experienceForm("name").id">
+				<br/><br/>
+				<label for="@experienceForm("email").id">Your Email Id <span class="error">Required</span></label>
+				<input type="text" class="span4" name="@experienceForm("email").name" id="@experienceForm("email").id">
+				<br/><br/>
+				<label for="@experienceForm("address").id">Venue of Experience <span class="error">Required</span></label>
+				<input type="text" class="span4" name="@experienceForm("address").name" id="@experienceForm("address").id">
+				<br/><br/>
+				<label for="@experienceForm("url").id">Link to the website with experience details</label>
+				<input type="text" class="span4" name="@experienceForm("url").name" id="@experienceForm("url").id">
+				<br/><br/>
+				<label for="@experienceForm("description").id">Description of the Experience <span class="error">Required</span></label>
+				<textarea rows="10" class="span5" name="@experienceForm("description").name" id="@experienceForm("description").id"></textarea>
+				<br/>
+				<br/><br/>
+				<button type="submit" class="btn btn-primary btn-large">Submit</button>
+				<a href="@utils.Server.getLastUrl()" class="btn btn-large">Cancel</a>
+			</div>		
+			}
+		</div> <!-- end of main outer row -->
+		
+		<br/>	
+
+	</div>
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script type="text/javascript" src="@routes.Assets.at("bootstrap/js/bootstrap.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("shadence/js/jquery.validate.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("shadence/js/main.js")"></script>
+    <script>
+    	$(document).ready(function(){
+			$('#experience_form').validate({
+				rules: {
+					@experienceForm("name").name: {required: true, maxlength: 100},
+					@experienceForm("email").name: {required: true, maxlength: 100, email: true},
+					@experienceForm("address").name: {required: true, maxlength: 200},
+					@experienceForm("url").name: {maxlength: 500},
+					@experienceForm("description").name: {required: true, maxlength: 2000}
+				},
+				messages: {
+					@experienceForm("name").name: {required: "Please enter experience name",
+												maxlength: "Experience name should not exceed 100 characters"},
+					@experienceForm("email").name: {required: "Please enter your email id",
+												maxlength: "Email id should not exceed 100 characters",
+												email: "Please enter a valid email id"},
+					@experienceForm("address").name: {required: "Please enter a venue",
+												maxlength: "Venue should not exceed 200 characters"},
+					@experienceForm("url").name: {maxlength: "Website link should not exceed 500 characters"},
+					@experienceForm("description").name: {required: "Please enter experience description",
+													maxlength: "Experience description should not exceed 2000 characters"}
+				},
+				submitHandler: function(form){
+					form.submit();
+				}
+			});
+    	});
+    </script>
+}

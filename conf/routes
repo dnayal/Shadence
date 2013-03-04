@@ -20,6 +20,10 @@ POST	/register							controllers.Application.register()
 GET		/forgotpassword						controllers.Application.viewForgotPassword()
 POST	/forgotpassword						controllers.Application.forgotPassword()
 
+GET		/local/share_experience				controllers.Application.viewProviderExperienceForm()
+GET		/local/thanks						controllers.Application.thankProviderSubmission()
+POST	/local/submit						controllers.Application.submitProviderExperience()
+
 GET		/experiences/:cityId/:categoryId	controllers.Application.getExperiences(cityId: String, categoryId: String)
 GET		/experiences/:experienceId			controllers.Application.getExperience(experienceId: String)
 GET 	/venues/:venueId					controllers.Application.getVenue(venueId: String)

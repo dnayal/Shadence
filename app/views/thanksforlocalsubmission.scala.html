@@ -1,0 +1,49 @@
+@()
+
+@import helper._
+
+@main("Submit An Experience") {
+ 
+	<div class="container">
+	
+		<div class="row">
+			<div class="span4">
+				<ul class="breadcrumb">
+					<li>
+						<a href="@routes.Application.index()">
+							Shadence Home
+						</a> 
+					</li>
+				</ul>
+			</div>
+			<div class="span4 main-logo">
+	    		<h1 class="logo-text">@utils.Util.getStringProperty("application.name")</h1>
+			</div>
+			<div class="span4" align="right">
+	    		@util.shadence_isvaliduser()
+			</div>
+		</div>	
+		
+		<br/><br/><br/>
+		<div class="row"> <!-- main outer row -->
+			<div class="offset3 span6">
+				<h3>
+					Thank you for sharing this experience with us. We will definitely 
+					go through it, and if the experience will appeal to our users, we will 
+					publish it as well. 
+				</h3>
+				<br/>
+				<h4>
+					Please continue with exploring the rest of <a href="@routes.Application.index()">Shadence</a>.
+				</h4>
+			</div>
+		</div> <!-- end of main outer row -->
+		
+		<br/>	
+
+	</div>
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script type="text/javascript" src="@routes.Assets.at("bootstrap/js/bootstrap.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("shadence/js/main.js")"></script>
+}

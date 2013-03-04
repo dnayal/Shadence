@@ -3,6 +3,7 @@ package controllers;
 import handlers.CollectionHandler;
 import handlers.EntityPhotoHandler;
 import handlers.ExperienceHandler;
+import handlers.ProviderExperienceHandler;
 import handlers.UserHandler;
 import handlers.VenueHandler;
 
@@ -24,6 +25,7 @@ import play.mvc.Result;
 import models.Collection;
 import models.EntityPhoto;
 import models.Experience;
+import models.ProviderExperience;
 import models.User;
 import models.Venue;
 
@@ -327,12 +329,14 @@ public class Application extends Controller {
 	
 
 	public static Result showCollectionsOfUser(String userId) {
+		Server.setLastUrl();
 		List<Collection> collections = CollectionHandler.getCollectionsOfUser(userId);	
 		return ok(usercollections.render(UserHandler.getUser(userId), collections));
 	}
 	
 	
 	public static Result showCollection(String collectionId) {
+		Server.setLastUrl();
 		Collection collection = CollectionHandler.getCollection(collectionId);
 		return ok(usercollection.render(collection.getUser(), collection));
 	}
@@ -373,5 +377,26 @@ public class Application extends Controller {
 		}
 		
 		return redirect(routes.Application.showCollection(collectionId));
+	}
+	
+	
+	public static Result viewProviderExperienceForm() {
+		return ok(submitexperience.render(form(ProviderExperience.class)));
+	}
+	
+	
+	public static Result thankProviderSubmission(){
+		return ok(thanksforlocalsubmission.render());
+	}
+	
+	
+	public static Result submitProviderExperience() {
+		Form<ProviderExperience> experienceForm = form(ProviderExperience.class).bindFromRequest();
+		ProviderExperience providerExperience = experienceForm.get();
+		providerExperience.setCreateTimestamp(System.currentTimeMillis());
+		providerExperience.setId(Util.getUniqueId());
+		ProviderExperienceHandler.saveProviderExperience(providerExperience);
+		Util.sendMail("info@shadence.com", "New Experience Submitted #" + providerExperience.getId(), views.html.email.newexperience_notification.render(providerExperience).toString());
+		return redirect(routes.Application.thankProviderSubmission());
 	}
 }
