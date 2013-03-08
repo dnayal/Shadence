@@ -60,7 +60,7 @@
 							@if(experienceList.size >= counter) {
 							 	<div class="@{if(counter==1) "collection-cover-main" else "collection-cover-item"}" style="background-image:url(@experienceList.get(counter-1).getExperiencePhotos.get(0).getMediumPhotoURL);"></div>
 							} else {
-								<div class="@{if(counter==1) "collection-cover-main" else "collection-cover-item"}" style="background-image:url(@routes.Assets.at("shadence/images/blank.png"));"></div>
+								<div class="@{if(counter==1) "collection-cover-main" else "collection-cover-item"}" style="background-image:url(@utils.Util.getAsset("shadence/images/blank.png"));"></div>
 							}
 							@if(counter==1||counter==4){
 							</div>
@@ -112,11 +112,11 @@
 
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="@routes.Assets.at("bootstrap/js/bootstrap.min.js")"></script>
-	<script type="text/javascript" src="@routes.Assets.at("shadence/js/jquery.masonry.min.js")"></script>
-	<script type="text/javascript" src="@routes.Assets.at("shadence/js/jquery.imagesloaded.min.js")"></script>
-    <script type="text/javascript" src="@routes.Assets.at("shadence/js/jquery.validate.min.js")"></script>
-    <script type="text/javascript" src="@routes.Assets.at("shadence/js/main.js")"></script>
+    <script type="text/javascript" src="@utils.Util.getAsset("bootstrap/js/bootstrap.min.js")"></script>
+	<script type="text/javascript" src="@utils.Util.getAsset("shadence/js/jquery.masonry.min.js")"></script>
+	<script type="text/javascript" src="@utils.Util.getAsset("shadence/js/jquery.imagesloaded.min.js")"></script>
+    <script type="text/javascript" src="@utils.Util.getAsset("shadence/js/jquery.validate.min.js")"></script>
+    <script type="text/javascript" src="@utils.Util.getAsset("shadence/js/main.js")"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			initMasonry(".collections-container", ".collection-cover");

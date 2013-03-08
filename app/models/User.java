@@ -14,6 +14,7 @@ import play.data.validation.Constraints.Email;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
 import utils.Server;
+import utils.Util;
 
 @Entity
 public class User extends Model {
@@ -174,7 +175,7 @@ public class User extends Model {
 	 */
 	public String getMainProfilePhoto() {
 		if(profilePhotos == null || profilePhotos.size() < 1) {
-			return Server.getAssetAt("shadence/images/_default_user_.png");
+			return Util.getAsset("shadence/images/_default_user_.png");
 		} else {
 			return profilePhotos.get(0).getMediumPhotoURL();
 		}

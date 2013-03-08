@@ -176,5 +176,12 @@ public class Util {
 		List<E> list = new ArrayList<E>(set);
 		return list;
 	}
+	
+	
+	public static String getAsset(String asset) {
+		return "http://" + Util.getStringProperty("aws.s3.bucket.assets") 
+				+ "." + Util.getStringProperty("aws.s3.endpoint") 
+				+ "/" + asset; 
+	}
 
 }

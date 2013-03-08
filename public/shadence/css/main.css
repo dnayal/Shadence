@@ -1,6 +1,12 @@
-body, h1, h2, h3, h4, h5, h6, p, a, button, input, div, img, select, option, textarea {
-	font-family: 'Marcellus', 'Helvetica Neue', Verdana, Helvetica, Arial, sans-serif;
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Ubuntu', 'Helvetica Neue', Verdana, Helvetica, Arial, sans-serif;
 }
+
+
+body, p, a, button, input, div, img, select, option, textarea {
+	font-family: 'Open Sans', 'Helvetica Neue', Verdana, Helvetica, Arial, sans-serif;
+}
+
  
 .icon-chevron-right {
 	float: right;
@@ -14,6 +20,7 @@ body, h1, h2, h3, h4, h5, h6, p, a, button, input, div, img, select, option, tex
 
 .logo-text {
 	font-size: 55px;
+	font-family: 'Lobster', 'Helvetica Neue', Verdana, Helvetica, Arial, sans-serif;
 }
 
 .navbar-experiences {
@@ -72,6 +79,7 @@ body, h1, h2, h3, h4, h5, h6, p, a, button, input, div, img, select, option, tex
 }
 
 .div-header {
+	font-family: 'Ubuntu','Open Sans', 'Helvetica Neue', Verdana, Helvetica, Arial, sans-serif;
 	font-size: 22px;
 	margin: 10px 0px;
 	padding-bottom: 5px;
@@ -113,7 +121,7 @@ body, h1, h2, h3, h4, h5, h6, p, a, button, input, div, img, select, option, tex
 	Settings the improve the look and feel of price and duration slider
 */
 .ui-slider-horizontal .ui-state-default {
-	background: transparent url(/assets/shadence/images/handle.png) no-repeat scroll center;
+	background: transparent url(/shadence/images/handle.png) no-repeat scroll center;
 	background-size: 19px 19px;
 	border: 0px;
 }
@@ -151,7 +159,7 @@ body, h1, h2, h3, h4, h5, h6, p, a, button, input, div, img, select, option, tex
 }
 
 .stream-experience-name {
-	font-size: 18px;
+	font-size: 17px;
 }
 
 

@@ -48,7 +48,7 @@
 					</div>	
 	    			<div id="duration-slider" class="experiences-slider"></div>
 					<div class="loader">
-						<img alt="Loading..." style="width: 18px;height:18px;" src="@routes.Assets.at("shadence/images/loader.gif")">
+						<img alt="Loading..." style="width: 18px;height:18px;" src="@utils.Util.getAsset("shadence/images/loader.gif")">
 					</div>
 					<br/>
 					<br/>
@@ -104,7 +104,7 @@
 				</div>
 				
 				<div class="loader">
-					<img alt="Loading..." src="@routes.Assets.at("shadence/images/loader.gif")">
+					<img alt="Loading..." src="@utils.Util.getAsset("shadence/images/loader.gif")">
 				</div>
 			</div>
 		</div>
@@ -113,11 +113,11 @@
     
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="@routes.Assets.at("bootstrap/js/bootstrap.min.js")"></script>
-	<script type="text/javascript" src="@routes.Assets.at("shadence/js/jquery.masonry.min.js")"></script>
-	<script type="text/javascript" src="@routes.Assets.at("shadence/js/jquery.imagesloaded.min.js")"></script>
-    <script type="text/javascript" src="@routes.Assets.at("shadence/js/galleria-1.2.8.min.js")"></script>
-    <script type="text/javascript" src="@routes.Assets.at("shadence/js/main.js")"></script>
+    <script type="text/javascript" src="@utils.Util.getAsset("bootstrap/js/bootstrap.min.js")"></script>
+	<script type="text/javascript" src="@utils.Util.getAsset("shadence/js/jquery.masonry.min.js")"></script>
+	<script type="text/javascript" src="@utils.Util.getAsset("shadence/js/jquery.imagesloaded.min.js")"></script>
+    <script type="text/javascript" src="@utils.Util.getAsset("shadence/js/galleria-1.2.8.min.js")"></script>
+    <script type="text/javascript" src="@utils.Util.getAsset("shadence/js/main.js")"></script>
     <script type="text/javascript">
     	
 		var pagestart=@utils.Util.getIntegerProperty("application.pagesize");
@@ -188,7 +188,7 @@
 
     
     	$(document).ready(function(){
-			Galleria.loadTheme("@routes.Assets.at("shadence/js/galleria.classic.min.js")");
+			Galleria.loadTheme("@utils.Util.getAsset("shadence/js/galleria.classic.min.js")");
 	    	Galleria.configure({
 	    		autoplay: true,
 	    		showInfo: false,

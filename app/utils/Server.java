@@ -140,9 +140,4 @@ public class Server extends Controller {
 		return url;
 	}
 	
-	
-	public static String getAssetAt(String asset) {
-		return routes.Assets.at(asset).toString();
-	}
-	
 }
