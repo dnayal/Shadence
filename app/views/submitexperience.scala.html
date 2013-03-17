@@ -26,26 +26,31 @@
 		
 		<br/><br/>
 		<div class="row"> <!-- main outer row -->
-			<div class="span4">
+			<div class="span5">
+				<img style="width:475px" src="@utils.Util.getAsset("shadence/images/share_experience.jpg")">
 				<h4>
-					Are you a local business in your city?<br/> 
-					Do you have an interesting experience to offer or share?
+					Are you a local business in London, with an interesting experience to offer?
+					Or a Londoner with an interesting experience to share?
 				</h4>
 				<p>
-					If so, then tell us about your experience. While we do not 
-					promise that we will publish every submitted experience on Shadence, 
-					we do promise that we will go through each submission. We will 
-					definitely publish the experiences that will seem to appeal to our users.
+					Then tell us about your experience. We can publish it on 
+					Shadence and help you share it with a much larger audience of locals 
+					and tourists.
 				</p>
 				<p>
-					In order to deliver the high standards that our users have come 
-					to expect from us we will make sure that we keep publishing 
-					the most interesting experiences in their city. 
+					While we publish only those experiences that we think our users will love, 
+					we do go through every experience that you share with us.  
+				</p>
+				<br/>
+				<p>
+					<small>
+						<i>(Photos by <a target="_blank" href="http://www.flickr.com/photos/garryknight/">Garry Knight</a>)</i>
+					</small>	
 				</p>
 			</div>
 			
 			@form(routes.Application.submitProviderExperience(), 'id -> "experience_form") {
-			<div class="offset1 span6">
+			<div class="offset1 span5">
 				<label for="@experienceForm("name").id">Experience Name <span class="error">Required</span></label>
 				<input type="text" class="span4" name="@experienceForm("name").name" id="@experienceForm("name").id">
 				<br/><br/>
