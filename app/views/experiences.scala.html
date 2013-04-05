@@ -1,9 +1,9 @@
-@(cityId: String, categoryId: String, experiences: List[Experience])
+@(cityId: String, categoryId: String, experiences: List[Experience], features: List[FeaturedEntity])
 
 @import handlers._
 
 @main(ExperienceCategoryHandler.getCategoryName(categoryId) + " Experiences in " + CityHandler.getCity(cityId).getName) {
-	<div class="container-fluid">
+  	<div class="container-fluid">
 	
 		<div class="row">
 			<div class="span4">	    		
@@ -67,22 +67,27 @@
 			<div class="span9">
 				<div id="experiences-carousel" class="row">
 					<div class="span9">
-						<div align="left" id="galleria" class="thumbnail" style="width:100%;height:350px;color: white;display:none;">
-							@if(experiences.size>=1) {
-							<img data-layer="<span class=text-over-image>@experiences.get(experiences.size-1).getName<span>" alt="@experiences.get(experiences.size-1).getName" src="@experiences.get(experiences.size-1).getExperiencePhotos.get(0).getLargePhotoURL" data-link="@routes.Application.getExperience(experiences.get(experiences.size-1).getExperienceId)">
-							}
-							@if(experiences.size>=2) {
-							<img data-layer="<span class=text-over-image>@experiences.get(experiences.size-2).getName<span>" alt="@experiences.get(experiences.size-2).getName" src="@experiences.get(experiences.size-2).getExperiencePhotos.get(0).getLargePhotoURL" data-link="@routes.Application.getExperience(experiences.get(experiences.size-2).getExperienceId)">
-							}
-							@if(experiences.size>=3) {
-							<img data-layer="<span class=text-over-image>@experiences.get(experiences.size-3).getName<span>" alt="@experiences.get(experiences.size-3).getName" src="@experiences.get(experiences.size-3).getExperiencePhotos.get(0).getLargePhotoURL" data-link="@routes.Application.getExperience(experiences.get(experiences.size-3).getExperienceId)">
-							}
-							@if(experiences.size>=4) {
-							<img data-layer="<span class=text-over-image>@experiences.get(experiences.size-4).getName<span>" alt="@experiences.get(experiences.size-4).getName" src="@experiences.get(experiences.size-4).getExperiencePhotos.get(0).getLargePhotoURL" data-link="@routes.Application.getExperience(experiences.get(experiences.size-4).getExperienceId)">
+						<div align="left" id="galleria" class="thumbnail" style="width:100%;height:450px;color: white;display:none;">
+							@for(feature <- features) {
+								@if(feature.getEntityType==handlers.FeaturedEntityHandler.EXPERIENCE_ENTITY) {
+									@defining(handlers.ExperienceHandler.getExperience(feature.getEntityId)) { experience =>
+										<img data-layer="<span class=feature-banner-experience>@feature.getFeatureDescription</span><span class=feature-banner-description>@experience.getName</span>" 
+										alt="@experience.getName" src="@experience.getExperiencePhotos.get(0).getLargePhotoURL" 
+										data-link="@routes.Application.getExperience(experience.getExperienceId)">
+									}
+								}
+
+								@if(feature.getEntityType==handlers.FeaturedEntityHandler.COLLECTION_ENTITY) {
+									@defining(handlers.CollectionHandler.getCollection(feature.getEntityId)) { collection =>
+										<img data-layer="<span class=feature-banner-collection>Collection by <a href=@routes.Application.showCollectionsOfUser(collection.getUser.getUserId)>@collection.getUser.getName &nbsp; <img class=image-icon src=@collection.getUser.getMainProfilePhoto></a></span><span class=feature-banner-description>@collection.getName</span>" 
+										alt="@collection.getName" src="@handlers.CollectionHandler.getExperiencesOfCollection(collection.getCollectionId).get(0).getExperiencePhotos.get(0).getLargePhotoURL" 
+										data-link="@routes.Application.showCollection(collection.getCollectionId)">
+									}
+								}
 							}
 	  					</div>
-							<br/>
-							<hr class="thin-line"/>
+						<br/>
+						<hr class="thin-line"/>
 					</div>	
 					<br/>
 				</div>	

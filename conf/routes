@@ -58,5 +58,8 @@ GET		/admin/cities/:cityId		controllers.Admin.showCityForm(cityId: String)
 GET		/admin/users				controllers.Admin.getUsers()
 POST	/admin/users				controllers.Admin.saveUser()
 GET		/admin/users/:userId		controllers.Admin.showUserForm(userId: String)
-
+GET		/admin/featured/all			controllers.Admin.showAllFeaturedEntities()
+GET		/admin/featured/form		controllers.Admin.showFeaturedEntityForm()
+POST	/admin/featured/new			controllers.Admin.saveFeaturedEntity()
+GET		/admin/featured/delete/:entityId		controllers.Admin.removeFeaturedEntity(entityId: String)
 

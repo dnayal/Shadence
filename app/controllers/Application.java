@@ -3,6 +3,7 @@ package controllers;
 import handlers.CollectionHandler;
 import handlers.EntityPhotoHandler;
 import handlers.ExperienceHandler;
+import handlers.FeaturedEntityHandler;
 import handlers.ProviderExperienceHandler;
 import handlers.UserHandler;
 import handlers.VenueHandler;
@@ -25,6 +26,7 @@ import play.mvc.Result;
 import models.Collection;
 import models.EntityPhoto;
 import models.Experience;
+import models.FeaturedEntity;
 import models.ProviderExperience;
 import models.User;
 import models.Venue;
@@ -191,7 +193,8 @@ public class Application extends Controller {
 			// Set last url here, else JSON string will 
 			// be returned if user logs in after using sliders
 			Server.setLastUrl();
-			return ok(experiences.render(cityId, categoryId, experienceList));
+			List<FeaturedEntity> list = FeaturedEntityHandler.getFeaturedEntitiesForBanner(categoryId);
+			return ok(experiences.render(cityId, categoryId, experienceList, list));
 		}
 		
 	}

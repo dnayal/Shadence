@@ -150,8 +150,11 @@ public class CollectionHandler {
 				Logger.info("Error while creating initial collection [" + name + "] for user [" + user.getUserId() + "]", exception);
 			}
 		}
-
-		
+	}
+	
+	
+	public static List<Collection> getAllCollections() {
+		return Collection.find.orderBy("createTimestamp desc").findList();
 	}
 	
 }

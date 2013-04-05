@@ -145,13 +145,34 @@ body, p, a, button, input, div, img, select, option, textarea {
 	z-index: 0;
 }
 
-.text-over-image {
+.feature-banner-experience {
+	background: black;
+	opacity: 0.75;
+	padding: 8px;
+	font-size: 16px;
+	font-family: 'Open Sans';
+	position: absolute;
+	top: 20px;
+}
+
+.feature-banner-description {
 	background: black;
 	opacity: 0.75;
 	padding: 8px;
 	font-size: 24px;
+	font-family: 'Ubuntu';
 	position: absolute;
-	top: 20px;
+	top: 56px;
+}
+
+.feature-banner-collection {
+	background: black;
+	opacity: 0.75;
+	padding: 8px;
+	font-size: 16px;
+	font-family: 'Open Sans';
+	position: absolute;
+	top: 92px;
 }
 
 .experiences-slider {

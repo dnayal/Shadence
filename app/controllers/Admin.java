@@ -1,17 +1,23 @@
 package controllers;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import models.City;
+import models.Collection;
 import models.EntityPhoto;
 import models.Experience;
 import models.ExperienceCategory;
+import models.FeaturedEntity;
 import models.User;
 import models.Venue;
 import handlers.CityHandler;
+import handlers.CollectionHandler;
 import handlers.EntityPhotoHandler;
 import handlers.ExperienceCategoryHandler;
 import handlers.ExperienceHandler;
+import handlers.FeaturedEntityHandler;
 import handlers.UserHandler;
 import handlers.VenueHandler;
 import play.data.Form;
@@ -345,5 +351,65 @@ public class Admin extends Controller {
 /************
  * USER - END
  ************/
+
 	
+/**************
+ * FEATURED ENTITES - START
+ **************/
+	public static Result showAllFeaturedEntities() {
+		return ok(featuredentities.render(FeaturedEntityHandler.getAllFeaturedEntities()));
+	}
+	
+	
+	public static Result showFeaturedEntityForm() {
+		Form<FeaturedEntity> form = form(FeaturedEntity.class);
+		List<Experience> experiences = ExperienceHandler.getAllExperiences("london");
+		List<Collection> collections = CollectionHandler.getAllCollections();
+		
+		Map<String, String> experienceMap = new HashMap<String, String>();
+		Map<String, String> collectionMap = new HashMap<String, String>();
+		
+		for(Experience experience : experiences)
+			experienceMap.put(experience.getExperienceId(), experience.getCategory().getName() + " - " + experience.getName());
+
+		for(Collection collection : collections)
+			collectionMap.put(collection.getCollectionId(), collection.getUser().getName() + " - " + collection.getName());
+			
+		return ok(featuredentities_form.render(form, experienceMap, collectionMap));
+	}
+	
+	
+	public static Result saveFeaturedEntity() {
+		Form<FeaturedEntity> featuredForm = form(FeaturedEntity.class).bindFromRequest();
+		FeaturedEntity featuredEntity = featuredForm.get();
+		featuredEntity.setCreateTimestamp(System.currentTimeMillis());
+		
+		if(featuredEntity.getEntityType().equalsIgnoreCase(FeaturedEntityHandler.EXPERIENCE_ENTITY)) {
+			String experienceId = featuredForm.field(FeaturedEntityHandler.EXPERIENCE_ENTITY).value();
+			Experience experience = ExperienceHandler.getExperience(experienceId);
+			featuredEntity.setEntityId(experience.getExperienceId());
+			featuredEntity.setSpecificInformation(experience.getCategory().getCategoryId());
+			
+		} else if (featuredEntity.getEntityType().equalsIgnoreCase(FeaturedEntityHandler.COLLECTION_ENTITY)) {
+			String collectionId = featuredForm.field(FeaturedEntityHandler.COLLECTION_ENTITY).value();
+			Collection collection = CollectionHandler.getCollection(collectionId);
+			featuredEntity.setEntityId(collection.getCollectionId());
+			featuredEntity.setSpecificInformation(collection.getUser().getUserId());
+		}
+		
+		FeaturedEntityHandler.saveFeaturedEntity(featuredEntity);
+		return redirect(routes.Admin.showAllFeaturedEntities());
+	}
+	
+	
+	public static Result removeFeaturedEntity(String entityId) {
+		FeaturedEntityHandler.removeFeaturedEntity(entityId);
+		return redirect(routes.Admin.showAllFeaturedEntities());
+	}
+
+/**************
+ * FEATURED ENTITES - END
+ **************/
+	
+
 }

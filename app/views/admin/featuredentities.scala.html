@@ -1,0 +1,47 @@
+@(features: List[FeaturedEntity])
+
+@main("Featured Entities") {
+@util.shadence_admincontent {
+	<div class="container">
+		<div class="row">
+			<h5><a href="@routes.Admin.getMain()">[Main Page]</a></h5>
+			<h1>Featured Entities</h1>
+			<p>
+				<a href="@routes.Admin.showFeaturedEntityForm()">NEW</a>
+			</p>
+		</div>
+		<div class="row">
+		    <table border="1" cellpadding="10">
+		    	<tr>
+		    		<th>Name</th>
+		    	</tr>
+			    @for(feature <- features) {
+			    	@if(feature.getEntityType==handlers.FeaturedEntityHandler.EXPERIENCE_ENTITY) {
+					@defining(handlers.ExperienceHandler.getExperience(feature.getEntityId)) { experience =>
+			    	<tr>
+			    		<td>@experience.getExperienceId</td>
+			    		<td>EXPERIENCE</td>
+			    		<td>@experience.getCategory.getName</td>
+			    		<td>@experience.getName</td>
+			    		<td><a href="@routes.Admin.removeFeaturedEntity(feature.getEntityId)">DELETE</a></td>
+			    	</tr>
+			    	}
+			    	}
+
+			    	@if(feature.getEntityType==handlers.FeaturedEntityHandler.COLLECTION_ENTITY) {
+					@defining(handlers.CollectionHandler.getCollection(feature.getEntityId)) { collection =>
+			    	<tr>
+			    		<td>@collection.getCollectionId</td>
+			    		<td>COLLECTION</td>
+			    		<td>@collection.getUser.getName</td>
+			    		<td>@collection.getName</td>
+			    		<td><a href="@routes.Admin.removeFeaturedEntity(feature.getEntityId)">DELETE</a></td>
+			    	</tr>
+			    	}
+			    	}
+			    }
+		    </table>
+		</div>	    							
+	</div>
+}
+}
