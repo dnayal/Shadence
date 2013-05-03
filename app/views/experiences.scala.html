@@ -2,7 +2,7 @@
 
 @import handlers._
 
-@main(ExperienceCategoryHandler.getCategoryName(categoryId) + " Experiences in " + CityHandler.getCity(cityId).getName) {
+@main(ExperienceCategoryHandler.getCategoryName(categoryId) + " Experiences in " + CityHandler.getCity(cityId).getName, "") {
   	<div class="container-fluid">
 	
 		<div class="row">
@@ -16,7 +16,7 @@
 			
 			<div class="span4 main-logo">
 	    		<h1 class="logo-text">@utils.Util.getStringProperty("application.name")</h1>
-			    <h5>@utils.Util.getStringProperty("application.slogan")</h5>
+			    <h6>@utils.Util.getStringProperty("application.slogan")</h6>
 		    </div>
 			<div class="span4" align="right">
 	    		@util.shadence_isvaliduser()

@@ -161,6 +161,7 @@ body, p, a, button, input, div, img, select, option, textarea {
 	padding: 8px;
 	font-size: 24px;
 	font-family: 'Ubuntu';
+	font-weight: bold;
 	position: absolute;
 	top: 56px;
 }

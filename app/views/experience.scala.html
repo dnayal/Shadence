@@ -1,6 +1,6 @@
 @(experience: Experience, similarExperiences: List[Experience])
 
-@main(experience.getVenue.getCity.getName + " - " + experience.getName) {
+@main(experience.getVenue.getCity.getName + " - " + experience.getName, org.jsoup.Jsoup.clean(experience.getDescription(), org.jsoup.safety.Whitelist.none())) {
 	<!-- SOCIAL SDK STARTS -->
 	<!-- Facebook -->
 	<div id="fb-root"></div>
@@ -87,7 +87,7 @@
 						@if(experience.getBookNow) {
 						<div class="span4 div-header">The Experience</div>
 						<div class="span2" style="text-align: right;">
-							<a href="@experience.getBookNow" target="_new" class="btn btn-info btn-large">Book Now</a>
+							<a href="@experience.getBookNow" target="_new" class="btn btn-info btn-large book-outbound-link">Book Now</a>
 						</div>
 						} else {
 						<div class="span6 div-header">The Experience</div>
@@ -99,7 +99,7 @@
 						</div> <!-- end inner row -->
 						@if(experience.getOriginalSource) {
 							<p>
-								<a class="original-source" style="text-decoration:none;" target="_new" href="@experience.getOriginalSource">More Information</a>
+								<a class="original-source information-outbound-link" style="text-decoration:none;" target="_new" href="@experience.getOriginalSource">More Information</a>
 							</p>	
 						}
 					</div>
@@ -186,7 +186,7 @@
 									}
 				
 									@if(experience.getTwitter != "") {
-										<strong>Twitter - </strong> <a target="_new" href="http://twitter.com/@experience.getTwitter">@experience.getTwitter</a>
+										<strong>Twitter - </strong> <a class="twitter-outbound-link" target="_new" href="http://twitter.com/@experience.getTwitter">@experience.getTwitter</a>
 										<br/>
 									}
 				
@@ -348,5 +348,29 @@
 				form.submit();
 			}
 		});
+		
+		$('.book-outbound-link').click(function(){
+			trackOutboundLink('BOOK - @experience.getExperienceId', $(this).attr('href'));
+			return false;
+		});
+		
+		$('.information-outbound-link').click(function(){
+			trackOutboundLink('Info - @experience.getExperienceId', $(this).attr('href'));
+			return false;
+		});
+		
+		$('.twitter-outbound-link').click(function(){
+			trackOutboundLink('Twitter - @experience.getExperienceId', $(this).attr('href'));
+			return false;
+		});
+		
+		function trackOutboundLink(category, action) {
+			try { 
+				_gaq.push(['_trackEvent', category , action]); 
+			} catch(err){}
+			setTimeout(function() {
+				window.open(action);
+			}, 100);
+		}
 	</script>
 }

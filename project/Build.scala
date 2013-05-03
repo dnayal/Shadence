@@ -13,6 +13,7 @@ object ApplicationBuild extends Build {
       "org.imgscalr" % "imgscalr-lib" % "4.2",
       "javax.mail" % "mail" % "1.4.1",
       "commons-codec" % "commons-codec" % "1.7",
+      "org.jsoup" % "jsoup" % "1.7.2",
       "com.amazonaws" % "aws-java-sdk" % "1.3.27"
     )
 	
